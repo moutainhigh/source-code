@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.TestDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.Test">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="isEnable" column="is_enable" />
+	</resultMap>
+	
+	<delete id="deleteTestById">
+		DELETE FROM test WHERE id = #{id}
+	</delete>
+	
+	<select id="findTestById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			test
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="getTestCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			test
+		<where>
+
+		</where>
+	</select>
+	
+	<select id="findTestsByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			test
+		<where>
+
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.Test">
+  		INSERT INTO test ( 
+			`id`,`name`,`is_enable`			
+  		) VALUES (
+			#{id},#{name},#{isEnable}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

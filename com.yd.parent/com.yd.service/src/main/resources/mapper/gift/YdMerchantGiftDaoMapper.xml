@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.gift.YdMerchantGiftDao" >
+
+    <resultMap id="YdMerchantGiftMap" type="com.yd.service.bean.gift.YdMerchantGift" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="gift_type" property="giftType" jdbcType="VARCHAR" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+        
+        <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+        
+        <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+        
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        
+        <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+        
+        <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+        
+        <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+        
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+        
+        <result column="gift_desc" property="giftDesc" jdbcType="VARCHAR" />
+        
+        <result column="is_enable" property="isEnable" jdbcType="CHAR" />
+
+        <result column="is_flag" property="isFlag" jdbcType="CHAR" />
+
+        <result column="gift_status" property="giftStatus" jdbcType="VARCHAR" />
+
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        gift_type,
+        merchant_id,
+        supplier_id,
+        gift_id,
+        category_id,
+        title,
+        sub_title,
+        sale_price,
+        market_price,
+        image_url,
+        gift_desc,
+        is_enable
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="giftType!=null and giftType!=''">
+        and gift_type = #{giftType,jdbcType=VARCHAR}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="supplierId!=null">
+        and supplier_id = #{supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="giftId!=null">
+        and gift_id = #{giftId,jdbcType=INTEGER}
+        </if>
+        <if test="categoryId!=null">
+        and category_id = #{categoryId,jdbcType=INTEGER}
+        </if>
+        <if test="title!=null and title!=''">
+        and title = #{title,jdbcType=VARCHAR}
+        </if>
+        <if test="subTitle!=null and subTitle!=''">
+        and sub_title = #{subTitle,jdbcType=VARCHAR}
+        </if>
+        <if test="salePrice!=null and salePrice!=''">
+        and sale_price = #{salePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="marketPrice!=null and marketPrice!=''">
+        and market_price = #{marketPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="imageUrl!=null and imageUrl!=''">
+        and image_url = #{imageUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="giftDesc!=null and giftDesc!=''">
+        and gift_desc = #{giftDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+        and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantGiftById" resultMap="YdMerchantGiftMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantGiftByGiftId"  resultMap="YdMerchantGiftMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift
+        where gift_id = #{giftId,jdbcType=INTEGER}
+        and merchant_id = #{merchantId}
+        limit 1
+    </select>
+
+    <select id="findYdMerchantGiftByIdList" resultMap="YdMerchantGiftMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift
+        where merchant_id = #{merchantId} and id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+
+	<select id="getYdMerchantGiftCount" parameterType="com.yd.service.bean.gift.YdMerchantGift" resultType="int">
+        SELECT
+          count(1)
+        FROM
+        yd_merchant_gift mg
+        LEFT JOIN yd_gift g on g.id = mg.gift_id
+        WHERE 1 = 1
+        <if test="title!=null and title!=''">
+            and if( mg.gift_type = 'platform',
+            g.title = #{title},
+            mg.title = #{title}
+            )
+        </if>
+        <if test="minPrice!=null">
+            and if( mg.gift_type = 'platform',
+            g.sale_price &gt;= #{minPrice},
+            mg.sale_price &gt;= #{minPrice}
+            )
+        </if>
+        <if test="maxPrice!=null">
+            and if( mg.gift_type = 'platform',
+            g.sale_price &lt;= #{maxPrice},
+            mg.sale_price &lt;= #{maxPrice}
+            )
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+            and mg.is_enable = #{isEnable}
+        </if>
+        <if test="merchantId!=null">
+            and mg.merchant_id = #{merchantId}
+        </if>
+        <if test="isFlag!=null and isFlag!=''">
+            and if( mg.gift_type = 'platform',
+            g.is_flag = #{isFlag},
+            1 = 1
+            )
+        </if>
+        <!-- 判断是否上下，下架，失效 start，有点太复杂了卧槽   in_shelves | no_shelves | invalid -->
+        <if test="giftStatus != null and giftStatus != '' and giftStatus == 'in_shelves' ">
+            and if(mg.gift_type = 'platform',
+            g.is_enable = 'Y' and g.is_flag = 'N' and mg.is_enable = 'Y',
+            mg.is_enable = 'Y'
+            )
+        </if>
+        <if test="giftStatus != null and giftStatus != '' and giftStatus == 'no_shelves' ">
+            and if(mg.gift_type = 'platform',
+            mg.is_enable = 'N',
+            g.is_enable = 'Y' and g.is_flag = 'N' and mg.is_enable = 'N'
+            )
+        </if>
+        <if test="giftStatus != null and giftStatus != '' and giftStatus == 'invalid' ">
+            and mg.gift_type = 'platform' and (g.is_enable = 'N' or g.is_flag = 'Y')
+        </if>
+        <!-- 判断是否上下，下架，失效 end，有点太复杂了卧槽-->
+    </select>
+	
+	<select id="findYdMerchantGiftListByPage" resultMap="YdMerchantGiftMap">
+		SELECT
+		    mg.id, mg.create_time, mg.update_time, mg.gift_type,
+		    mg.merchant_id, mg.supplier_id, mg.gift_id, mg.category_id, mg.is_enable,
+            if (mg.gift_type = 'platform', g.title, mg.title) title,
+            if (mg.gift_type = 'platform', g.sub_title, mg.sub_title) sub_title,
+            if (mg.gift_type = 'platform', g.sale_price, mg.sale_price) sale_price,
+            if (mg.gift_type = 'platform', g.market_price, mg.market_price) market_price,
+            if (mg.gift_type = 'platform', g.image_url, mg.image_url) image_url,
+            if (mg.gift_type = 'platform', g.gift_desc, mg.gift_desc) gift_desc,
+            if (mg.gift_type = 'platform', g.image_url, mg.image_url) image_url,
+            if (mg.gift_type = 'platform', g.gift_desc, mg.gift_desc) gift_desc,
+            CASE
+              WHEN mg.gift_type = 'merchant' AND mg.is_enable = 'Y' THEN 'in_shelves'
+              WHEN mg.gift_type = 'merchant' AND mg.is_enable = 'N' THEN  'no_shelves'
+              WHEN mg.gift_type = 'platform' AND (g.is_enable = 'N' OR g.is_flag = 'Y' ) THEN 'invalid'
+              WHEN mg.gift_type = 'platform' AND g.is_enable = 'Y' AND g.is_flag = 'N' AND mg.is_enable = 'Y' THEN 'in_shelves'
+              WHEN mg.gift_type = 'platform' AND g.is_enable = 'Y' AND g.is_flag = 'N' AND mg.is_enable = 'N' THEN 'no_shelves'
+            ELSE 'in_shelves' END 'gift_status',
+            g.is_flag
+        FROM
+            yd_merchant_gift mg
+        LEFT JOIN yd_gift g on g.id = mg.gift_id
+        WHERE 1 = 1
+        <if test="params.title!=null and params.title!=''">
+            and if( mg.gift_type = 'platform',
+              g.title = #{params.title},
+              mg.title = #{params.title}
+            )
+        </if>
+        <if test="params.minPrice!=null">
+            and if( mg.gift_type = 'platform',
+              g.market_price &gt;= #{params.minPrice},
+              mg.market_price &gt;= #{params.minPrice}
+            )
+        </if>
+        <if test="params.maxPrice!=null">
+            and if( mg.gift_type = 'platform',
+              g.market_price &lt;= #{params.maxPrice},
+              mg.market_price &lt;= #{params.maxPrice}
+            )
+        </if>
+        <if test="params.isEnable!=null and params.isEnable!=''">
+            and mg.is_enable = #{params.isEnable}
+        </if>
+        <if test="params.merchantId!=null">
+            and mg.merchant_id = #{params.merchantId}
+        </if>
+        <if test="params.isFlag!=null and params.isFlag!=''">
+            and if( mg.gift_type = 'platform',
+              g.is_flag = #{params.isFlag},
+              1 = 1
+            )
+        </if>
+
+        <!-- 判断是否上下，下架，失效 start，有点太复杂了卧槽   in_shelves | no_shelves | invalid -->
+        <if test="params.giftStatus != null and params.giftStatus != '' and params.giftStatus == 'in_shelves' ">
+            and if(mg.gift_type = 'platform',
+              g.is_enable = 'Y' and g.is_flag = 'N' and mg.is_enable = 'Y',
+              mg.is_enable = 'Y'
+            )
+        </if>
+        <if test="params.giftStatus != null and params.giftStatus != '' and params.giftStatus == 'no_shelves' ">
+            and if(mg.gift_type = 'platform',
+              mg.is_enable = 'N',
+              g.is_enable = 'Y' and g.is_flag = 'N' and mg.is_enable = 'N'
+            )
+        </if>
+        <if test="params.giftStatus != null and params.giftStatus != '' and params.giftStatus == 'invalid' ">
+            and mg.gift_type = 'platform' and (g.is_enable = 'N' or g.is_flag = 'Y')
+        </if>
+        <!-- 判断是否上下，下架，失效 end，有点太复杂了卧槽-->
+        ORDER BY mg.update_time DESC
+        limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.gift.YdMerchantGift" resultMap="YdMerchantGiftMap">
+        select * from yd_merchant_gift where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+    <insert id="insertYdMerchantGift" parameterType="com.yd.service.bean.gift.YdMerchantGift" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_gift (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{giftType,jdbcType=VARCHAR},
+        #{merchantId,jdbcType=INTEGER},
+        #{supplierId,jdbcType=INTEGER},
+        #{giftId,jdbcType=INTEGER},
+        #{categoryId,jdbcType=INTEGER},
+        #{title,jdbcType=VARCHAR},
+        #{subTitle,jdbcType=VARCHAR},
+        #{salePrice,jdbcType=DECIMAL},
+        #{marketPrice,jdbcType=DECIMAL},
+        #{imageUrl,jdbcType=VARCHAR},
+        #{giftDesc,jdbcType=VARCHAR},
+        #{isEnable,jdbcType=CHAR}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantGift" parameterType="com.yd.service.bean.gift.YdMerchantGift" >
+        update yd_merchant_gift
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="giftType != null" >
+                gift_type = #{giftType,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="supplierId != null" >
+                supplier_id = #{supplierId,jdbcType=INTEGER},
+            </if>
+            <if test="giftId != null" >
+                gift_id = #{giftId,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null" >
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subTitle != null" >
+                sub_title = #{subTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="salePrice != null" >
+                sale_price = #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="marketPrice != null" >
+                market_price = #{marketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="imageUrl != null" >
+                image_url = #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="giftDesc != null" >
+                gift_desc = #{giftDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnable != null" >
+                is_enable = #{isEnable,jdbcType=CHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteYdMerchantGift">
+        delete from yd_merchant_gift where id = #{id}
+    </delete>
+
+</mapper>

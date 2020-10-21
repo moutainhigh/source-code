@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.common.WxKeywordsArticleDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.common.WxKeywordsArticle">
+		<result property="id" column="id" />
+		<result property="keywordsId" column="keywords_id" />
+		<result property="title" column="title" />
+		<result property="intro" column="intro" />
+		<result property="cover" column="cover" />
+		<result property="smallCover" column="small_cover" />
+		<result property="sort" column="sort" />
+		<result property="createTime" column="create_time" />
+		<result property="linkUrl" column="link_url" />
+		<result property="mediaId" column="media_id" />
+	</resultMap>
+	
+	<delete id="deleteWxKeywordsArticleById">
+		DELETE FROM wx_keywords_article WHERE id = #{id}
+	</delete>
+	
+	<select id="findWxKeywordsArticleById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wx_keywords_article
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="getWxKeywordsArticleCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			wx_keywords_article
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="keywordsId!=null">
+  				AND keywords_id = #{keywordsId}
+  			</if>
+  			<if test="title!=null">
+  				AND title = #{title}
+  			</if>
+  			<if test="intro!=null">
+  				AND intro = #{intro}
+  			</if>
+  			<if test="cover!=null">
+  				AND cover = #{cover}
+  			</if>
+  			<if test="smallCover!=null">
+  				AND small_cover = #{smallCover}
+  			</if>
+  			<if test="sort!=null">
+  				AND sort = #{sort}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findWxKeywordsArticlesByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wx_keywords_article
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.keywordsId!=null">
+  				AND keywords_id = #{param.keywordsId}
+  			</if>
+  			<if test="param.title!=null">
+  				AND title = #{param.title}
+  			</if>
+  			<if test="param.intro!=null">
+  				AND intro = #{param.intro}
+  			</if>
+  			<if test="param.cover!=null">
+  				AND cover = #{param.cover}
+  			</if>
+  			<if test="param.smallCover!=null">
+  				AND small_cover = #{param.smallCover}
+  			</if>
+  			<if test="param.sort!=null">
+  				AND sort = #{param.sort}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+		</where>
+		order by
+			sort
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.common.WxKeywordsArticle">
+  		INSERT INTO wx_keywords_article ( 
+			`id`,`keywords_id`,`title`,`intro`,`cover`,`small_cover`,`sort`,`create_time`			
+  		) VALUES (
+			#{id},#{keywordsId},#{title},#{intro},#{cover},#{smallCover},#{sort},#{createTime}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

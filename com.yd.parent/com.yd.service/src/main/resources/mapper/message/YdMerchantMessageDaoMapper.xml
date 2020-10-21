@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.message.YdMerchantMessageDao" >
+
+    <resultMap id="YdMerchantMessageMap" type="com.yd.service.bean.message.YdMerchantMessage" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="pid" property="pid" jdbcType="INTEGER" />
+        
+        <result column="message_type" property="messageType" jdbcType="VARCHAR" />
+        
+        <result column="out_order_id" property="outOrderId" jdbcType="INTEGER" />
+        
+        <result column="contents" property="contents" jdbcType="VARCHAR" />
+        
+        <result column="is_read" property="isRead" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        pid,
+        message_type,
+        out_order_id,
+        contents,
+        is_read
+    </sql>
+    
+    <sql id="where">
+        <if test="startTime!=null and startTime!=''">
+            and create_time &gt;= #{params.startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and create_time &lt; #{endTime}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="pid!=null">
+        and pid = #{pid,jdbcType=INTEGER}
+        </if>
+        <if test="messageType!=null and messageType!=''">
+        and message_type = #{messageType,jdbcType=VARCHAR}
+        </if>
+        <if test="isRead!=null and isRead!=''">
+        and is_read = #{isRead,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantMessageById" resultMap="YdMerchantMessageMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_message
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdMerchantMessageCount" parameterType="com.yd.service.bean.message.YdMerchantMessage" resultType="int">
+        select count(1) from yd_merchant_message where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantMessageListByPage" resultMap="YdMerchantMessageMap">
+        select * from yd_merchant_message where 1=1
+        <if test="params.startTime!=null and params.startTime!=''">
+            and create_time &gt;= #{params.startTime}
+        </if>
+        <if test="params.endTime!=null and params.endTime!=''">
+            and create_time &lt; #{params.endTime}
+        </if>
+        <if test="params.merchantId!=null">
+            and merchant_id = #{params.merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="params.pid!=null">
+            and pid = #{params.pid,jdbcType=INTEGER}
+        </if>
+        <if test="params.messageType!=null and params.messageType!=''">
+            and message_type = #{params.messageType,jdbcType=VARCHAR}
+        </if>
+        <if test="params.isRead!=null and params.isRead!=''">
+            and is_read = #{params.isRead,jdbcType=VARCHAR}
+        </if>
+		order by create_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.message.YdMerchantMessage" resultMap="YdMerchantMessageMap">
+        select * from yd_merchant_message where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdMerchantMessage" parameterType="com.yd.service.bean.message.YdMerchantMessage" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_message (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{pid,jdbcType=INTEGER},
+        #{messageType,jdbcType=VARCHAR},
+        #{outOrderId,jdbcType=INTEGER},
+        #{contents,jdbcType=VARCHAR},
+        #{isRead,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantMessage" parameterType="com.yd.service.bean.message.YdMerchantMessage" >
+        update yd_merchant_message
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="pid != null" >
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="messageType != null" >
+                message_type = #{messageType,jdbcType=VARCHAR},
+            </if>
+            <if test="outOrderId != null" >
+                out_order_id = #{outOrderId,jdbcType=INTEGER},
+            </if>
+            <if test="contents != null" >
+                contents = #{contents,jdbcType=VARCHAR},
+            </if>
+            <if test="isRead != null" >
+                is_read = #{isRead,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateAllMessageRead" parameterType="com.yd.service.bean.message.YdMerchantMessage" >
+        update yd_merchant_message
+        set is_read = #{isRead,jdbcType=VARCHAR}
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </update>
+
+</mapper>

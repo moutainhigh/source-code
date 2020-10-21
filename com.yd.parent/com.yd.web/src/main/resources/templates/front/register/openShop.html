@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开通店铺</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet"
+          href="https://c1.51jujibao.com/static/mod/??public/css/1.0.0/reset.css,public/css/1.0.0/layout.css,public/css/1.0.0/page.css,public/css/1.0.0/layer.css,public/css/1.0.0/swiper.min.css?170525">
+    <style>
+        body {
+            background: #fff;
+        }
+
+        .flex-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .main {
+            margin: 3.1rem 1.65rem;
+        }
+
+        .choose-item {
+            width: 9.5rem;
+            position: relative;
+        }
+
+        .item-txt {
+            position: absolute;
+            top: 3.5rem;
+            left: 50%;
+            margin-left: -2.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .item-txt-month {
+            font-size: 1.06rem;
+            color: #222424;
+            margin-bottom: .63rem;
+        }
+
+        .item-txt-price {
+            font-size: .81rem;
+            color: #936021;
+            margin-bottom: .49rem;
+        }
+
+        .item-txt-price i {
+            font-size: 1.88rem;
+        }
+
+        .item-txt-before {
+            color: #C49A66;
+            font-size: .75rem;
+            text-decoration: line-through;
+        }
+
+        .no-checked {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 1rem;
+            background: #fff;
+
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+
+        .pay-container {
+            margin-top: 2rem;
+            color: #222424;
+            font-size: .94rem;
+        }
+
+        .input-container {
+            height: 2.3rem;
+            width: 100%;
+            border-bottom: 1px solid #E3E3E3;
+            margin-bottom: 1rem;
+        }
+
+        .pay-item {
+            display: flex;
+            align-items: center
+        }
+
+        .pay-item img {
+            display: block;
+            width: 1.75rem;
+            margin-right: .38rem;
+
+        }
+
+        .pay-btn {
+            width: 100%;
+            height: 2.75rem;
+            line-height: 2.75rem;
+            background: linear-gradient(90deg, rgba(244, 205, 142, 1) 0%, rgba(222, 176, 108, 1) 100%);
+            border-radius: 1.37rem;
+            margin-top: 3.75rem;
+
+            color: #936021;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="main">
+        <div class="choose-container flex-container" style="justify-content: center">
+            <div class="choose-item" @click="chooseItem('basic')">
+                <img src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/basic.png">
+                <div class="item-txt">
+                    <p class="item-txt-month">{{basic.validLength}}个月</p>
+                    <p class="item-txt-price">¥<i>{{basic.memberPrice}}</i></p>
+                    <p class="item-txt-before">原价：¥1398</p>
+                </div>
+                <span class="no-checked"></span>
+                <img class="no-checked" v-show="basicSelected"
+                     src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/item-checked.png">
+            </div>
+            <!--<div class="choose-item" @click="chooseItem('upgrades')">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/upgrades.png">-->
+            <!--<div class="item-txt">-->
+            <!--<p class="item-txt-month">{{upgrades.validLength}}个月</p>-->
+            <!--<p class="item-txt-price">¥<i>{{upgrades.memberPrice}}</i></p>-->
+            <!--</div>-->
+            <!--<span class="no-checked"></span>-->
+            <!--<img class="no-checked" v-show="upgradesSelected"-->
+            <!--src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/item-checked.png">-->
+            <!--</div>-->
+        </div>
+        <div class="pay-container">
+            <div class="input-container flex-container">
+                <p>需支付</p>
+                <p style="color:#F93C3C;font-size: .75rem">¥<i style="font-size:1rem">{{totlePrice}}</i></p>
+            </div>
+            <div class="input-container flex-container">
+                <div class="pay-item">
+                    <img src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/icon-wx.png">
+                    <p>微信支付</p>
+                </div>
+                <img style="width:1.03rem;"
+                     src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/checked.png">
+            </div>
+            <div class="pay-btn" @click="onPay">去支付</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                basicSelected: true,
+                upgradesSelected: false,
+                basic: {},
+                upgrades: {},
+                totlePrice: null
+            }
+        },
+        created() {
+            this.getMemberAll()
+
+        },
+        methods: {
+            GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            },
+            getMemberAll() {
+                var qs = Qs
+                let _this = this
+                axios.post('/front/platform/member/getAll',
+                    qs.stringify(),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        _this.basic = res.data.result.filter(item => item.id == 1)[0]
+                        _this.upgrades = res.data.result.filter(item => item.id == 2)[0]
+                        _this.totlePrice = _this.basic.memberPrice
+                    }
+                })
+            },
+            chooseItem(type) {
+                if (type == 'basic') {
+                    this.upgradesSelected = false
+                    this.basicSelected = true
+                    this.totlePrice = this.basic.memberPrice
+                }
+                if (type == 'upgrades') {
+                    this.upgradesSelected = true
+                    this.basicSelected = false
+                    this.totlePrice = this.upgrades.memberPrice
+                }
+            },
+            onPay() {
+                let type = ''
+                if (this.basicSelected) {
+                    type = '1'
+                }
+                if (this.upgradesSelected) {
+                    type = '2'
+                }
+                window.location.href = window.location.protocol + '/front/order/jumpPayIndex?memberPayId=' + this.GetQueryString('memberPayId') + '&memberLevel=' + type + '&type=register'
+            },
+        }
+    })
+</script>
+</body>
+</html>

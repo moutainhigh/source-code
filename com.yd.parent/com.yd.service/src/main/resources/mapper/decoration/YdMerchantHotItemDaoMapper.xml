@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.decoration.YdMerchantHotItemDao" >
+
+    <resultMap id="YdMerchantHotItemMap" type="com.yd.service.bean.decoration.YdMerchantHotItem" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="first_category_id" property="firstCategoryId" jdbcType="INTEGER" />
+        
+        <result column="second_category_id" property="secondCategoryId" jdbcType="INTEGER" />
+        
+        <result column="merchant_item_id" property="merchantItemId" jdbcType="INTEGER" />
+        
+        <result column="is_enable" property="isEnable" jdbcType="CHAR" />
+        
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+
+        <result column="title" property="title" jdbcType="VARCHAR" />
+
+        <result column="sale_price" property="salePrice" jdbcType="VARCHAR" />
+
+        <result column="item_cover" property="itemCover" jdbcType="VARCHAR" />
+
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        first_category_id,
+        second_category_id,
+        merchant_item_id,
+        is_enable,
+        sort
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="firstCategoryId!=null">
+        and first_category_id = #{firstCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="secondCategoryId!=null">
+        and second_category_id = #{secondCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantItemId!=null">
+        and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+        and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+        <if test="sort!=null">
+        and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantHotItemById" resultMap="YdMerchantHotItemMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_hot_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantHotItemByItemIdAndMerchantId" resultMap="YdMerchantHotItemMap">
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_hot_item
+        where merchant_id = #{merchantId} and merchant_item_id = #{merchantItemId}
+    </select>
+
+    <select id="getYdMerchantHotItemByMerchantId" resultMap="YdMerchantHotItemMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_hot_item
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+	<select id="getYdMerchantHotItemCount" parameterType="com.yd.service.bean.decoration.YdMerchantHotItem" resultType="int">
+        select count(1) from yd_merchant_hot_item where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantHotItemListByPage" resultMap="YdMerchantHotItemMap">
+        select * from yd_merchant_hot_item where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.decoration.YdMerchantHotItem" resultMap="YdMerchantHotItemMap">
+        select
+          h.*, m.title, m.sale_price, i.item_cover
+        from yd_merchant_hot_item h
+        left join yd_merchant_item m on m.id = h.merchant_item_id
+        left join yd_item i on i.id = m.item_id
+        where 1=1 and h.merchant_id = #{merchantId}
+		order by sort asc, update_time asc
+    </select>
+    
+    <insert id="insertYdMerchantHotItem" parameterType="com.yd.service.bean.decoration.YdMerchantHotItem" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_hot_item (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{firstCategoryId,jdbcType=INTEGER},
+        #{secondCategoryId,jdbcType=INTEGER},
+        #{merchantItemId,jdbcType=INTEGER},
+        #{isEnable,jdbcType=CHAR},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantHotItem" parameterType="com.yd.service.bean.decoration.YdMerchantHotItem" >
+        update yd_merchant_hot_item
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="firstCategoryId != null" >
+                first_category_id = #{firstCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="secondCategoryId != null" >
+                second_category_id = #{secondCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantItemId != null" >
+                merchant_item_id = #{merchantItemId,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null" >
+                is_enable = #{isEnable,jdbcType=CHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteYdMerchantHotItem">
+        delete from yd_merchant_hot_item where id = #{id}
+    </delete>
+
+</mapper>

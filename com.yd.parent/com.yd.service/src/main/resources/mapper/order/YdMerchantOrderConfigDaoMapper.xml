@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.order.YdMerchantOrderConfigDao" >
+
+    <resultMap id="YdShopOrderConfigMap" type="com.yd.service.bean.order.YdMerchantOrderConfig" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="order_auto_cancel_time" property="orderAutoCancelTime" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        order_auto_cancel_time
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="orderAutoCancelTime!=null">
+        and order_auto_cancel_time = #{orderAutoCancelTime,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdShopOrderConfigById" resultMap="YdShopOrderConfigMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_order_config
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdShopOrderConfigByMerchantList" resultMap="YdShopOrderConfigMap">
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_order_config
+        where 1 = 1 and merchant_id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getYdShopOrderConfigByMerchantId" resultMap="YdShopOrderConfigMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_order_config
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.order.YdMerchantOrderConfig" resultMap="YdShopOrderConfigMap">
+        select * from yd_merchant_order_config where 1=1 
+        <include refid="where" />
+    </select>
+
+    <insert id="insertYdShopOrderConfig" parameterType="com.yd.service.bean.order.YdMerchantOrderConfig" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_order_config (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{orderAutoCancelTime,jdbcType=INTEGER}
+        )
+    </insert>
+    
+    
+    <update id="updateYdShopOrderConfig" parameterType="com.yd.service.bean.order.YdMerchantOrderConfig" >
+        update yd_merchant_order_config
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="orderAutoCancelTime != null" >
+                order_auto_cancel_time = #{orderAutoCancelTime,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

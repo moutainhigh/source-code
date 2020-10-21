@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.rotary.YdRotaryDrawRecordDao" >
+
+    <resultMap id="resultMap" type="com.yd.service.bean.rotary.YdRotaryDrawRecord" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+
+        <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+
+        <result column="prize_id" property="prizeId" jdbcType="INTEGER" />
+        
+        <result column="prize_name" property="prizeName" jdbcType="VARCHAR" />
+        
+        <result column="type" property="type" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        user_id,
+        activity_id,
+        prize_id,
+        prize_name,
+        type
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="activityId!=null">
+            and activity_id = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="prizeId!=null">
+        and prize_id = #{prizeId,jdbcType=INTEGER}
+        </if>
+        <if test="prizeName!=null and prizeName!=''">
+        and prize_name = #{prizeName,jdbcType=VARCHAR}
+        </if>
+        <if test="type!=null and type!=''">
+        and type = #{type,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdRotaryDrawRecordById" resultMap="resultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_rotary_draw_record
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.rotary.YdRotaryDrawRecord" resultMap="resultMap">
+        select * from yd_rotary_draw_record where 1=1 
+        <include refid="where" />
+    </select>
+    
+    <insert id="insertYdRotaryDrawRecord" parameterType="com.yd.service.bean.rotary.YdRotaryDrawRecord" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_rotary_draw_record (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{userId,jdbcType=INTEGER},
+        #{activityId,jdbcType=INTEGER},
+        #{prizeId,jdbcType=INTEGER},
+        #{prizeName,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateYdRotaryDrawRecord" parameterType="com.yd.service.bean.rotary.YdRotaryDrawRecord" >
+        update yd_rotary_draw_record
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="activityId!=null">
+                and activity_id = #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="prizeId != null" >
+                prize_id = #{prizeId,jdbcType=INTEGER},
+            </if>
+            <if test="prizeName != null" >
+                prize_name = #{prizeName,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findUserDrawRecordList" resultMap="resultMap">
+        select
+          *
+        from
+          yd_rotary_draw_record
+        where
+          1 = 1
+        <if test="userId != null" >
+            and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="activityId!=null">
+            and activity_id = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and create_time &lt;= #{endTime}
+        </if>
+    </select>
+
+</mapper>

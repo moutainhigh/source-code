@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <title>微信大转盘抽奖</title>
+    <script src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/js/index.js"></script>
+    <style type="text/css">
+        body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, img, div {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        body {
+            color: #333;
+            font-size: 12px;
+            font-family: "Microsoft YaHei"
+        }
+
+        ul, ol {
+            list-style-type: none;
+        }
+
+        select, input, img, select {
+            vertical-align: middle;
+        }
+
+        input {
+            font-size: 12px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        a:hover {
+            color: #c00;
+            text-decoration: none;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .bg {
+            width: 100%;
+        }
+
+        body {
+            position: relative;
+        }
+
+        /* 大转盘样式 */
+        .banner {
+            top: 0;
+            overflow: hidden;
+            position: absolute;
+            display: block;
+            width: 96.8%;
+            left: 1%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+        }
+
+        .banner .turnplate {
+            display: block;
+            width: 100%;
+            font-size: 0;
+            position: relative;
+        }
+
+        .turnplate .lamp {
+            position: absolute;
+            width: 94%;
+            height: 94%;
+            left: 3%;
+            top: 3%;
+            background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/images/亮光.png") no-repeat 100%/100%;
+        }
+
+        .turnplate .times {
+            font-size: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0%;
+            color: #fff;
+            position: absolute;
+        }
+
+        .turnplate .times span {
+            color: #ffd328;
+            font-weight: bold;
+        }
+
+        .banner .turnplate canvas.item {
+            width: 100%;
+        }
+
+        .banner .turnplate img.pointer {
+            position: absolute;
+            width: 25.62%;
+            height: 31.27%;
+            left: 37.19%;
+            top: 32%;
+        }
+
+        .play {
+            position: absolute;
+            top: 13%;
+            width: 76%;
+            left: 12%;
+            height: 0.693rem;
+            background-color: rgba(237, 242, 255, .26);
+            color: #fff;
+            border-radius: .35rem;
+            line-height: 0.693rem;
+        }
+
+        .play .div {
+            height: 100%;
+            margin-left: 1.8rem;
+        }
+
+        .play span {
+            background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/images/2f0101bfe6bf797d05af39434afe67bd.png") no-repeat;
+            background-size: 100%;
+            position: absolute;
+            top: 55%;
+            left: .25rem;
+            transform: translateY(-50%);
+            height: .4rem;
+            width: .4rem;
+            margin: 0 .2rem;
+        }
+
+        .qimo8 {
+            overflow: hidden;
+        }
+
+        .qimo8 .qimo { /*width:99999999px;*/
+            width: 8000%;
+        }
+
+        .qimo8 .qimo div {
+            float: left;
+        }
+
+        .qimo8 .qimo ul {
+            float: left;
+            overflow: hidden;
+            zoom: 1;
+        }
+
+        .qimo8 .qimo ul li {
+            float: left;
+            list-style: none;
+            font-size: 13px;
+            margin: 0 1rem;
+        }
+
+        .btn-wrap {
+            position: absolute;
+            top: 2.95rem;
+            width: 100%;
+            height: 1.24rem;
+            display: flex;
+            box-sizing: border-box;
+            justify-content: flex-end;
+        }
+
+        .btn-wrap div {
+            width: 2.147rem;
+        }
+
+        .rules {
+            position: absolute;
+            top: 66.5%;
+            font-size: .4rem;
+            padding: .8rem 1.067rem;
+            max-height: 5.3rem;
+            overflow-y: scroll;
+            color: #430170;
+            line-height: .612rem;
+        }
+
+        .popup {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            display: none;
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .popup .container {
+            position: absolute;
+            width: 8.4rem;
+            top: 1.84rem;
+            left: .8rem;
+        }
+
+        .popup2 .container {
+            top: 3rem;
+        }
+
+        .popup3 .container {
+            top: 3rem;
+        }
+
+        .popup .container .close {
+            width: 0.853rem;
+            height: 0.853rem;
+            position: absolute;
+            right: 0;
+            background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/delete.png") no-repeat center/cover;
+        }
+
+        .my-wrap {
+            width: 100%;
+            height: 8.64rem;
+            margin-top: 1.013rem;
+            background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/my_bg.png") no-repeat center/cover;
+        }
+
+        .popup4 .my-wrap {
+            text-align: center;
+            height: 6.8rem;
+            background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/success_bg.png") no-repeat center/cover;
+        }
+
+        .popup4 .my-wrap img {
+            padding-top: .8rem;
+            width: 1.5rem;
+        }
+
+        .success-txt {
+            font-size: .48rem;
+            color: #7f4200;
+            line-height: 1.5rem;
+        }
+
+        .times-wrap {
+            width: 100%;
+            height: 4.27rem;
+            margin-top: 1.013rem;
+            background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/mjh_bg.png") no-repeat center/cover;
+        }
+
+        .times-wrap p {
+            padding-top: 1.3rem
+        }
+
+        .my-list {
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            padding: 1.97rem 0.693rem 0.75rem 0.853rem;
+            overflow: hidden;
+        }
+
+        .scroll-wrap {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .item {
+            font-size: 0.37rem;
+            color: #e66900;
+            display: flex;
+            justify-content: space-between;
+            line-height: 1.55rem;
+            align-items: center;
+        }
+
+        .time-wrap {
+            font-size: .32rem;
+            color: #999999;
+        }
+
+        .item img {
+            width: 0.91rem;
+            height: 0.91rem;
+        }
+
+        .no-gift {
+            text-align: center;
+            color: #7f4200;
+            font-size: .48rem;
+            line-height: 1.55rem;
+        }
+
+        .try-agin {
+            width: 4.51rem;
+            height: 1.57rem;
+            margin: .9rem auto 0;
+            background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/play_agin.png") no-repeat center/cover;
+        }
+    </style>
+    <script type="text/javascript"
+            src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/js/awardRotate.js"></script>
+</head>
+<body>
+<!--<div class="play">-->
+<!--<span></span>-->
+<!--<div class="div">-->
+<!--<div id="demo" class="qimo8">-->
+<!--<div class="qimo">-->
+<!--<div id="demo1">-->
+<!--<ul>-->
+<!--<li>某某某获得一等奖</li>-->
+<!--<li>某某某获得四等奖</li>-->
+<!--<li>某某某获得三等奖</li>-->
+<!--<li>某某某获得二等奖</li>-->
+<!--<li>某某某获得四等奖</li>-->
+<!--<li>某某某获得三等奖</li>-->
+<!--<li>某某某获得二等奖</li>-->
+<!--<li>某某某获得三等奖</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div id="demo2"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<img class="bg" src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/images/bg_image1.png" alt="">
+<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png" id="quan-img" style="display:none;"/>
+<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/xxhg.png" id="xxhg-img" style="display:none;"/>
+<div class="banner" style="margin-top: 28.5%">
+    <div class="turnplate">
+        <div class="lamp"></div>
+        <canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+        <img class="pointer" src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/images/抽奖按钮.png"/>
+        <div class="times">还剩<span id="num">0次</span>抽奖机会</div>
+    </div>
+</div>
+<div class="btn-wrap">
+    <div class="btn-right"></div>
+</div>
+<div class="rules">
+    <!--1、用户参与快抢未中奖后可随机获得免费抽奖资格，每个用户每天最多可获得3次抽奖资格，抽奖资格当天有效<br/>-->
+    <!--2、中奖实物商品在2个工作日内发放 <br/>-->
+    <!--3、中奖红包和巴豆立即生效，有效期3天，请尽快使用 <br/>-->
+    <!--4、本活动最终解释权归91快抢所有-->
+</div>
+<div class="popup popup1">
+    <div class="container">
+        <div class="close"></div>
+        <div class="my-wrap">
+            <div class="my-list">
+                <div class="scroll-wrap">
+                    <p class="no-gift">暂时没有奖品哦</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup popup2">
+    <div class="container">
+        <div class="close"></div>
+        <div class="times-wrap">
+            <p class="no-gift">你的抽奖机会已经用完了～</p>
+        </div>
+    </div>
+</div>
+<div class="popup popup3">
+    <div class="container">
+        <div class="close"></div>
+        <div class="times-wrap">
+            <p class="no-gift">很遗憾，没中呢，再接再厉哦～</p>
+        </div>
+        <div class="try-agin"></div>
+    </div>
+</div>
+<div class="popup popup4">
+    <div class="container">
+        <div class="close"></div>
+        <div class="my-wrap">
+            <div class="my-list">
+                <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png" alt="">
+                <p class="success-txt">10元红包</p>
+            </div>
+        </div>
+        <div class="try-agin"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    function getSearchString(key) {
+        // 获取URL中?之后的字符
+        var str = location.search;
+        str = str.substring(1,str.length);
+
+        // 以&分隔字符串，获得类似name=xiaoli这样的元素数组
+        var arr = str.split("&");
+        var obj = new Object();
+
+        // 将每一个数组元素以=分隔并赋给obj对象
+        for(var i = 0; i < arr.length; i++) {
+            var tmp_arr = arr[i].split("=");
+            obj[decodeURIComponent(tmp_arr[0])] = decodeURIComponent(tmp_arr[1]);
+        }
+        return obj[key];
+    }
+    var turnplate = {
+        restaraunts: [],				//大转盘奖品名称
+        colors: [],					//大转盘奖品区块对应背景颜色
+        outsideRadius: 160,			//大转盘外圆的半径
+        textRadius: 135,				//大转盘奖品位置距离圆心的距离
+        insideRadius: 30,			//大转盘内圆的半径
+        startAngle: 0,				//开始角度
+        bRotate: false				//false:停止;ture:旋转
+    };
+
+    function timeForm(a) {
+        var _d = new Date(a)
+        return _d.getFullYear() + '.' + (_d.getMonth() + 1) + '.' + _d.getDate()
+    }
+
+    $(document).ready(function () {
+
+        function getRule() {
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/getDrawActivityDetail",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        $('.rules').html(res.result.rules)
+                    } else {
+
+                    }
+                }
+            });
+        };
+        getRule();
+
+        $('.popup').on('touchmove', function (e) {
+            console.log(111)
+            e.preventDefault()
+        });
+        $('.scroll-wrap').on('touchmove', function (event) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();  //  w3c 标准
+            } else {
+                event.cancelBubble = true;  // ie 678  IE浏览器
+            }
+        });
+        $('.close').click(function () {
+            $('.popup').fadeOut()
+        })
+        $('.try-agin').click(function () {
+            $('.popup').fadeOut()
+        })
+        $('.btn-right').click(function () {
+            if (turnplate.bRotate) return;
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/getUserDrawRecord",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        console.log(res);
+                        var _html = ''
+                        if (res.result){
+                            for (var i = 0; i < res.result.length; i++) {
+                                _html += '   <div class="item">\n' +
+                                    '                        <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png" alt="">\n' +
+                                    '                        <span>' + res.result[i].couponTitle + '</span>\n' +
+                                    '                        <span class="time-wrap">' + timeForm(res.result[i].createTime) + '</span>\n' +
+                                    '                    </div>'
+
+                            }
+                        }
+
+                        if (!(res.result && res.result.length != 0)) {
+                            _html = '<p class="no-gift">暂时没有奖品哦~</p>'
+                        }
+                        $('.scroll-wrap').html(_html)
+                        // <div class="item">
+                        //         <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png" alt="">
+                        //         <span>抽中10元现金</span>
+                        //         <span class="time-wrap">2019.03.05</span>
+                        //     </div>
+                        $('.popup1').fadeIn()
+                    } else {
+
+                    }
+                }
+            })
+
+        })
+        //播报
+        // var demo = document.getElementById("demo");
+        // var demo1 = document.getElementById("demo1");
+        // var demo2 = document.getElementById("demo2");
+        // demo2.innerHTML = document.getElementById("demo1").innerHTML;
+        //
+        // function Marquee() {
+        //     if (demo.scrollLeft - demo2.offsetWidth >= 0) {
+        //         demo.scrollLeft -= demo1.offsetWidth;
+        //     } else {
+        //         demo.scrollLeft++;
+        //     }
+        // }
+        //
+        // setInterval(Marquee, 10);
+        function getNum() {
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/getUserDrawCount",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        console.log('231312')
+                        $('#num').html(res.result + '次')
+                    } else {
+
+                    }
+                }
+            });
+        }
+
+        getNum()
+        var giftList = null
+
+        function getRestaraunts() {
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/findPrizeList",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        giftList = res.result
+                        turnplate.restaraunts = res.result.map(item => {
+                            return item.couponTitle ? item.couponTitle.substring(0, 8) : '谢谢惠顾'
+                        })
+                        drawRouletteWheel();
+                    } else {
+
+                    }
+                }
+            });
+        };
+
+        var rote = 0
+        setInterval(() => {
+            rote += 15
+            if (rote == 45) {
+                rote = 0
+            }
+            $(".lamp").css("transform", "rotate(" + rote + "deg)");
+        }, 300)
+        //动态添加大转盘的奖品与奖品区域背景颜色
+        turnplate.restaraunts = ["碧根果一袋1", "年货红包2", "水果拼盘3", "2元现金红包4", "夏威夷果一袋5", "3元现金红包6", "松子一袋7", "5元现金红包8"];
+        turnplate.colors = ["#fff78c", "#fed008", "#fff78c", "#fed008", "#fff78c", "#fed008", "#fff78c", "#fed008"];
+
+
+        var rotateTimeOut = function () {
+            $('#wheelcanvas').rotate({
+                angle: 0,
+                animateTo: 2160,
+                duration: 8000,
+                callback: function () {
+                    alert('网络超时，请检查您的网络设置！');
+                }
+            });
+        };
+
+        //旋转转盘 item:奖品位置; txt：提示语;
+        var rotateFn = function (item, txt) {
+            var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length * 2));
+            if (angles < 270) {
+                angles = 270 - angles;
+            } else {
+                angles = 360 - angles + 270;
+            }
+            $('#wheelcanvas').stopRotate();
+            $('#wheelcanvas').rotate({
+                angle: 0,
+                animateTo: angles + 1800,
+                duration: 8000,
+                callback: function () {	//回调
+                    turnplate.bRotate = false;
+                    if (txt == '谢谢惠顾') {
+                        $('.popup3').fadeIn()
+
+                    } else {
+                        $('.success-txt').html(txt)
+                        $('.popup4').fadeIn()
+                    }
+
+                    // alert('恭喜中奖了' + txt);
+
+                }
+            });
+        };
+
+        $('.pointer').click(function () {
+            if (parseInt($('#num').html()) == 0) {
+                $('.popup2').fadeIn()
+                return
+            }
+            ;
+            if (turnplate.bRotate) return;
+            turnplate.bRotate = !turnplate.bRotate;
+
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/clickDraw",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        var _num = parseInt($('#num').html()) - 1
+                        $('#num').html(_num + '次');
+
+                        //获取随机数(奖品个数范围内)
+                        // var item = rnd(1, turnplate.restaraunts.length);
+                        //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
+                        console.log(giftList)
+                        for (var i = 0; i < giftList.length; i++) {
+                            if (res.result == giftList[i].id) {
+                                rotateFn(i + 1, turnplate.restaraunts[i]);
+                                break;
+                            }
+                        }
+
+
+                        console.log(res)
+                    } else {
+
+                    }
+                }
+            });
+
+
+        });
+        getRestaraunts()
+    });
+
+    // function rnd(n, m) {
+    //     var random = Math.floor(Math.random() * (m - n + 1) + n);
+    //     return random;
+    //
+    // }
+
+
+    //页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
+    // window.onload = function () {
+    // };
+
+    function drawRouletteWheel() {
+        var canvas = document.getElementById("wheelcanvas");
+        if (canvas.getContext) {
+            //根据奖品个数计算圆周角度
+            var arc = Math.PI / (turnplate.restaraunts.length / 2);
+            var ctx = canvas.getContext("2d");
+            //在给定矩形内清空一个矩形
+            ctx.clearRect(0, 0, 422, 422);
+            //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式
+            ctx.strokeStyle = "#FFBE04";
+            //font 属性设置或返回画布上文本内容的当前字体属性
+            ctx.font = 'bold 12px Microsoft YaHei';
+            for (var i = 0; i < turnplate.restaraunts.length; i++) {
+                var angle = turnplate.startAngle + i * arc;
+                ctx.fillStyle = turnplate.colors[i];
+                ctx.beginPath();
+                //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）
+                ctx.arc(211, 211, turnplate.outsideRadius, angle, angle + arc, false);
+                ctx.arc(211, 211, turnplate.insideRadius, angle + arc, angle, true);
+                ctx.stroke();
+                ctx.fill();
+                //锁画布(为了保存之前的画布状态)
+                ctx.save();
+
+                //改变画布文字颜色
+                var b = i + 2;
+                if (b % 2) {
+                    ctx.fillStyle = "#a20e07";
+                } else {
+                    ctx.fillStyle = "#a20e07";
+                }
+                ;
+
+                //----绘制奖品开始----
+
+
+                var text = turnplate.restaraunts[i];
+                var line_height = 17;
+                //translate方法重新映射画布上的 (0,0) 位置
+                ctx.translate(211 + Math.cos(angle + arc / 2) * turnplate.textRadius, 211 + Math.sin(angle + arc / 2) * turnplate.textRadius);
+
+                //rotate方法旋转当前的绘图
+                ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+                /** 下面代码根据奖品类型、奖品名称长度渲染不同效果，如字体、颜色、图片效果。(具体根据实际情况改变) **/
+                // if (text.indexOf("盘") > 0) {//判断字符进行换行
+                if (false) {//判断字符进行换行
+                    var texts = text.split("盘");
+                    for (var j = 0; j < texts.length; j++) {
+                        ctx.font = j == 0 ? 'bold 20px Microsoft YaHei' : 'bold 18px Microsoft YaHei';
+                        if (j == 0) {
+                            ctx.fillText(texts[j] + "盘", -ctx.measureText(texts[j] + "盘").width / 2, j * line_height);
+                        } else {
+                            ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height * 1.2); //调整行间距
+                        }
+                    }
+                } else if (text.indexOf("盘") == -1 && text.length > 8) {//奖品名称长度超过一定范围
+                    text = text.substring(0, 8) + "||" + text.substring(8);
+                    var texts = text.split("||");
+                    for (var j = 0; j < texts.length; j++) {
+                        ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+                    }
+                } else {
+
+                    //在画布上绘制填色的文本。文本的默认颜色是黑色
+
+                    //measureText()方法返回包含一个对象，该对象包含以像素计的指定字体宽度
+                    ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+                }
+
+                //添加对应图标
+
+                if (text.indexOf(turnplate.restaraunts[0]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        img = document.getElementById("xxhg-img");
+                    } else {
+                        img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+                if (text.indexOf(turnplate.restaraunts[1]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        img = document.getElementById("xxhg-img");
+                    } else {
+                        img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+                if (text.indexOf(turnplate.restaraunts[2]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        img = document.getElementById("xxhg-img");
+                    } else {
+                        img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+                if (text.indexOf(turnplate.restaraunts[3]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        img = document.getElementById("xxhg-img");
+                    } else {
+                        img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+                if (text.indexOf(turnplate.restaraunts[4]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        img = document.getElementById("xxhg-img");
+                    } else {
+                        img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+                if (text.indexOf(turnplate.restaraunts[5]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        img = document.getElementById("xxhg-img");
+                    } else {
+                        img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+                if (text.indexOf(turnplate.restaraunts[6]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        img = document.getElementById("xxhg-img");
+                    } else {
+                        img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+
+                if (text.indexOf(turnplate.restaraunts[7]) >= 0) {
+                    var img = null
+                    if (text === '谢谢惠顾') {
+                        var img = document.getElementById("xxhg-img");
+                    } else {
+                        var img = document.getElementById("quan-img");
+                    }
+                    img.onload = function () {
+                        ctx.drawImage(img, -20, 10, 44, 44);
+                    };
+                    ctx.drawImage(img, -20, 10, 44, 44);
+                }
+                ;
+                //把当前画布返回（调整）到上一个save()状态之前
+                ctx.restore();
+                //----绘制奖品结束----
+            }
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.rotary.YdRotaryDrawShareRecordDao" >
+    
+    <resultMap id="resultMap" type="com.yd.service.bean.rotary.YdRotaryDrawShareRecord" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        
+        <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+        
+        <result column="add_draw_count" property="addDrawCount" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        user_id,
+        activity_id,
+        add_draw_count
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="activityId!=null">
+        and activity_id = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="addDrawCount!=null">
+        and add_draw_count = #{addDrawCount,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdRotaryDrawShareRecordById" resultMap="resultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_rotary_draw_share_record
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.rotary.YdRotaryDrawShareRecord" resultMap="resultMap">
+        select * from yd_rotary_draw_share_record where 1=1 
+        <include refid="where" />
+    </select>
+    
+    <insert id="insertYdRotaryDrawShareRecord" parameterType="com.yd.service.bean.rotary.YdRotaryDrawShareRecord" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_rotary_draw_share_record (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{userId,jdbcType=INTEGER},
+        #{activityId,jdbcType=INTEGER},
+        #{addDrawCount,jdbcType=INTEGER}
+        )
+    </insert>
+    
+    <update id="updateYdRotaryDrawShareRecord" parameterType="com.yd.service.bean.rotary.YdRotaryDrawShareRecord" >
+        update yd_rotary_draw_share_record
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="activityId != null" >
+                activity_id = #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="addDrawCount != null" >
+                add_draw_count = #{addDrawCount,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

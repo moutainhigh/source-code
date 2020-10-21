@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.order.YdGiftOrderDao" >
+
+    <resultMap id="YdGiftOrderMap" type="com.yd.service.bean.order.YdGiftOrder" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="out_order_id" property="outOrderId" jdbcType="VARCHAR" />
+
+        <result column="gift_order_no" property="giftOrderNo" jdbcType="VARCHAR" />
+        
+        <result column="type" property="type" jdbcType="VARCHAR" />
+
+        <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+        
+        <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+        
+        <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+        
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+
+        <result column="total_detail_count" property="totalDetailCount" jdbcType="INTEGER" />
+
+        <result column="total_gift_count" property="totalGiftCount" jdbcType="INTEGER" />
+        
+        <result column="total_sale_price" property="totalSalePrice" jdbcType="DECIMAL" />
+        
+        <result column="total_market_price" property="totalMarketPrice" jdbcType="DECIMAL" />
+        
+        <result column="realname" property="realname" jdbcType="VARCHAR" />
+        
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        
+        <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+        
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        
+        <result column="city_id" property="cityId" jdbcType="INTEGER" />
+        
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        
+        <result column="district_id" property="districtId" jdbcType="INTEGER" />
+        
+        <result column="district" property="district" jdbcType="VARCHAR" />
+        
+        <result column="address" property="address" jdbcType="VARCHAR" />
+
+        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+
+        <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        out_order_id,
+        gift_order_no,
+        type,
+        trans_type,
+        user_id,
+        merchant_id,
+        order_status,
+        pay_status,
+        pay_time,
+        bill_no,
+        total_detail_count,
+        total_gift_count,
+        total_sale_price,
+        total_market_price,
+        realname,
+        mobile,
+        province_id,
+        province,
+        city_id,
+        city,
+        district_id,
+        district,
+        address
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="giftOrderNo!=null and giftOrderNo!=''">
+            and gift_order_no = #{giftOrderNo,jdbcType=VARCHAR}
+        </if>
+        <if test="outOrderId!=null and outOrderId!=''">
+        and out_order_id = #{outOrderId,jdbcType=VARCHAR}
+        </if>
+        <if test="type!=null and type!=''">
+        and type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="transType!=null and transType!=''">
+            and trans_type = #{transType,jdbcType=VARCHAR}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+        and order_status = #{orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="payStatus!=null and payStatus!=''">
+        and pay_status = #{payStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="payTime!=null and payTime!=''">
+        and pay_time = #{payTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="billNo!=null and billNo!=''">
+        and bill_no = #{billNo,jdbcType=VARCHAR}
+        </if>
+        <if test="totalSalePrice!=null and totalSalePrice!=''">
+        and total_sale_price = #{totalSalePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="totalMarketPrice!=null and totalMarketPrice!=''">
+        and total_market_price = #{totalMarketPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="realname!=null and realname!=''">
+        and realname = #{realname,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+        and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="provinceId!=null">
+        and province_id = #{provinceId,jdbcType=INTEGER}
+        </if>
+        <if test="province!=null and province!=''">
+        and province = #{province,jdbcType=VARCHAR}
+        </if>
+        <if test="cityId!=null">
+        and city_id = #{cityId,jdbcType=INTEGER}
+        </if>
+        <if test="city!=null and city!=''">
+        and city = #{city,jdbcType=VARCHAR}
+        </if>
+        <if test="districtId!=null">
+        and district_id = #{districtId,jdbcType=INTEGER}
+        </if>
+        <if test="district!=null and district!=''">
+        and district = #{district,jdbcType=VARCHAR}
+        </if>
+        <if test="address!=null and address!=''">
+        and address = #{address,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdGiftOrderById" resultMap="YdGiftOrderMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_gift_order
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdGiftOrderByOutOrderId" resultMap="YdGiftOrderMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_gift_order
+        where out_order_id = #{outOrderId,jdbcType=VARCHAR}
+        limit 1
+    </select>
+
+	<select id="getYdGiftOrderCount" parameterType="com.yd.service.bean.order.YdGiftOrder" resultType="int">
+        select count(1) from yd_gift_order where 1=1
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="type != null and type != '' ">
+            and type = #{type}
+        </if>
+        <if test="outOrderId!=null and outOrderId!=''">
+            and out_order_id = #{outOrderId}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and create_time &lt;= #{endTime}
+        </if>
+    </select>
+	
+	<select id="findYdGiftOrderListByPage" resultMap="YdGiftOrderMap">
+        select * from yd_gift_order where 1=1 
+        <if test="params.id != null">
+            and id = #{params.id}
+        </if>
+        <if test="params.merchantId != null">
+            and merchant_id = #{params.merchantId}
+        </if>
+        <if test="params.type != null and params.type != '' ">
+            and type = #{params.type}
+        </if>
+        <if test="params.outOrderId!=null and params.outOrderId!=''">
+            and out_order_id = #{params.outOrderId}
+        </if>
+        <if test="params.startTime!=null and params.startTime!=''">
+            and create_time &gt;= #{params.startTime}
+        </if>
+        <if test="params.endTime!=null and params.endTime!=''">
+            and create_time &lt;= #{params.endTime}
+        </if>
+        order by update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+
+    <select id="getSupplerGiftOrderCount" parameterType="com.yd.service.bean.order.YdGiftOrder" resultType="int">
+        select count(1) from (
+            SELECT
+              count(1)
+            FROM
+              yd_gift_order o
+            LEFT JOIN yd_gift_order_detail d ON o.id = d.gift_order_id
+            LEFT JOIN yd_merchant m1 on m1.id = o.merchant_id
+            LEFT JOIN yd_merchant m2 on m2.id = d.supplier_id
+            WHERE 1 = 1
+            <if test="supplierId!=null">
+                and d.supplier_id = #{supplierId,jdbcType=INTEGER}
+            </if>
+            <if test="startTime!=null and startTime!=''">
+                and o.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and o.create_time &lt;= #{endTime}
+            </if>
+            group by o.id
+        ) a
+    </select>
+
+    <select id="findSupplerGiftOrderListByPage" resultMap="YdGiftOrderMap">
+        SELECT
+          o.*, m1.merchant_name, m2.merchant_name supplier_name
+        FROM
+        yd_gift_order o
+        LEFT JOIN yd_gift_order_detail d ON o.id = d.gift_order_id
+        LEFT JOIN yd_merchant m1 on m1.id = o.merchant_id
+        LEFT JOIN yd_merchant m2 on m2.id = d.supplier_id
+        WHERE 1 = 1
+        <if test="params.supplierId!=null">
+            and d.supplier_id = #{params.supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="params.startTime!=null and params.startTime!=''">
+            and o.create_time &gt;= #{params.startTime}
+        </if>
+        <if test="params.endTime!=null and params.endTime!=''">
+            and o.create_time &lt;= #{params.endTime}
+        </if>
+        GROUP BY o.id
+        order by o.update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+
+	<select id="getAll" parameterType="com.yd.service.bean.order.YdGiftOrder" resultMap="YdGiftOrderMap">
+        select * from yd_gift_order where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdGiftOrder" parameterType="com.yd.service.bean.order.YdGiftOrder" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_gift_order (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{outOrderId,jdbcType=VARCHAR},
+        #{giftOrderNo,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
+        #{transType,jdbcType=VARCHAR},
+        #{userId,jdbcType=INTEGER},
+        #{merchantId,jdbcType=INTEGER},
+        #{orderStatus,jdbcType=VARCHAR},
+        #{payStatus,jdbcType=VARCHAR},
+        #{payTime,jdbcType=TIMESTAMP},
+        #{billNo,jdbcType=VARCHAR},
+        #{totalDetailCount,jdbcType=INTEGER},
+        #{totalGiftCount,jdbcType=INTEGER},
+        #{totalSalePrice,jdbcType=DECIMAL},
+        #{totalMarketPrice,jdbcType=DECIMAL},
+        #{realname,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR},
+        #{provinceId,jdbcType=INTEGER},
+        #{province,jdbcType=VARCHAR},
+        #{cityId,jdbcType=INTEGER},
+        #{city,jdbcType=VARCHAR},
+        #{districtId,jdbcType=INTEGER},
+        #{district,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    <update id="updateYdGiftOrder" parameterType="com.yd.service.bean.order.YdGiftOrder" >
+        update yd_gift_order
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="outOrderId != null" >
+                out_order_id = #{outOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="giftOrderNo != null" >
+                gift_order_no = #{giftOrderNo,jdbcType=VARCHAR},
+            </if>
+
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="transType != null" >
+                trans_type = #{transType,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="orderStatus != null" >
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="payStatus != null" >
+                pay_status = #{payStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="payTime != null" >
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="billNo != null" >
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="totalSalePrice != null" >
+                total_sale_price = #{totalSalePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="totalMarketPrice != null" >
+                total_market_price = #{totalMarketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="realname != null" >
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null" >
+                province_id = #{provinceId,jdbcType=INTEGER},
+            </if>
+            <if test="province != null" >
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="cityId != null" >
+                city_id = #{cityId,jdbcType=INTEGER},
+            </if>
+            <if test="city != null" >
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="districtId != null" >
+                district_id = #{districtId,jdbcType=INTEGER},
+            </if>
+            <if test="district != null" >
+                district = #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.common.WxKeywordsDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.common.WxKeywords">
+		<result property="id" column="id" />
+		<result property="keywords" column="keywords" />
+		<result property="type" column="type" />
+		<result property="content" column="content" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+	
+	<delete id="deleteWxKeywordsById">
+		DELETE FROM wx_keywords WHERE id = #{id}
+	</delete>
+	
+	<select id="findWxKeywordsById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wx_keywords
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findWxKeywordsByKeyWords" resultMap="BASE-RESULT">
+		select
+			*
+		from
+			wx_keywords
+		where
+			keywords=#{keywords}
+	</select>
+	
+	<select id="getWxKeywordsCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			wx_keywords
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="keywords!=null">
+  				AND keywords = #{keywords}
+  			</if>
+  			<if test="type!=null">
+  				AND type = #{type}
+  			</if>
+  			<if test="content!=null">
+  				AND content = #{content}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findWxKeywordssByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wx_keywords
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.keywords!=null">
+  				AND keywords = #{param.keywords}
+  			</if>
+  			<if test="param.type!=null">
+  				AND type = #{param.type}
+  			</if>
+  			<if test="param.content!=null">
+  				AND content = #{param.content}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.common.WxKeywords">
+  		INSERT INTO wx_keywords ( 
+			`id`,`keywords`,`type`,`content`,`create_time`			
+  		) VALUES (
+			#{id},#{keywords},#{type},#{content},#{createTime}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

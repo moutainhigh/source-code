@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.order.YdUserOrderDao" >
+
+    <resultMap id="YdShopOrderMap" type="com.yd.service.bean.order.YdUserOrder" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+
+        <result column="user_coupon_id" property="userCouponId" jdbcType="INTEGER" />
+        
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        
+        <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+        
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        
+        <result column="city_id" property="cityId" jdbcType="INTEGER" />
+        
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        
+        <result column="district_id" property="districtId" jdbcType="INTEGER" />
+        
+        <result column="district" property="district" jdbcType="VARCHAR" />
+        
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        
+        <result column="realname" property="realname" jdbcType="VARCHAR" />
+
+        <result column="receive_way" property="receiveWay" jdbcType="VARCHAR" />
+
+        <result column="is_check_integral_reduce" property="isCheckIntegralReduce" jdbcType="VARCHAR" />
+
+        <result column="is_check_old_machine_reduce" property="isCheckOldMachineReduce" jdbcType="VARCHAR" />
+
+        <result column="item_count" property="itemCount" jdbcType="INTEGER" />
+        
+        <result column="pay_price" property="payPrice" jdbcType="DECIMAL" />
+        
+        <result column="order_price" property="orderPrice" jdbcType="DECIMAL" />
+        
+        <result column="coupon_price" property="couponPrice" jdbcType="DECIMAL" />
+        
+        <result column="integral_reduce_price" property="integralReducePrice" jdbcType="DECIMAL" />
+
+        <result column="old_machine_reduce_price" property="oldMachineReducePrice" jdbcType="DECIMAL" />
+
+        <result column="manual_reduce_price" property="manualReducePrice" jdbcType="DECIMAL" />
+
+        <result column="old_mobile_name" property="oldMobileName" jdbcType="VARCHAR" />
+
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+
+        <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+        
+        <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+        
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+        
+        <result column="ship_status" property="shipStatus" jdbcType="VARCHAR" />
+        
+        <result column="ship_time" property="shipTime" jdbcType="TIMESTAMP" />
+        
+        <result column="confirm_goods_status" property="confirmGoodsStatus" jdbcType="VARCHAR" />
+        
+        <result column="confirm_goods_time" property="confirmGoodsTime" jdbcType="TIMESTAMP" />
+
+        <result column="pay_entry_count" property="payEntryCount" jdbcType="INTEGER" />
+
+        <result column="qr_code_url" property="qrCodeUrl" jdbcType="VARCHAR" />
+        
+        <result column="express_company" property="expressCompany" jdbcType="VARCHAR" />
+        
+        <result column="express_company_number" property="expressCompanyNumber" jdbcType="VARCHAR" />
+        
+        <result column="express_order_id" property="expressOrderId" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        order_no,
+        merchant_id,
+        user_id,
+        user_coupon_id,
+        remark,
+        province_id,
+        province,
+        city_id,
+        city,
+        district_id,
+        district,
+        address,
+        mobile,
+        realname,
+        receive_way,
+        is_check_integral_reduce,
+        is_check_old_machine_reduce,
+        item_count,
+        pay_price,
+        order_price,
+        coupon_price,
+        integral_reduce_price,
+        old_machine_reduce_price,
+        manual_reduce_price,
+        old_mobile_name,
+        order_status,
+        pay_status,
+        pay_time,
+        bill_no,
+        ship_status,
+        ship_time,
+        confirm_goods_status,
+        confirm_goods_time,
+        pay_entry_count,
+        qr_code_url,
+        express_company,
+        express_company_number,
+        express_order_id
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderNo!=null and orderNo!=''">
+            and order_no = #{orderNo}
+        </if>
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="userCouponId!=null">
+            and user_coupon_id = #{userCouponId,jdbcType=INTEGER}
+        </if>
+        <if test="remark!=null and remark!=''">
+        and remark = #{remark,jdbcType=VARCHAR}
+        </if>
+        <if test="provinceId!=null">
+        and province_id = #{provinceId,jdbcType=INTEGER}
+        </if>
+        <if test="province!=null and province!=''">
+        and province = #{province,jdbcType=VARCHAR}
+        </if>
+        <if test="cityId!=null">
+        and city_id = #{cityId,jdbcType=INTEGER}
+        </if>
+        <if test="city!=null and city!=''">
+        and city = #{city,jdbcType=VARCHAR}
+        </if>
+        <if test="districtId!=null">
+        and district_id = #{districtId,jdbcType=INTEGER}
+        </if>
+        <if test="district!=null and district!=''">
+        and district = #{district,jdbcType=VARCHAR}
+        </if>
+        <if test="address!=null and address!=''">
+        and address = #{address,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+        and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="realname!=null and realname!=''">
+        and realname = #{realname,jdbcType=VARCHAR}
+        </if>
+        <if test="itemCount!=null">
+            and item_count = #{itemCount,jdbcType=INTEGER}
+        </if>
+        <if test="payPrice!=null and payPrice!=''">
+        and pay_price = #{payPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="orderPrice!=null and orderPrice!=''">
+        and order_price = #{orderPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="couponPrice!=null and couponPrice!=''">
+        and coupon_price = #{couponPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="integralReducePrice!=null and integralReducePrice!=''">
+        and integral_reduce_price = #{integralReducePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="oldMachineReducePrice!=null and oldMachineReducePrice!=''">
+        and old_machine_reduce_price = #{oldMachineReducePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="oldMobileName!=null and oldMobileName!=''">
+        and old_mobile_name = #{oldMobileName,jdbcType=VARCHAR}
+        </if>
+        <if test="payStatus!=null and payStatus!=''">
+            and pay_status = #{payStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+        and order_status = #{orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="payTime!=null and payTime!=''">
+        and pay_time = #{payTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="billNo!=null and billNo!=''">
+        and bill_no = #{billNo,jdbcType=VARCHAR}
+        </if>
+        <if test="shipStatus!=null and shipStatus!=''">
+        and ship_status = #{shipStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="shipTime!=null and shipTime!=''">
+        and ship_time = #{shipTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="confirmGoodsStatus!=null and confirmGoodsStatus!=''">
+        and confirm_goods_status = #{confirmGoodsStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="confirmGoodsTime!=null and confirmGoodsTime!=''">
+        and confirm_goods_time = #{confirmGoodsTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="qrCodeUrl!=null and qrCodeUrl!=''">
+            and qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="expressCompany!=null and expressCompany!=''">
+        and express_company = #{expressCompany,jdbcType=VARCHAR}
+        </if>
+        <if test="expressCompanyNumber!=null and expressCompanyNumber!=''">
+        and express_company_number = #{expressCompanyNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="expressOrderId!=null and expressOrderId!=''">
+        and express_order_id = #{expressOrderId,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdUserOrderById" resultMap="YdShopOrderMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_user_order
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.order.YdUserOrder" resultMap="YdShopOrderMap">
+        select * from yd_user_order where 1=1 
+        <include refid="where" />
+    </select>
+
+    <select id="findOrderListCount" resultType="int">
+      select count(1) from (
+        select
+          o.*
+        from
+          yd_user_order o
+        left join
+          yd_user_order_detail d on d.order_id = o.id
+        where 1 = 1
+        <if test="orderId != null and orderId != ''">
+            and o.id = #{orderId}
+        </if>
+        <if test="merchantId != null">
+            and o.merchant_id = #{merchantId}
+        </if>
+        <if test="orderStatus != null and orderStatus != ''">
+            and o.order_status = #{orderStatus}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and o.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and o.create_time &lt;= #{endTime}
+        </if>
+        <if test="payStartTime != null and payStartTime != ''">
+            and o.pay_time &gt;= #{payStartTime}
+        </if>
+        <if test="payEndTime != null and payEndTime != ''">
+            and o.pay_time &lt;= #{payEndTime}
+        </if>
+
+        <if test="itemTitle != null and itemTitle != ''">
+            and d.merchant_item_title = #{itemTitle}
+        </if>
+        group by o.id
+      ) a
+    </select>
+
+    <select id="findOrderListByPage" resultMap="YdShopOrderMap">
+        select
+          o.*
+        from
+          yd_user_order o
+        left join yd_user_order_detail d on d.order_id = o.id
+        where 1 = 1
+        <if test="orderId != null and orderId != '' ">
+            and o.id = #{orderId}
+        </if>
+        <if test="merchantId != null">
+            and o.merchant_id = #{merchantId}
+        </if>
+        <if test="orderStatus != null and orderStatus != ''">
+            and o.order_status = #{orderStatus}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and o.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and o.create_time &lt;= #{endTime}
+        </if>
+        <if test="payStartTime != null and payStartTime != ''">
+            and o.pay_time &gt;= #{payStartTime}
+        </if>
+        <if test="payEndTime != null and payEndTime != ''">
+            and o.pay_time &lt;= #{payEndTime}
+        </if>
+
+        <if test="itemTitle != null and itemTitle != ''">
+            and d.merchant_item_title = #{itemTitle}
+        </if>
+        GROUP BY o.id
+        order by o.update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="findOrderTransDetailListCount" resultType="int">
+        select
+          count(1)
+        from
+          yd_user_order o
+        where o.order_status = 'SUCCESS'
+        <if test="merchantId != null">
+            and o.merchant_id = #{merchantId}
+        </if>
+        <if test="orderId != null">
+            and o.id = #{orderId}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and o.pay_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and o.pay_time &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="findOrderTransDetailListByPage" resultMap="YdShopOrderMap">
+        select
+         o.*
+        from
+          yd_user_order o
+        where o.order_status = 'SUCCESS'
+        <if test="merchantId != null">
+            and o.merchant_id = #{merchantId}
+        </if>
+        <if test="orderId != null">
+            and o.id = #{orderId}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and o.pay_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and o.pay_time &lt;= #{endTime}
+        </if>
+        order by pay_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <insert id="insertYdShopOrder" parameterType="com.yd.service.bean.order.YdUserOrder" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_user_order (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{orderNo},
+        #{merchantId,jdbcType=INTEGER},
+        #{userId,jdbcType=INTEGER},
+        #{userCouponId,jdbcType=INTEGER},
+        #{remark,jdbcType=VARCHAR},
+        #{provinceId,jdbcType=INTEGER},
+        #{province,jdbcType=VARCHAR},
+        #{cityId,jdbcType=INTEGER},
+        #{city,jdbcType=VARCHAR},
+        #{districtId,jdbcType=INTEGER},
+        #{district,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR},
+        #{realname,jdbcType=VARCHAR},
+        #{receiveWay,jdbcType=VARCHAR},
+        #{isCheckIntegralReduce,jdbcType=VARCHAR},
+        #{isCheckOldMachineReduce,jdbcType=VARCHAR},
+        #{itemCount,jdbcType=INTEGER},
+        #{payPrice,jdbcType=DECIMAL},
+        #{orderPrice,jdbcType=DECIMAL},
+        #{couponPrice,jdbcType=DECIMAL},
+        #{integralReducePrice,jdbcType=DECIMAL},
+        #{oldMachineReducePrice,jdbcType=DECIMAL},
+        #{manualReducePrice,jdbcType=DECIMAL},
+        #{oldMobileName,jdbcType=VARCHAR},
+        #{orderStatus,jdbcType=VARCHAR},
+        #{payStatus,jdbcType=VARCHAR},
+        #{payTime,jdbcType=TIMESTAMP},
+        #{billNo,jdbcType=VARCHAR},
+        #{shipStatus,jdbcType=VARCHAR},
+        #{shipTime,jdbcType=TIMESTAMP},
+        #{confirmGoodsStatus,jdbcType=VARCHAR},
+        #{confirmGoodsTime,jdbcType=TIMESTAMP},
+        #{payEntryCount},
+        #{qrCodeUrl,jdbcType=VARCHAR},
+        #{expressCompany,jdbcType=VARCHAR},
+        #{expressCompanyNumber,jdbcType=VARCHAR},
+        #{expressOrderId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateYdUserOrder" parameterType="com.yd.service.bean.order.YdUserOrder" >
+        update yd_user_order
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderNo != null" >
+                order_no = #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userCouponId != null" >
+                user_coupon_id = #{userCouponId,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null" >
+                province_id = #{provinceId,jdbcType=INTEGER},
+            </if>
+            <if test="province != null" >
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="cityId != null" >
+                city_id = #{cityId,jdbcType=INTEGER},
+            </if>
+            <if test="city != null" >
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="districtId != null" >
+                district_id = #{districtId,jdbcType=INTEGER},
+            </if>
+            <if test="district != null" >
+                district = #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null" >
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="itemCount != null" >
+                item_count = #{itemCount,jdbcType=INTEGER},
+            </if>
+            <if test="payPrice != null" >
+                pay_price = #{payPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="orderPrice != null" >
+                order_price = #{orderPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="couponPrice != null" >
+                coupon_price = #{couponPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="integralReducePrice != null" >
+                integral_reduce_price = #{integralReducePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="oldMachineReducePrice != null" >
+                old_machine_reduce_price = #{oldMachineReducePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="oldMobileName != null" >
+                old_mobile_name = #{oldMobileName,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null" >
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="payStatus != null" >
+                pay_status = #{payStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="payTime != null" >
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="billNo != null" >
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="shipStatus != null" >
+                ship_status = #{shipStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="shipTime != null" >
+                ship_time = #{shipTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="confirmGoodsStatus != null" >
+                confirm_goods_status = #{confirmGoodsStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="confirmGoodsTime != null" >
+                confirm_goods_time = #{confirmGoodsTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payEntryCount != null" >
+                pay_entry_count = #{payEntryCount},
+            </if>
+            <if test="qrCodeUrl != null" >
+                qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="expressCompany != null" >
+                express_company = #{expressCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="expressCompanyNumber != null" >
+                express_company_number = #{expressCompanyNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="expressOrderId != null" >
+                express_order_id = #{expressOrderId,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 商家线下确认订单 -->
+    <update id="confirmOrder">
+        update
+          yd_user_order
+        set
+           pay_status = 'Y',
+           pay_time = now(),
+           pay_price = pay_price - #{manualReducePrice},
+        <if test="manualReducePrice != null and manualReducePrice > 0" >
+            manual_reduce_price = #{manualReducePrice},
+        </if>
+        order_status = 'SUCCESS'
+        where
+          id = #{orderId} and merchant_id = #{merchantId}
+          and order_status = 'WAIT_HANDLE' and (pay_price - #{manualReducePrice} &gt; 0)
+    </update>
+
+    <!-- 设置其它优惠券金额 其它优惠金额 = pay_price + manual_reduce_price - otherPrice -->
+    <update id="updateOrderOtherPrice">
+        update
+          yd_user_order
+        set
+           pay_price = pay_price + manual_reduce_price - #{otherPrice},
+           manual_reduce_price = #{otherPrice}
+        where
+          id = #{orderId} and merchant_id = #{merchantId}
+          and (order_status = 'WAIT_HANDLE' or order_status = 'WAIT_PAY')
+          and (pay_price + manual_reduce_price - #{otherPrice} &gt; 0)
+          and #{otherPrice} &gt;= 0
+    </update>
+
+    <!-- 设置旧机抵扣金额 -->
+    <update id="updateOldMachinePrice">
+        update
+          yd_user_order
+        set
+           pay_price = pay_price - #{price},
+           old_machine_reduce_price = #{price},
+           old_mobile_name = #{mobileName}
+        where
+          id = #{orderId} and merchant_id = #{merchantId}
+          and order_status = 'WAIT_HANDLE' and (pay_price - #{price} &gt; 0)
+          and old_machine_reduce_price &lt;= 0
+    </update>
+
+
+    <!-- 查询平台下过单的用户数 -->
+    <select id="getCompleteOrderUserCount" resultType="int">
+        select count(1) from (
+            select
+              *
+            from
+              yd_user_order
+            where
+              merchant_id = #{merchantId} and order_status = #{orderStatus}
+            <if test="userId != null" >
+                and user_id = #{userId}
+            </if>
+            <if test="startTime != null" >
+                and pay_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null" >
+                and pay_time &lt;= #{endTime}
+            </if>
+            group by user_id
+        ) a
+    </select>
+
+    <select id="getUserOrderNumByOrderStatus" resultType="int">
+        select count(1) from yd_user_order
+        where 1 = 1
+        <if test="userId != null" >
+            and user_id = #{userId}
+        </if>
+        <if test="merchantId != null" >
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="orderStatus != null and orderStatus != '' " >
+            and order_status = #{orderStatus}
+        </if>
+    </select>
+
+    <!-- 查询平台下过单的用户数 -->
+    <select id="findFrontOrderListByPage" resultMap="YdShopOrderMap">
+        select * from yd_user_order
+        where user_id = #{userId} and merchant_id = #{merchantId}
+        <if test="orderStatus != null and orderStatus != '' " >
+            and order_status = #{orderStatus}
+        </if>
+        order by update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="getAppMarketData" resultMap="YdShopOrderMap">
+        select o.*
+        from yd_user_order o
+        where
+        o.order_status = 'SUCCESS'
+        <if test="merchantId != null " >
+            and o.merchant_id = #{merchantId}
+        </if>
+        <if test="startTime != null and startTime != '' " >
+            and o.update_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' " >
+            and o.update_time &lt; #{endTime}
+        </if>
+        <if test="type != null and type == 'offline' " >
+            and o.receive_way = 'ZT'
+        </if>
+        <if test="type != null and type == 'online' " >
+            and o.receive_way = 'PS'
+        </if>
+    </select>
+
+    <select id="findNoPayOrderList" parameterType="com.yd.service.bean.order.YdUserOrder" resultMap="YdShopOrderMap">
+        select * from yd_user_order where 1=1
+        <if test="merchantId != null" >
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="orderStatus != null and orderStatus != '' " >
+            and order_status = #{orderStatus}
+        </if>
+        <if test="startTime != null and startTime != '' " >
+            and create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' " >
+            and create_time &lt; #{endTime}
+        </if>
+    </select>
+
+    <update id="cancelNoPayOrder">
+        update
+        yd_user_order
+        set
+        order_status = 'CANCEL'
+        where
+          order_status = 'WAIT_PAY' and id = #{id}
+    </update>
+
+    <update id="updatePayEntryCount" >
+        update
+        yd_user_order
+        set
+        pay_entry_count = pay_entry_count + 1
+        where
+        id = #{id}
+    </update>
+
+</mapper>

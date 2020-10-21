@@ -1,0 +1,3 @@
+	result.setId(param.getId());
+	result.setName(param.getName());
+	result.setIsEnable(param.getIsEnable());

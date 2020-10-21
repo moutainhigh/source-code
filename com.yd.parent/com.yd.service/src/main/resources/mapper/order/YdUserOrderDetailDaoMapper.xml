@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.order.YdUserOrderDetailDao" >
+
+    <resultMap id="YdShopOrderDetailMap" type="com.yd.service.bean.order.YdUserOrderDetail" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="order_detail_no" property="orderDetailNo" jdbcType="VARCHAR" />
+
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+
+        <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+
+        <result column="merchant_item_title" property="merchantItemTitle" jdbcType="VARCHAR" />
+
+        <result column="cover" property="cover" jdbcType="VARCHAR" />
+
+        <result column="merchant_item_id" property="merchantItemId" jdbcType="INTEGER" />
+
+        <result column="merchant_sku_id" property="merchantSkuId" jdbcType="INTEGER" />
+
+        <result column="merchant_item_price" property="merchantItemPrice" jdbcType="DECIMAL" />
+
+        <result column="num" property="num" jdbcType="INTEGER" />
+
+        <result column="spec_value_id_path" property="specValueIdPath" jdbcType="VARCHAR" />
+
+        <result column="spec_name_value_json" property="specNameValueJson" jdbcType="VARCHAR" />
+
+        <result column="spec_value_str" property="specValueStr" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        order_detail_no,
+        user_id,
+        merchant_id,
+        order_id,
+        item_id,
+        sku_id,
+        merchant_item_title,
+        cover,
+        merchant_item_id,
+        merchant_sku_id,
+        merchant_item_price,
+        num,
+        spec_value_id_path,
+        spec_name_value_json,
+        spec_value_str
+    </sql>
+
+    <sql id="where">
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+            and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderDetailNo!=null and orderDetailNo!=''">
+            and order_detail_no = #{orderDetailNo,jdbcType=VARCHAR}
+        </if>
+        <if test="userId!=null">
+            and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="orderId!=null">
+            and order_id = #{orderId,jdbcType=INTEGER}
+        </if>
+        <if test="itemId!=null">
+            and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="skuId!=null">
+            and sku_id = #{skuId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantItemTitle!=null and merchantItemTitle!=''">
+            and merchant_item_title = #{merchantItemTitle,jdbcType=VARCHAR}
+        </if>
+        <if test="cover!=null and cover!=''">
+            and cover = #{cover,jdbcType=VARCHAR}
+        </if>
+        <if test="merchantItemId!=null">
+            and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantSkuId!=null">
+            and merchant_sku_id = #{merchantSkuId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantItemPrice!=null and merchantItemPrice!=''">
+            and merchant_item_price = #{merchantItemPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="num!=null">
+            and num = #{num,jdbcType=INTEGER}
+        </if>
+        <if test="specValueIdPath!=null and specValueIdPath!=''">
+            and spec_value_id_path = #{specValueIdPath,jdbcType=VARCHAR}
+        </if>
+        <if test="specNameValueJson!=null and specNameValueJson!=''">
+            and spec_name_value_json = #{specNameValueJson,jdbcType=VARCHAR}
+        </if>
+        <if test="specValueStr!=null and specValueStr!=''">
+            and spec_value_str = #{specValueStr,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <select id="getYdShopOrderDetailById" resultMap="YdShopOrderDetailMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_user_order_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdShopOrderDetailByOrderId"  resultMap="YdShopOrderDetailMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_user_order_detail
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getOrderDetailCount" resultType="integer">
+        select count(1) from yd_user_order_detail
+        where 1 = 1
+        <if test="userId!=null">
+            and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="orderStatus!=null and orderStatus != ''">
+            and order_status = #{orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime!=null and startTime != ''">
+            and update_time &gt;= #{startTime,jdbcType=VARCHAR}
+        </if>
+        <if test="endTime!=null and endTime != ''">
+            and update_time &lt;= #{endTime,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="findOrderDetailListByPage" parameterType="com.yd.service.bean.order.YdUserOrderDetail" resultMap="YdShopOrderDetailMap">
+        select * from
+        yd_user_order_detail d
+        LEFT JOIN yd_user_order o ON d.order_id = o.id
+        where 1 = 1
+        <if test="params.userId!=null">
+            and d.user_id = #{params.userId,jdbcType=INTEGER}
+        </if>
+        <if test="params.merchantId!=null">
+            and d.merchant_id = #{params.merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="params.orderStatus!=null and params.orderStatus != ''">
+            and o.order_status = #{params.orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="params.startTime!=null and params.startTime != ''">
+            and d.update_time &gt;= #{params.startTime,jdbcType=VARCHAR}
+        </if>
+        <if test="params.endTime!=null and params.endTime != ''">
+            and d.update_time &lt;= #{params.endTime,jdbcType=VARCHAR}
+        </if>
+        <if test="params.itemId!=null">
+            and d.item_id = #{params.itemId,jdbcType=INTEGER}
+        </if>
+        <if test="params.skuId!=null">
+            and d.sku_id = #{params.skuId,jdbcType=INTEGER}
+        </if>
+        <if test="params.merchantItemId!=null">
+            and d.merchant_item_id = #{params.merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="params.merchantSkuId!=null">
+            and d.merchant_sku_id = #{params.merchantSkuId,jdbcType=INTEGER}
+        </if>
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.order.YdUserOrderDetail" resultMap="YdShopOrderDetailMap">
+        select * from yd_user_order_detail where 1=1
+        <include refid="where" />
+    </select>
+
+    <insert id="insertYdShopOrderDetail" parameterType="com.yd.service.bean.order.YdUserOrderDetail" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_user_order_detail (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{orderDetailNo,jdbcType=VARCHAR},
+        #{userId,jdbcType=INTEGER},
+        #{merchantId,jdbcType=INTEGER},
+        #{orderId,jdbcType=INTEGER},
+        #{itemId,jdbcType=INTEGER},
+        #{skuId,jdbcType=INTEGER},
+        #{merchantItemTitle,jdbcType=VARCHAR},
+        #{cover,jdbcType=VARCHAR},
+        #{merchantItemId,jdbcType=INTEGER},
+        #{merchantSkuId,jdbcType=INTEGER},
+        #{merchantItemPrice,jdbcType=DECIMAL},
+        #{num,jdbcType=INTEGER},
+        #{specValueIdPath,jdbcType=VARCHAR},
+        #{specNameValueJson,jdbcType=VARCHAR},
+        #{specValueStr,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateYdShopOrderDetail" parameterType="com.yd.service.bean.order.YdUserOrderDetail" >
+        update yd_user_order_detail
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderDetailNo != null" >
+                order_detail_no = #{orderDetailNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                order_id = #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="skuId != null" >
+                sku_id = #{skuId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantItemTitle != null" >
+                merchant_item_title = #{merchantItemTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="cover != null" >
+                cover = #{cover,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantItemId != null" >
+                merchant_item_id = #{merchantItemId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantSkuId != null" >
+                merchant_sku_id = #{merchantSkuId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantItemPrice != null" >
+                merchant_item_price = #{merchantItemPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="num != null" >
+                num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="specValueIdPath != null" >
+                spec_value_id_path = #{specValueIdPath,jdbcType=VARCHAR},
+            </if>
+            <if test="specNameValueJson != null" >
+                spec_name_value_json = #{specNameValueJson,jdbcType=VARCHAR},
+            </if>
+            <if test="specValueStr != null" >
+                spec_value_str = #{specValueStr,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <!-- 查询成交量商品销量排行 -->
+    <select id="findMerchantMaxSalesItemData" resultMap="YdShopOrderDetailMap">
+        select
+        sum(d.num) num, d.item_id, d.sku_id, d.merchant_item_id, d.merchant_sku_id
+        from
+        yd_user_order_detail d
+        LEFT JOIN
+        yd_user_order o ON d.order_id = o.id
+        where
+        o.order_status = 'SUCCESS'
+        <if test="merchantId != null" >
+            and o.merchant_id = #{merchantId}
+        </if>
+        <if test="startTime != null" >
+            and pay_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null" >
+            and pay_time &lt; #{endTime}
+        </if>
+        GROUP BY d.item_id
+        ORDER BY num desc
+        limit 5
+    </select>
+
+
+    <!-- 查询已经完成的所有订单 -->
+    <select id="findCompleteOrderList" resultMap="YdShopOrderDetailMap">
+        select
+        d.*
+        from
+        yd_user_order_detail d
+        LEFT JOIN
+        yd_user_order o ON d.order_id = o.id
+        where
+        o.order_status = 'SUCCESS'
+        <if test="startTime != null" >
+            and o.update_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null" >
+            and o.update_time &lt; #{endTime}
+        </if>
+    </select>
+
+    <select id="getAppSaleData" resultMap="YdShopOrderDetailMap">
+        select
+        d.*
+        from
+        yd_user_order_detail d
+        LEFT JOIN
+        yd_user_order o ON d.order_id = o.id
+        where
+        o.order_status = 'SUCCESS'
+        <if test="merchantId != null " >
+            and o.merchant_id = #{merchantId}
+        </if>
+        <if test="startTime != null and startTime != '' " >
+            and o.update_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' " >
+            and o.update_time &lt; #{endTime}
+        </if>
+        <if test="type != null and type == 'offline' " >
+            and o.receive_way = 'ZT'
+        </if>
+        <if test="type != null and type == 'online' " >
+            and o.receive_way = 'PS'
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.yd.api/com.yd.api.iml" filepath="$PROJECT_DIR$/com.yd.api/com.yd.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.yd.core/com.yd.core.iml" filepath="$PROJECT_DIR$/com.yd.core/com.yd.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.yd.parent.iml" filepath="$PROJECT_DIR$/com.yd.parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.yd.service/com.yd.service.iml" filepath="$PROJECT_DIR$/com.yd.service/com.yd.service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.yd.web/com.yd.web.iml" filepath="$PROJECT_DIR$/com.yd.web/com.yd.web.iml" />
+    </modules>
+  </component>
+</project>

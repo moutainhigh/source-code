@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.integral.YdIntegralOrderDao" >
+
+    <resultMap id="YdIntegralOrderMap" type="com.yd.service.bean.integral.YdIntegralOrder" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="pid" property="pid" jdbcType="INTEGER" />
+        
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        
+        <result column="score" property="score" jdbcType="INTEGER" />
+        
+        <result column="order_price" property="orderPrice" jdbcType="DECIMAL" />
+        
+        <result column="settlement_price" property="settlementPrice" jdbcType="DECIMAL" />
+        
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+        
+        <result column="out_order_id" property="outOrderId" jdbcType="VARCHAR" />
+
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+
+        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        type,
+        merchant_id,
+        pid,
+        mobile,
+        item_id,
+        score,
+        order_price,
+        settlement_price,
+        order_status,
+        out_order_id,
+        bill_no
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+        and create_time &gt;= #{startTime,jdbcType=VARCHAR}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+        and create_time &lt;= #{endTime,jdbcType=VARCHAR}
+        </if>
+        <if test="type!=null and type!=''">
+        and type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="pid!=null and pid!=''">
+        and pid = #{pid,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+        and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="itemId!=null">
+        and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="score!=null">
+        and score = #{score,jdbcType=INTEGER}
+        </if>
+        <if test="orderPrice!=null and orderPrice!=''">
+        and order_price = #{orderPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="settlementPrice!=null and settlementPrice!=''">
+        and settlement_price = #{settlementPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+        and order_status = #{orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="outOrderId!=null and outOrderId!=''">
+        and out_order_id = #{outOrderId,jdbcType=VARCHAR}
+        </if>
+        <if test="billNo!=null and billNo!=''">
+            and bill_no = #{billNo,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdIntegralOrderById" resultMap="YdIntegralOrderMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_integral_order
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdIntegralOrderCount" parameterType="com.yd.service.bean.integral.YdIntegralOrder" resultType="int">
+        select count(1) from yd_integral_order where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdIntegralOrderListByPage" resultMap="YdIntegralOrderMap">
+        select o.*, m.merchant_name from yd_integral_order o
+        LEFT JOIN yd_merchant m on m.id = o.merchant_id
+        where 1=1
+        <if test="params.id!=null">
+            and o.id = #{params.id,jdbcType=INTEGER}
+        </if>
+        <if test="params.startTime!=null and params.startTime!=''">
+            and o.create_time &gt;= #{params.startTime,jdbcType=VARCHAR}
+        </if>
+        <if test="params.endTime!=null and params.endTime!=''">
+            and o.create_time &lt;= #{params.endTime,jdbcType=VARCHAR}
+        </if>
+        <if test="params.type!=null and params.type!=''">
+            and o.type = #{params.type,jdbcType=VARCHAR}
+        </if>
+        <if test="params.merchantId!=null">
+            and o.merchant_id = #{params.merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="params.pid!=null">
+            and o.pid = #{params.pid,jdbcType=INTEGER}
+        </if>
+        <if test="params.mobile!=null and params.mobile!=''">
+            and o.mobile = #{params.mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="params.itemId!=null">
+            and o.item_id = #{params.itemId,jdbcType=INTEGER}
+        </if>
+        <if test="params.score!=null">
+            and o.score = #{params.score,jdbcType=INTEGER}
+        </if>
+        <if test="params.orderPrice!=null and params.orderPrice!=''">
+            and o.order_price = #{params.orderPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="params.settlementPrice!=null and params.settlementPrice!=''">
+            and o.settlement_price = #{params.settlementPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="params.orderStatus!=null and params.orderStatus!=''">
+            and o.order_status = #{params.orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="params.outOrderId!=null and params.outOrderId!=''">
+            and o.out_order_id = #{params.outOrderId,jdbcType=VARCHAR}
+        </if>
+        <if test="params.billNo!=null and params.billNo!=''">
+            and o.bill_no = #{params.billNo,jdbcType=VARCHAR}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.integral.YdIntegralOrder" resultMap="YdIntegralOrderMap">
+        select * from yd_integral_order where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdIntegralOrder" parameterType="com.yd.service.bean.integral.YdIntegralOrder" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_integral_order (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{type,jdbcType=VARCHAR},
+        #{merchantId,jdbcType=INTEGER},
+        #{pid,jdbcType=INTEGER},
+        #{mobile,jdbcType=VARCHAR},
+        #{itemId,jdbcType=INTEGER},
+        #{score,jdbcType=INTEGER},
+        #{orderPrice,jdbcType=DECIMAL},
+        #{settlementPrice,jdbcType=DECIMAL},
+        #{orderStatus,jdbcType=VARCHAR},
+        #{outOrderId,jdbcType=VARCHAR},
+        #{billNo,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    <update id="updateYdIntegralOrder" parameterType="com.yd.service.bean.integral.YdIntegralOrder" >
+        update yd_integral_order
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null" >
+                pid = #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="score != null" >
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="orderPrice != null" >
+                order_price = #{orderPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="settlementPrice != null" >
+                settlement_price = #{settlementPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="orderStatus != null" >
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="outOrderId != null" >
+                out_order_id = #{outOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="billNo != null" >
+                bill_no = #{billNo,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="com.yd.api" />
+        <module name="com.yd.core" />
+        <module name="com.yd.service" />
+        <module name="com.yd.web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.yd.api" target="1.8" />
+      <module name="com.yd.core" target="1.8" />
+      <module name="com.yd.parent" target="1.8" />
+      <module name="com.yd.service" target="1.8" />
+      <module name="com.yd.web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

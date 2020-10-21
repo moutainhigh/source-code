@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.gift.YdGiftDao" >
+
+    <resultMap id="YdGiftMap" type="com.yd.service.bean.gift.YdGift" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+        
+        <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+        
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        
+        <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+        
+        <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+        
+        <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+        
+        <result column="purchase_price" property="purchasePrice" jdbcType="DECIMAL" />
+        
+        <result column="ladder_number" property="ladderNumber" jdbcType="INTEGER" />
+        
+        <result column="ladder_price" property="ladderPrice" jdbcType="DECIMAL" />
+
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+        
+        <result column="gift_desc" property="giftDesc" jdbcType="VARCHAR" />
+        
+        <result column="is_enable" property="isEnable" jdbcType="CHAR" />
+
+        <result column="is_flag" property="isFlag" jdbcType="CHAR" />
+
+        <result column="supplier_name" property="supplierName" jdbcType="CHAR" />
+
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        supplier_id,
+        category_id,
+        title,
+        sub_title,
+        sale_price,
+        market_price,
+        purchase_price,
+        ladder_number,
+        ladder_price,
+        image_url,
+        gift_desc,
+        is_enable,
+        is_flag
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="supplierId!=null">
+        and supplier_id = #{supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="categoryId!=null">
+        and category_id = #{categoryId,jdbcType=INTEGER}
+        </if>
+        <if test="title!=null and title!=''">
+        and title = #{title,jdbcType=VARCHAR}
+        </if>
+        <if test="subTitle!=null and subTitle!=''">
+        and sub_title = #{subTitle,jdbcType=VARCHAR}
+        </if>
+        <if test="salePrice!=null and salePrice!=''">
+        and sale_price = #{salePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="marketPrice!=null and marketPrice!=''">
+        and market_price = #{marketPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="purchasePrice!=null and purchasePrice!=''">
+        and purchase_price = #{purchasePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="ladderNumber!=null">
+        and ladder_number = #{ladderNumber,jdbcType=INTEGER}
+        </if>
+        <if test="ladderPrice!=null and ladderPrice!=''">
+        and ladder_price = #{ladderPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="imageUrl!=null and imageUrl!=''">
+            and image_url = #{imageUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="giftDesc!=null and giftDesc!=''">
+        and gift_desc = #{giftDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+        and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+        <if test="isFlag!=null and isFlag!=''">
+            and is_flag = #{isFlag,jdbcType=CHAR}
+        </if>
+        <if test="minPrice!=null and minPrice!=''">
+            and sale_price &gt;= #{minPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="maxPrice!=null and maxPrice!=''">
+            and sale_price &lt;= #{maxPrice,jdbcType=DECIMAL}
+        </if>
+    </sql>
+    
+    <select id="getYdGiftById" resultMap="YdGiftMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_gift
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdGiftByIdList" resultMap="YdGiftMap">
+        select
+        <include refid="Base_Column_List" />
+        from yd_gift
+        where 1 = 1 and id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+
+	<select id="getYdGiftCount" parameterType="com.yd.service.bean.gift.YdGift" resultType="int">
+        select
+          count(1)
+        from
+          yd_gift
+        where 1=1
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdGiftListByPage" resultMap="YdGiftMap">
+        select
+          g.*, m.merchant_name supplier_name
+        from
+          yd_gift g
+        left join yd_merchant m on m.id = g.supplier_id
+        where 1=1
+        <if test="params.supplierId!=null">
+            and g.supplier_id = #{params.supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="params.categoryId!=null">
+            and g.category_id = #{params.categoryId,jdbcType=INTEGER}
+        </if>
+        <if test="params.title!=null and params.title!=''">
+            and g.title = #{params.title,jdbcType=VARCHAR}
+        </if>
+        <if test="params.isEnable!=null and params.isEnable!=''">
+            and g.is_enable = #{params.isEnable,jdbcType=CHAR}
+        </if>
+        <if test="params.isFlag!=null and params.isFlag!=''">
+            and g.is_flag = #{params.isFlag,jdbcType=CHAR}
+        </if>
+        <if test="params.minPrice!=null and params.minPrice!=''">
+            and g.sale_price &gt;= #{params.minPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="params.maxPrice!=null and params.maxPrice!=''">
+            and g.sale_price &lt;= #{params.maxPrice,jdbcType=DECIMAL}
+        </if>
+		order by g.update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.gift.YdGift" resultMap="YdGiftMap">
+        select * from yd_gift where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdGift" parameterType="com.yd.service.bean.gift.YdGift" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_gift (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{supplierId,jdbcType=INTEGER},
+        #{categoryId,jdbcType=INTEGER},
+        #{title,jdbcType=VARCHAR},
+        #{subTitle,jdbcType=VARCHAR},
+        #{salePrice,jdbcType=DECIMAL},
+        #{marketPrice,jdbcType=DECIMAL},
+        #{purchasePrice,jdbcType=DECIMAL},
+        #{ladderNumber,jdbcType=INTEGER},
+        #{ladderPrice,jdbcType=DECIMAL},
+        #{imageUrl,jdbcType=VARCHAR},
+        #{giftDesc,jdbcType=VARCHAR},
+        #{isEnable,jdbcType=CHAR},
+        #{isFlag,jdbcType=CHAR}
+        )
+    </insert>
+    
+    <update id="updateYdGift" parameterType="com.yd.service.bean.gift.YdGift" >
+        update yd_gift
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="supplierId != null" >
+                supplier_id = #{supplierId,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null" >
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subTitle != null" >
+                sub_title = #{subTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="salePrice != null" >
+                sale_price = #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="marketPrice != null" >
+                market_price = #{marketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="purchasePrice != null" >
+                purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="ladderNumber != null" >
+                ladder_number = #{ladderNumber,jdbcType=INTEGER},
+            </if>
+            <if test="ladderPrice != null" >
+                ladder_price = #{ladderPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="imageUrl != null" >
+                image_url = #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="giftDesc != null" >
+                gift_desc = #{giftDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnable != null" >
+                is_enable = #{isEnable,jdbcType=CHAR},
+            </if>
+            <if test="isFlag != null" >
+                is_flag = #{isFlag,jdbcType=CHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getGiftCountByCategoryId" resultType="int">
+        select count(1) from yd_gift where
+        category_id = #{categoryId} and is_flag = 'N'
+    </select>
+
+</mapper>

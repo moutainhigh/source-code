@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.common.WbAlipayAccountDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.common.WbAlipayAccount">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="partner" column="partner" />
+		<result property="wapPrivateKey" column="wap_private_key" />
+		<result property="wapPublicKey" column="wap_public_key" />
+		<result property="pcPrivateKey" column="pc_private_key" />
+		<result property="seller" column="seller" />
+		<result property="createTime" column="create_time" />
+		<result property="isDefault" column="is_default" />
+	</resultMap>
+	
+	<delete id="deleteWbAlipayAccountById">
+		DELETE FROM wb_alipay_account WHERE id = #{id}
+	</delete>
+	
+	<select id="findWbAlipayAccountById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_alipay_account
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findDefaultAlipayAccount" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_alipay_account
+		WHERE
+			is_default = 'Y' 
+		limit 
+			1
+	</select>
+	
+	<select id="getWbAlipayAccountCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			wb_alipay_account
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="name!=null">
+  				AND name = #{name}
+  			</if>
+  			<if test="partner!=null">
+  				AND partner = #{partner}
+  			</if>
+  			<if test="wapPrivateKey!=null">
+  				AND wap_private_key = #{wapPrivateKey}
+  			</if>
+  			<if test="wapPublicKey!=null">
+  				AND wap_public_key = #{wapPublicKey}
+  			</if>
+  			<if test="pcPrivateKey!=null">
+  				AND pc_private_key = #{pcPrivateKey}
+  			</if>
+  			<if test="seller!=null">
+  				AND seller = #{seller}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+  			<if test="isDefault!=null">
+  				AND is_default = #{isDefault}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findWbAlipayAccountsByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_alipay_account
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.name!=null">
+  				AND name = #{param.name}
+  			</if>
+  			<if test="param.partner!=null">
+  				AND partner = #{param.partner}
+  			</if>
+  			<if test="param.wapPrivateKey!=null">
+  				AND wap_private_key = #{param.wapPrivateKey}
+  			</if>
+  			<if test="param.wapPublicKey!=null">
+  				AND wap_public_key = #{param.wapPublicKey}
+  			</if>
+  			<if test="param.pcPrivateKey!=null">
+  				AND pc_private_key = #{param.pcPrivateKey}
+  			</if>
+  			<if test="param.seller!=null">
+  				AND seller = #{param.seller}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+  			<if test="param.isDefault!=null">
+  				AND is_default = #{param.isDefault}
+  			</if>
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.common.WbAlipayAccount">
+  		INSERT INTO wb_alipay_account ( 
+			`id`,`name`,`partner`,`wap_private_key`,`wap_public_key`,`pc_private_key`,`seller`,`create_time`,`is_default`			
+  		) VALUES (
+			#{id},#{name},#{partner},#{wapPrivateKey},#{wapPublicKey},#{pcPrivateKey},#{seller},#{createTime},#{isDefault}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.decoration.YdMerchantBannerHistoryDao" >
+
+    <resultMap id="YdShopMerchantBannerHistoryMap" type="com.yd.service.bean.decoration.YdMerchantBannerHistory" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        picture_url
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="pictureUrl!=null and pictureUrl!=''">
+        and picture_url = #{pictureUrl,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdShopMerchantBannerHistoryById" resultMap="YdShopMerchantBannerHistoryMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_banner_history
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.decoration.YdMerchantBannerHistory" resultMap="YdShopMerchantBannerHistoryMap">
+        select * from yd_merchant_banner_history where 1=1 
+        <include refid="where" />
+    </select>
+    
+  
+    <insert id="insertYdShopMerchantBannerHistory" parameterType="com.yd.service.bean.decoration.YdMerchantBannerHistory" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_banner_history (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{pictureUrl,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    
+    <update id="updateYdShopMerchantBannerHistory" parameterType="com.yd.service.bean.decoration.YdMerchantBannerHistory" >
+        update yd_merchant_banner_history
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="pictureUrl != null" >
+                picture_url = #{pictureUrl,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findMerchantBannerPictureHistoryList" resultMap="YdShopMerchantBannerHistoryMap">
+        select * from yd_merchant_banner_history
+        where merchant_id = #{merchantId} and picture_url in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

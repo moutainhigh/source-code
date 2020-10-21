@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" type="text/css" href="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/css/public.css">
+    <link rel="stylesheet" type="text/css"
+          href="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/swiper/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/swiper/swiper_style.css"/>
+    <link rel="stylesheet" type="text/css" href="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/css/lottery.css"/>
+    <script src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/dzp/js/jquery-1.10.2.js"></script>
+    <script src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/swiper/swiper.min.js"></script>
+    <title>抽奖</title>
+</head>
+<style>
+    body{
+        background: #75aef0!important;
+    }
+    .lottery {
+        top: 4.1rem;
+    }
+
+    .btn-wrap {
+        position: absolute;
+        top: 3.4rem;
+        width: 100%;
+        height: 0.6rem;
+        display: flex;
+        box-sizing: border-box;
+        justify-content: flex-end;
+    }
+
+    .btn-wrap div {
+        width: 1.5rem;
+    }
+
+    .popup {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        display: none;
+        background: rgba(0, 0, 0, .6);
+    }
+
+    .popup .container {
+        position: absolute;
+        width: 5.38rem;
+        top: 1.18rem;
+        left: .51rem;
+    }
+
+    .popup2 .container {
+        top: 1.92rem;
+    }
+
+    .popup3 .container {
+        top: 1.92rem;
+    }
+
+    .popup .container .close {
+        width: 0.55rem;
+        height: 0.55rem;
+        position: absolute;
+        right: 0;
+        background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/delete.png") no-repeat center/cover;
+    }
+
+    .my-wrap {
+        width: 100%;
+        height: 5.53rem;
+        margin-top: .65rem;
+        background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/my_bg.png") no-repeat center/cover;
+    }
+
+    .popup4 .my-wrap {
+        text-align: center;
+        height: 4.35rem;
+        background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/success_bg.png") no-repeat center/cover;
+    }
+
+    .popup4 .my-wrap img {
+        padding-top: .51rem;
+        display: inline;
+        width: .96rem;
+    }
+
+    .success-txt {
+        font-size: .31rem;
+        color: #7f4200;
+        line-height: .96rem;
+    }
+
+    .times-wrap {
+        width: 100%;
+        height: 2.64rem;
+        margin-top: .65rem;
+        background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/mjh_bg.png") no-repeat center/cover;
+    }
+
+    .times-wrap p {
+        padding-top: .83rem
+    }
+
+    .my-list {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 1.26rem 0.44rem 0.48rem 0.55rem;
+        overflow: hidden;
+    }
+
+    .scroll-wrap {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    .item {
+        font-size: 0.24rem;
+        color: #e66900;
+        display: flex;
+        justify-content: space-between;
+        line-height: .99rem;
+        align-items: center;
+    }
+
+    .time-wrap {
+        font-size: .2rem;
+        color: #999999;
+    }
+
+    .item img {
+        width: 0.58rem;
+        height: 0.58rem;
+    }
+
+    .no-gift {
+        text-align: center;
+        color: #7f4200;
+        font-size: .3rem;
+        line-height: .99rem;
+    }
+
+    .try-agin {
+        width: 2.89rem;
+        height: 1rem;
+        margin: .58rem auto 0;
+        background: url("http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/play_agin.png") no-repeat center/cover;
+    }
+
+    .rules {
+        line-height: .4rem;
+        font-size: .24rem;
+        color: #fff;
+    }
+
+</style>
+<body>
+<div class="all">
+    <div class="lottery_banner">
+        <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/bg_image02.png?t=3" alt=""/>
+    </div>
+    <div class="lottery">
+        <div class="shanDeng" id="deng">
+            <!--<div id="luck">-->
+            <!--<table style="border-spacing:.1rem .1rem;">-->
+            <!--<tr>-->
+            <!--<td class="luck-unit luck-unit-0">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/l_gift1.png" alt=""/>-->
+            <!--<div>1.1元红包</div>-->
+            <!--</td>-->
+            <!--<td class="luck-unit luck-unit-1">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/zWardS_fail2.png"-->
+            <!--alt=""/>-->
+            <!--<div>谢谢你</div>-->
+            <!--</td>-->
+            <!--<td class="luck-unit luck-unit-2">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/l_gift3.png" alt=""/>-->
+            <!--<div>1.3元红包</div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td class="luck-unit luck-unit-7">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/l_gift5.png" alt=""/>-->
+            <!--<div>1.5元红包</div>-->
+            <!--</td>-->
+            <!--<td class="cjBtn" id="btn">-->
+            <!--<div class="lottery_times">(3)</div>-->
+            <!--</td>-->
+            <!--<td class="luck-unit luck-unit-3">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/zWardS_fail2.png"-->
+            <!--alt=""/>-->
+            <!--<div>谢谢你</div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td class="luck-unit luck-unit-6">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/zWardS_fail2.png"-->
+            <!--alt=""/>-->
+            <!--<div>谢谢你</div>-->
+            <!--</td>-->
+            <!--<td class="luck-unit luck-unit-5">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/l_gift2.png" alt=""/>-->
+            <!--<div>1.2元红包</div>-->
+            <!--</td>-->
+            <!--<td class="luck-unit luck-unit-4">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/jgg/images/l_gift4.png" alt=""/>-->
+            <!--<div>1.4元红包</div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--</table>-->
+        </div>
+        <div style="text-align: center;padding-top: .5rem;color: #fff;font-size: .29rem">活动规则</div>
+        <div class="rules">
+            1
+            <!--1、用户参与快抢未中奖后可随机获得免费抽奖资格，每个用户每天最多可获得3次抽奖资格，抽奖资格当天有效<br/>-->
+            <!--2、中奖实物商品在2个工作日内发放 <br/>-->
+            <!--3、中奖红包和巴豆立即生效，有效期3天，请尽快使用 <br/>-->
+            <!--4、本活动最终解释权归91快抢所有-->
+        </div>
+    </div>
+
+</div>
+<div class="btn-wrap">
+    <div class="btn-right"></div>
+</div>
+<div class="popup popup1">
+    <div class="container">
+        <div class="close"></div>
+        <div class="my-wrap">
+            <div class="my-list">
+                <div class="scroll-wrap">
+                    <p class="no-gift">暂时没有奖品哦</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup popup2">
+    <div class="container">
+        <div class="close"></div>
+        <div class="times-wrap">
+            <p class="no-gift">你的抽奖机会已经用完了～</p>
+        </div>
+    </div>
+</div>
+<div class="popup popup3">
+    <div class="container">
+        <div class="close"></div>
+        <div class="times-wrap">
+            <p class="no-gift">很遗憾，没中呢，再接再厉哦～</p>
+        </div>
+        <div class="try-agin"></div>
+    </div>
+</div>
+<div class="popup popup4">
+    <div class="container">
+        <div class="close"></div>
+        <div class="my-wrap">
+            <div class="my-list">
+                <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png" alt="">
+                <p class="success-txt">10元红包</p>
+            </div>
+        </div>
+        <div class="try-agin"></div>
+    </div>
+</div>
+</div>
+
+
+<script>
+    function getSearchString(key) {
+        // 获取URL中?之后的字符
+        var str = location.search;
+        str = str.substring(1,str.length);
+
+        // 以&分隔字符串，获得类似name=xiaoli这样的元素数组
+        var arr = str.split("&");
+        var obj = new Object();
+
+        // 将每一个数组元素以=分隔并赋给obj对象
+        for(var i = 0; i < arr.length; i++) {
+            var tmp_arr = arr[i].split("=");
+            obj[decodeURIComponent(tmp_arr[0])] = decodeURIComponent(tmp_arr[1]);
+        }
+        return obj[key];
+    }
+    var giftList = null
+    var luck = {
+        index: 0, //当前转动到哪个位置，起点位置
+        count: 0, //总共有多少个位置
+        timer: 0, //setTimeout的ID，用clearTimeout清除
+        speed: 20, //初始转动速度
+        times: 0, //转动次数
+        cycle: 50, //转动基本次数：即至少需要转动多少次再进入抽奖环节
+        prize: -1, //中奖位置
+        init: function (id) {
+            if ($("#" + id).find(".luck-unit").length > 0) {
+                $luck = $("#" + id);
+                $units = $luck.find(".luck-unit");
+                this.obj = $luck;
+                this.count = $units.length;
+                $luck.find(".luck-unit-" + this.index).addClass("active");
+            }
+            ;
+        },
+
+        roll: function () {
+            var index = this.index;
+            var count = this.count;
+            var luck = this.obj;
+            $(luck).find(".luck-unit-" + index).removeClass("active");
+            index += 1;
+            if (index > count - 1) {
+                index = 0;
+            }
+            ;
+            $(luck).find(".luck-unit-" + index).addClass("active");
+            this.index = index;
+            return false;
+        },
+        stop: function (index) {
+            this.prize = index;
+            return false;
+        }
+    };
+    //
+    // function getPrizeList() {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: window.location.protocol + "/front/user/draw/findPrizeList",
+    //         data: {
+    //             uuid: 'af0c5ad91dec402abf68ccc083c011c6'
+    //         },
+    //         dataType: "json",
+    //         contentType: 'application/x-www-form-urlencoded',
+    //         success: function (res) {
+    //             if (res.code && '00' == res.code) {
+    //
+    //             } else {
+    //
+    //             }
+    //         }
+    //     });
+    // }
+
+    function roll() {
+        luck.times += 1;
+        luck.roll();
+        if (luck.times > luck.cycle + 10 && luck.prize == luck.index) {
+            clearTimeout(luck.timer);
+            luck.prize = -1;
+            luck.times = 0;
+            click = false;
+
+            if (giftList[_index].prizeType == 'WZJ') {
+                $('.popup3').fadeIn()
+            } else {
+                $('.success-txt').html(giftList[_index].qTitle)
+                $('.popup4').fadeIn()
+            }
+
+
+        } else {
+            if (luck.times < luck.cycle) {
+                luck.speed -= 10;
+            } else if (luck.times == luck.cycle) {
+                var index = _index;
+                // var index = Math.random() * (luck.count) | 0;
+
+                luck.prize = index; //最终中奖位置
+                console.log('111')
+            } else {
+                if (luck.times > luck.cycle + 10 && ((luck.prize == 0 && luck.index == 7) || luck.prize == luck.index + 1)) {
+                    luck.speed += 110;
+                } else {
+                    luck.speed += 20;
+                }
+            }
+            if (luck.speed < 40) {
+                luck.speed = 40;
+            }
+            ;
+
+            luck.timer = setTimeout(roll, luck.speed);
+        }
+        return false;
+    }
+
+    function timeForm(a) {
+        var _d = new Date(a)
+        return _d.getFullYear() + '.' + (_d.getMonth() + 1) + '.' + _d.getDate()
+    }
+
+    var click = false;
+    var _index = 0
+    window.onload = function () {
+        function getRule() {
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/getDrawActivityDetail",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        $('.rules').html(res.result.rules)
+                    } else {
+
+                    }
+                }
+            });
+        };
+        getRule();
+
+        function getNum() {
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/getUserDrawCount",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        $('#num').html(res.result)
+                    } else {
+
+                    }
+                }
+            });
+        }
+
+        $('.popup').on('touchmove', function (e) {
+            console.log(111)
+            e.preventDefault()
+        });
+        $('.scroll-wrap').on('touchmove', function (event) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();  //  w3c 标准
+            } else {
+                event.cancelBubble = true;  // ie 678  IE浏览器
+            }
+        });
+        $('.try-agin').click(function () {
+            $('.popup').fadeOut()
+        })
+        // getPrizeList();
+        $("#deng").on('click', '#btn', function () {
+            if (parseInt($('#num').html()) == 0) {
+                $('.popup2').fadeIn()
+                return
+            }
+
+            if (click) {
+                return false;
+            } else {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: window.location.protocol + "/front/user/draw/clickDraw",
+                    data: {
+                        uuid: getSearchString('uuid')
+                    },
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (res) {
+                        if (res.code && '00' == res.code) {
+                            var _num = parseInt($('#num').html()) - 1
+                            $('#num').html(_num);
+
+                            //获取随机数(奖品个数范围内)
+                            // var item = rnd(1, turnplate.restaraunts.length);
+                            //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
+                            console.log(giftList)
+                            for (var i = 0; i < giftList.length; i++) {
+                                if (res.result == giftList[i].id) {
+
+                                    _index = i;
+                                    luck.speed = 100;
+                                    roll();
+                                    click = true;
+                                    return false;
+                                    break;
+                                }
+                            }
+
+
+                            console.log(res)
+                        } else {
+
+                        }
+                    }
+                });
+
+
+            }
+
+        });
+
+
+        $('.btn-right').click(function () {
+            if (click) return
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/getUserDrawRecord",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        console.log(res);
+                        var _html = ''
+                        if (res.result) {
+                            for (var i = 0; i < res.result.length; i++) {
+                                _html += '   <div class="item">\n' +
+                                    '                        <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png" alt="">\n' +
+                                    '                        <span>' + res.result[i].couponTitle + '</span>\n' +
+                                    '                        <span class="time-wrap">' + timeForm(res.result[i].createTime) + '</span>\n' +
+                                    '                    </div>'
+
+                            }
+                        }
+
+                        if (!(res.result && res.result.length != 0)) {
+                            _html = '<p class="no-gift">暂时没有奖品哦~</p>'
+                        }
+                        $('.scroll-wrap').html(_html)
+                        // <div class="item">
+                        //         <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png" alt="">
+                        //         <span>抽中10元现金</span>
+                        //         <span class="time-wrap">2019.03.05</span>
+                        //     </div>
+                        $('.popup1').fadeIn()
+                    } else {
+
+                    }
+                }
+            })
+
+        })
+        $('.close').click(function () {
+            $('.popup').fadeOut()
+        })
+
+
+        function getRestaraunts() {
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "/front/user/draw/findPrizeList",
+                data: {
+                    uuid: getSearchString('uuid')
+                },
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (res) {
+                    if (res.code && '00' == res.code) {
+                        giftList = res.result
+                        for (var i = 0; i < giftList.length; i++) {
+                            if (giftList[i].prizeType == 'WZJ') {
+                                giftList[i].imgSrc = 'http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/xxhg.png'
+                                giftList[i].qTitle = '谢谢惠顾'
+                            } else {
+                                giftList[i].imgSrc = 'http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png'
+                                giftList[i].qTitle = giftList[i].couponTitle
+                            }
+                        }
+
+                        $('#deng').html('         <div id="luck">\n' +
+                            '                <table style="border-spacing:.1rem .1rem;">\n' +
+                            '                    <tr>\n' +
+                            '                        <td class="luck-unit luck-unit-0">\n' +
+                            '                            <img src=' + giftList[0].imgSrc + ' alt=""/>\n' +
+                            '                            <div>' + giftList[0].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                        <td class="luck-unit luck-unit-1">\n' +
+                            '                            <img src=' + giftList[1].imgSrc + '  alt=""/>\n' +
+                            '                            <div>' + giftList[1].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                        <td class="luck-unit luck-unit-2">\n' +
+                            '                            <img src=' + giftList[2].imgSrc + '  alt=""/>\n' +
+                            '                            <div>' + giftList[2].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                    </tr>\n' +
+                            '                    <tr>\n' +
+                            '                        <td class="luck-unit luck-unit-7">\n' +
+                            '                            <img src=' + giftList[7].imgSrc + '  alt=""/>\n' +
+                            '                            <div>' + giftList[7].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                        <td class="cjBtn" id="btn">\n' +
+                            '                            <div class="lottery_times">(<span id="num">0</span>)</div>\n' +
+                            '                        </td>\n' +
+                            '                        <td class="luck-unit luck-unit-3">\n' +
+                            '                            <img src=' + giftList[3].imgSrc + '  alt=""/>\n' +
+                            '                            <div>' + giftList[3].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                    </tr>\n' +
+                            '                    <tr>\n' +
+                            '                        <td class="luck-unit luck-unit-6">\n' +
+                            '                            <img src=' + giftList[6].imgSrc + '  alt=""/>\n' +
+                            '                            <div>' + giftList[6].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                        <td class="luck-unit luck-unit-5">\n' +
+                            '                            <img src=' + giftList[5].imgSrc + '  alt=""/>\n' +
+                            '                            <div>' + giftList[5].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                        <td class="luck-unit luck-unit-4">\n' +
+                            '                            <img src=' + giftList[4].imgSrc + '  alt=""/>\n' +
+                            '                            <div>' + giftList[4].qTitle + '</div>\n' +
+                            '                        </td>\n' +
+                            '                    </tr>\n' +
+                            '                </table>');
+                        getNum()
+                        luck.init('luck');
+                    } else {
+
+                    }
+                }
+            });
+        };
+        getRestaraunts()
+
+    };
+</script>
+</body>
+
+</html>

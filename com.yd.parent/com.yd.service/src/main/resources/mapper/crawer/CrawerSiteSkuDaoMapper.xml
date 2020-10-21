@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.crawer.dao.CrawerSiteSkuDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.crawer.bean.CrawerSiteSku">
+		<result property="id" column="id" />
+		<result property="siteName" column="site_name" />
+		<result property="brand" column="brand" />
+		<result property="title" column="title" />
+		<result property="link" column="link" />
+		<result property="createTime" column="create_time" />
+		<result property="extra" column="extra" />
+		<result property="price" column="price" />
+		<result property="propPath" column="prop_path" />
+		<result property="cover" column="cover" />
+	</resultMap>
+	
+	<delete id="deleteCrawerSiteSkuById">
+		DELETE FROM crawer_site_sku WHERE id = #{id}
+	</delete>
+	
+	<update id="updateSkuByLink" parameterType="com.yd.service.crawer.bean.CrawerSiteSku">
+		update
+			crawer_site_sku
+		set
+			prop_path=#{param.propPath},
+			title=#{param.title},
+			price=#{param.price},
+			cover=#{param.cover},
+			status=1
+		where
+			link=#{param.link}
+	</update>
+	
+	<select id="getUndoSkuList" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_site_sku
+		WHERE
+			status = 0
+	</select>
+	
+	<select id="getCoverNullList" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_site_sku
+		WHERE
+			cover is null
+	</select>
+	
+	<select id="findCrawerSiteSkuByLink" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_site_sku
+		WHERE
+			link = #{link}
+	</select>
+	
+	<select id="findCrawerSiteSkuById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_site_sku
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="getCrawerSiteSkuCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			crawer_site_sku
+		<where>
+
+		</where>
+	</select>
+	
+	<select id="findCrawerSiteSkusByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_site_sku
+		<where>
+
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.crawer.bean.CrawerSiteSku">
+  		INSERT INTO crawer_site_sku ( 
+			`id`,`site_name`,`brand`,`title`,`link`,`create_time`,`extra`,`price`,`prop_path`
+  		) VALUES (
+			#{id},#{siteName},#{brand},#{title},#{link},#{createTime},#{extra},#{price},#{propPath}
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

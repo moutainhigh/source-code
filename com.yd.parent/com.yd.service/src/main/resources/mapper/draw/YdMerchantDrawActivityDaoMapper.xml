@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.draw.YdMerchantDrawActivityDao" >
+
+    <resultMap id="YdMerchantDrawActivityMap" type="com.yd.service.bean.draw.YdMerchantDrawActivity" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="activity_type" property="activityType" jdbcType="VARCHAR" />
+
+        <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+        
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        
+        <result column="draw_user_type" property="drawUserType" jdbcType="VARCHAR" />
+        
+        <result column="draw_count_type" property="drawCountType" jdbcType="VARCHAR" />
+        
+        <result column="draw_count" property="drawCount" jdbcType="INTEGER" />
+        
+        <result column="rules" property="rules" jdbcType="VARCHAR" />
+        
+        <result column="is_enable" property="isEnable" jdbcType="CHAR" />
+        
+        <result column="is_flag" property="isFlag" jdbcType="CHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        uuid,
+        merchant_id,
+        activity_type,
+        banner_url,
+        start_time,
+        end_time,
+        draw_user_type,
+        draw_count_type,
+        draw_count,
+        rules,
+        is_enable,
+        is_flag
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="uuid!=null and uuid!=''">
+        and uuid = #{uuid,jdbcType=VARCHAR}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="activityType!=null and activityType!=''">
+        and activity_type = #{activityType,jdbcType=VARCHAR}
+        </if>
+        <if test="bannerUrl!=null and bannerUrl!=''">
+            and banner_url = #{bannerUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+        and start_time = #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+        and end_time = #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="drawUserType!=null and drawUserType!=''">
+        and draw_user_type = #{drawUserType,jdbcType=VARCHAR}
+        </if>
+        <if test="drawCountType!=null and drawCountType!=''">
+        and draw_count_type = #{drawCountType,jdbcType=VARCHAR}
+        </if>
+        <if test="drawCount!=null">
+        and draw_count = #{drawCount,jdbcType=INTEGER}
+        </if>
+        <if test="rules!=null and rules!=''">
+        and rules = #{rules,jdbcType=VARCHAR}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+        and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+        <if test="isFlag!=null and isFlag!=''">
+        and is_flag = #{isFlag,jdbcType=CHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantDrawActivityById" resultMap="YdMerchantDrawActivityMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_draw_activity
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantDrawActivityByUuid" resultMap="YdMerchantDrawActivityMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_draw_activity
+        where uuid = #{uuid}
+    </select>
+        
+	<select id="getYdMerchantDrawActivityCount" parameterType="com.yd.service.bean.draw.YdMerchantDrawActivity" resultType="int">
+        select count(1) from yd_merchant_draw_activity where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantDrawActivityListByPage" resultMap="YdMerchantDrawActivityMap">
+        select * from yd_merchant_draw_activity where 1=1
+        <if test="params.merchantId!=null">
+            and merchant_id = #{params.merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="params.activityType!=null and params.activityType!=''">
+            and activity_type = #{params.activityType,jdbcType=VARCHAR}
+        </if>
+        <if test="params.isEnable!=null and params.isEnable!=''">
+            and is_enable = #{params.isEnable,jdbcType=CHAR}
+        </if>
+        <if test="params.isFlag!=null and params.isFlag!=''">
+            and is_flag = #{params.isFlag,jdbcType=CHAR}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.draw.YdMerchantDrawActivity" resultMap="YdMerchantDrawActivityMap">
+        select * from yd_merchant_draw_activity where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+    <insert id="insertYdMerchantDrawActivity" parameterType="com.yd.service.bean.draw.YdMerchantDrawActivity" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_draw_activity (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{uuid,jdbcType=VARCHAR},
+        #{merchantId,jdbcType=INTEGER},
+        #{activityType,jdbcType=VARCHAR},
+        #{bannerUrl,jdbcType=VARCHAR},
+        #{startTime,jdbcType=TIMESTAMP},
+        #{endTime,jdbcType=TIMESTAMP},
+        #{drawUserType,jdbcType=VARCHAR},
+        #{drawCountType,jdbcType=VARCHAR},
+        #{drawCount,jdbcType=INTEGER},
+        #{rules,jdbcType=VARCHAR},
+        #{isEnable,jdbcType=CHAR},
+        #{isFlag,jdbcType=CHAR}
+        )
+    </insert>
+
+    <update id="updateYdMerchantDrawActivity" parameterType="com.yd.service.bean.draw.YdMerchantDrawActivity" >
+        update yd_merchant_draw_activity
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uuid != null" >
+                uuid = #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="activityType != null" >
+                activity_type = #{activityType,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerUrl != null" >
+                banner_url = #{bannerUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null" >
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="drawUserType != null" >
+                draw_user_type = #{drawUserType,jdbcType=VARCHAR},
+            </if>
+            <if test="drawCountType != null" >
+                draw_count_type = #{drawCountType,jdbcType=VARCHAR},
+            </if>
+            <if test="drawCount != null" >
+                draw_count = #{drawCount,jdbcType=INTEGER},
+            </if>
+            <if test="rules != null" >
+                rules = #{rules,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnable != null" >
+                is_enable = #{isEnable,jdbcType=CHAR},
+            </if>
+            <if test="isFlag != null" >
+                is_flag = #{isFlag,jdbcType=CHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

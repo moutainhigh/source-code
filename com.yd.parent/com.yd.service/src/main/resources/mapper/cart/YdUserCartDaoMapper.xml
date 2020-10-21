@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.cart.YdUserCartDao" >
+
+    <resultMap id="YdUserCartMap" type="com.yd.service.bean.cart.YdUserCart" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="merchant_sku_id" property="merchantSkuId" jdbcType="INTEGER" />
+        
+        <result column="num" property="num" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        user_id,
+        merchant_id,
+        merchant_sku_id,
+        num
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantSkuId!=null">
+        and merchant_sku_id = #{merchantSkuId,jdbcType=INTEGER}
+        </if>
+        <if test="num!=null">
+        and num = #{num,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdUserCartById" resultMap="YdUserCartMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_user_cart
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findYdUserCartByIds" resultMap="YdUserCartMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_user_cart
+        where 1 = 1 and id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+        
+	<select id="getAll" parameterType="com.yd.service.bean.cart.YdUserCart" resultMap="YdUserCartMap">
+        select * from yd_user_cart where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+    <insert id="insertYdUserCart" parameterType="com.yd.service.bean.cart.YdUserCart" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_user_cart (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{userId,jdbcType=INTEGER},
+        #{merchantId,jdbcType=INTEGER},
+        #{merchantSkuId,jdbcType=INTEGER},
+        #{num,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateYdUserCart" parameterType="com.yd.service.bean.cart.YdUserCart" >
+        update yd_user_cart
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantSkuId != null" >
+                merchant_sku_id = #{merchantSkuId,jdbcType=INTEGER},
+            </if>
+            <if test="num != null" >
+                num = #{num,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteCartByIdList">
+        delete from
+          yd_user_cart
+        where
+          user_id = #{userId} and merchant_id = #{merchantId} and id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 清空购物车 -->
+    <delete id="clearCart">
+        delete from
+          yd_user_cart
+        where
+          user_id = #{userId} and merchant_id = #{merchantId}
+    </delete>
+
+    <select id="findCartListByIdList" resultMap="YdUserCartMap">
+        SELECT
+            *
+        FROM
+            yd_user_cart
+        WHERE
+            user_id = #{userId}
+        AND merchant_id = #{merchantId}
+        AND id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+  </select>
+
+</mapper>

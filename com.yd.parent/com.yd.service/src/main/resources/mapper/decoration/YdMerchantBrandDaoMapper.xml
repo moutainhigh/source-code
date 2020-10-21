@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.decoration.YdMerchantBrandDao" >
+
+    <resultMap id="YdMerchantBrandMap" type="com.yd.service.bean.decoration.YdMerchantBrand" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+
+        <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+
+        <result column="brand_alias" property="brandAlias" jdbcType="VARCHAR" />
+        
+        <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+        
+        <result column="icon" property="icon" jdbcType="VARCHAR" />
+        
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        brand_id,
+        brand_alias,
+        brand_name,
+        icon,
+        sort
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="brandId!=null">
+            and brand_id = #{brandId,jdbcType=INTEGER}
+        </if>
+        <if test="brandAlias!=null and brandAlias!=''">
+            and brand_alias = #{brandAlias,jdbcType=VARCHAR}
+        </if>
+        <if test="brandName!=null and brandName!=''">
+        and brand_name = #{brandName,jdbcType=VARCHAR}
+        </if>
+        <if test="icon!=null and icon!=''">
+        and icon = #{icon,jdbcType=VARCHAR}
+        </if>
+        <if test="sort!=null">
+        and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantBrandById" resultMap="YdMerchantBrandMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_brand
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantBrandByMerchantId" resultMap="YdMerchantBrandMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_brand
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantBrandByMerchantIdAndAlias" resultMap="YdMerchantBrandMap">
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_brand
+        where
+          merchant_id = #{merchantId} and brand_alias = #{brandAlias}
+          limit 1
+    </select>
+
+	<select id="getYdMerchantBrandCount" parameterType="com.yd.service.bean.decoration.YdMerchantBrand" resultType="int">
+        select count(1) from yd_merchant_brand where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantBrandListByPage" resultMap="YdMerchantBrandMap">
+        select * from yd_merchant_brand where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.decoration.YdMerchantBrand" resultMap="YdMerchantBrandMap">
+        select * from yd_merchant_brand where 1=1 
+        <include refid="where" />
+        order by sort asc, update_time asc
+    </select>
+    
+    <insert id="insertYdMerchantBrand" parameterType="com.yd.service.bean.decoration.YdMerchantBrand" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_brand (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{brandId,jdbcType=INTEGER},
+        #{brandAlias,jdbcType=VARCHAR},
+        #{brandName,jdbcType=VARCHAR},
+        #{icon,jdbcType=VARCHAR},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateYdMerchantBrand" parameterType="com.yd.service.bean.decoration.YdMerchantBrand" >
+        update yd_merchant_brand
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="brandId != null" >
+                brand_id = #{brandId,jdbcType=INTEGER},
+            </if>
+            <if test="brandAlias != null" >
+                brand_alias = #{brandAlias,jdbcType=VARCHAR},
+            </if>
+            <if test="brandName != null" >
+                brand_name = #{brandName,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null" >
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteYdMerchantBrand">
+        delete  from yd_merchant_brand where id = #{id}
+    </delete>
+
+</mapper>

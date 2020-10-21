@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.item.YdItemSpecNameDao" >
+
+    <resultMap id="YdItemSpecNameMap" type="com.yd.service.bean.item.YdItemSpecName" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+
+        <result column="spec_name" property="specName" jdbcType="VARCHAR" />
+
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        item_id,
+        spec_name,
+        sort
+    </sql>
+
+    <sql id="where">
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+            and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="itemId!=null">
+            and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="specName!=null and specName!=''">
+            and spec_name = #{specName,jdbcType=VARCHAR}
+        </if>
+        <if test="sort!=null">
+            and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+
+    <select id="getYdItemSpecNameById" resultMap="YdItemSpecNameMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_item_spec_name
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findSpecNameListByItemId" resultMap="YdItemSpecNameMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_item_spec_name
+        where item_id = #{itemId}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.item.YdItemSpecName" resultMap="YdItemSpecNameMap">
+        select * from yd_item_spec_name where 1=1
+        <include refid="where" />
+    </select>
+    
+    <select id="getYdItemSpecNameByItemId" resultMap="YdItemSpecNameMap">
+        select * from yd_item_spec_name where item_id=#{itemId}
+    </select>
+
+
+    <insert id="insertYdItemSpecName" parameterType="com.yd.service.bean.item.YdItemSpecName" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_item_spec_name (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{itemId,jdbcType=INTEGER},
+        #{specName,jdbcType=VARCHAR},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+
+
+    <update id="updateYdItemSpecName" parameterType="com.yd.service.bean.item.YdItemSpecName" >
+        update yd_item_spec_name
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="specName != null" >
+                spec_name = #{specName,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.market.YdMerchantItemGiftRateDao" >
+
+    <resultMap id="YdMerchantItemGiftRateMap" type="com.yd.service.bean.market.YdMerchantItemGiftRate" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="first_category_id" property="firstCategoryId" jdbcType="INTEGER" />
+        
+        <result column="second_category_id" property="secondCategoryId" jdbcType="INTEGER" />
+
+        <result column="merchant_item_id" property="merchantItemId" jdbcType="INTEGER" />
+
+        <result column="rate" property="rate" jdbcType="INTEGER" />
+
+        <result column="title" property="title" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        first_category_id,
+        second_category_id,
+        merchant_item_id,
+        rate
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="firstCategoryId!=null">
+        and first_category_id = #{firstCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="secondCategoryId!=null">
+        and second_category_id = #{secondCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantItemId!=null">
+            and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="rate!=null">
+        and rate = #{rate,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantItemGiftRateById" resultMap="YdMerchantItemGiftRateMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_item_gift_rate
+        where merchant_item_id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getGiftRateByMerchantItemId" resultMap="YdMerchantItemGiftRateMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_item_gift_rate
+        where id = #{merchantItemId,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdMerchantItemGiftRateCount" parameterType="com.yd.service.bean.market.YdMerchantItemGiftRate" resultType="int">
+        select count(1) from yd_merchant_item_gift_rate where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantItemGiftRateListByPage" resultMap="YdMerchantItemGiftRateMap">
+        select * from yd_merchant_item_gift_rate where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.market.YdMerchantItemGiftRate" resultMap="YdMerchantItemGiftRateMap">
+        select * from yd_merchant_item_gift_rate where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+  
+    <insert id="insertYdMerchantItemGiftRate" parameterType="com.yd.service.bean.market.YdMerchantItemGiftRate" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_item_gift_rate (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{firstCategoryId,jdbcType=INTEGER},
+        #{secondCategoryId,jdbcType=INTEGER},
+        #{merchantItemId,jdbcType=INTEGER},
+        #{rate,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateYdMerchantItemGiftRate" parameterType="com.yd.service.bean.market.YdMerchantItemGiftRate" >
+        update yd_merchant_item_gift_rate
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="firstCategoryId != null" >
+                first_category_id = #{firstCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="secondCategoryId != null" >
+                second_category_id = #{secondCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantItemId != null" >
+                merchant_item_id = #{merchantItemId,jdbcType=INTEGER},
+            </if>
+            <if test="rate != null" >
+                rate = #{rate,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findMerchantItemRateByPage" resultMap="YdMerchantItemGiftRateMap">
+        SELECT
+            i.id merchant_item_id,
+            i.first_category_id,
+            i.second_category_id,
+            i.title,
+            g.id,
+            g.rate
+        FROM
+            yd_merchant_item i
+        LEFT JOIN yd_merchant_item_gift_rate g ON i.id = g.merchant_item_id
+        WHERE
+            i.merchant_id = #{merchantId}
+          and i.second_category_id = #{secondCategoryId}
+        <if test="pageSize != null and pageStart != null" >
+            limit #{pageStart}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getMerchantItemRateCount" resultType="int">
+        SELECT
+           count(1)
+        FROM
+            yd_merchant_item i
+        LEFT JOIN yd_merchant_item_gift_rate g ON i.id = g.merchant_item_id
+        WHERE
+            i.merchant_id = #{merchantId}
+          and i.second_category_id = #{secondCategoryId}
+    </select>
+
+    <select id="findListByMerchantIdList" resultMap="YdMerchantItemGiftRateMap">
+        SELECT
+          *
+        from
+          yd_merchant_item_gift_rate
+        where
+         merchant_id = #{merchantId} and merchant_item_id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

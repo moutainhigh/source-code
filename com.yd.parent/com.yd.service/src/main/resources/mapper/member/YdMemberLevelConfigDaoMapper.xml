@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.member.YdMemberLevelConfigDao" >
+
+    <resultMap id="YdMemberLevelConfigMap" type="com.yd.service.bean.member.YdMemberLevelConfig" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="member_level" property="memberLevel" jdbcType="INTEGER" />
+        
+        <result column="member_type" property="memberType" jdbcType="VARCHAR" />
+
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        
+        <result column="valid_length" property="validLength" jdbcType="INTEGER" />
+        
+        <result column="member_price" property="memberPrice" jdbcType="DOUBLE" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        member_level,
+        member_type,
+        role_id,
+        valid_length,
+        member_price
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="memberLevel!=null and memberLevel!=''">
+        and member_level = #{memberLevel,jdbcType=INTEGER}
+        </if>
+        <if test="roleId!=null">
+            and role_id = #{roleId,jdbcType=INTEGER}
+        </if>
+        <if test="memberType!=null and memberType!=''">
+        and member_type = #{memberType,jdbcType=VARCHAR}
+        </if>
+        <if test="validLength!=null">
+        and valid_length = #{validLength,jdbcType=INTEGER}
+        </if>
+        <if test="memberPrice!=null and memberPrice!=''">
+        and member_price = #{memberPrice,jdbcType=DOUBLE}
+        </if>
+    </sql>
+    
+    <select id="getYdMemberLevelConfigById" resultMap="YdMemberLevelConfigMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_member_level_config
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMemberLevelConfigByMemberLevel" resultMap="YdMemberLevelConfigMap" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_member_level_config
+        where member_level = #{memberLevel}
+    </select>
+
+	<select id="getYdMemberLevelConfigCount" parameterType="com.yd.service.bean.member.YdMemberLevelConfig" resultType="int">
+        select count(1) from yd_member_level_config where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMemberLevelConfigListByPage" resultMap="YdMemberLevelConfigMap">
+        select * from yd_member_level_config where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.member.YdMemberLevelConfig" resultMap="YdMemberLevelConfigMap">
+        select * from yd_member_level_config where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdMemberLevelConfig" parameterType="com.yd.service.bean.member.YdMemberLevelConfig" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_member_level_config (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{memberLevel,jdbcType=INTEGER},
+        #{memberType,jdbcType=VARCHAR},
+        #{roleId,jdbcType=INTEGER},
+        #{validLength,jdbcType=INTEGER},
+        #{memberPrice,jdbcType=DOUBLE}
+        )
+    </insert>
+
+    <update id="updateYdMemberLevelConfig" parameterType="com.yd.service.bean.member.YdMemberLevelConfig" >
+        update yd_member_level_config
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memberLevel != null" >
+                member_level = #{memberLevel,jdbcType=INTEGER},
+            </if>
+            <if test="memberType != null" >
+                member_type = #{memberType,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null" >
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="validLength != null" >
+                valid_length = #{validLength,jdbcType=INTEGER},
+            </if>
+            <if test="memberPrice != null" >
+                member_price = #{memberPrice,jdbcType=DOUBLE}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

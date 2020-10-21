@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+<title>我的优惠券</title>
+<meta charset="utf-8">
+<meta name="keywords" content="聚积宝，通宝商城领券中心">
+<meta name="description" content="聚积宝，通宝商城领券中心">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="cleartype" content="on">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1 ,user-scalable=0">
+<link href="//c1.51jujibao.com/rs/favicon.ico?v=20151105" rel="shortcut icon" />
+<link charset="utf-8" rel="stylesheet" type="text/css" href="//c1.51jujibao.com/static/mod/tbmall/1.0.0/css/gb.css" />
+<link rel="stylesheet" href="//c1.51jujibao.com/static/mod/jujibao/libs/swiper3/swiper.min.css">
+<link rel="stylesheet" href="//c1.51jujibao.com/static/mod/jujibao/libs/sweetalert/sweetalert.css" />
+<script type="text/javascript" src="//c1.51jujibao.com/static/mod/jujibao/libs/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="//c1.51jujibao.com/static/mod/jujibao/libs/zepto.min.js"></script>
+<style>
+html {
+	-webkit-tap-highlight-color: transparent;
+}
+
+input::-webkit-input-placeholder {
+	-webkit-text-security: none;
+	color: #d1d1d1;
+	pointer-events: none;
+}
+
+body {
+	background: #f5f5f5;
+}
+
+.a-coupon-explain {
+	height: 4rem;
+	line-height: 4rem;
+	padding: 0 1rem;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #888;
+	font-size: 1.4rem;
+}
+
+.tab-coupon-hd {
+	height: 3.8rem;
+	background: #fff;
+	position: relative;
+}
+
+.tab-coupon-hd .item {
+	height: 3.8rem;
+	line-height: 3.8rem;
+	width: 33.3%;
+	float: left;
+	background: #fff;
+	color: #606060;
+	text-align: center;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding: 0 2rem;
+}
+
+.tab-coupon-hd .item span {
+	display: inline-block;
+	height: 3.6rem;
+	line-height: 3.6rem;
+	border-bottom: .2rem solid #fff;
+	font-size: 1.4rem;
+	padding: 0 .4rem;
+}
+
+.tab-coupon-hd .item.on {
+	color: #eb2f2b;
+}
+
+.tab-coupon-hd .item.on span {
+	border-bottom: .2rem solid #eb2f2b;
+}
+
+.tab-coupon-hd .item:nth-child(1) {
+	text-align: left;
+}
+
+.tab-coupon-hd .item:nth-child(3) {
+	text-align: right;
+}
+
+.tab-coupon-bd .list {
+	padding: 1rem;
+}
+
+.tab-coupon-bd .item {
+	height: 8.6rem;
+	background: #fff;
+	border-radius: 0.3rem;
+	-webkit-box-shadow: 0px 2px 4px #e4e3e3;
+	-moz-box-shadow: 0px 2px 4px #e4e3e3;
+	box-shadow: 0px 2px 4px #e4e3e3;
+	position: relative;
+	margin-bottom: 1rem;
+}
+
+.tab-coupon-bd .item .tip {
+	position: absolute;
+	top: 0.4rem;
+	left: -0.4rem;
+	display: block;
+	text-align: center;
+	padding: 0 0.7rem;
+	z-index: 999;
+	background: #ff4f4f;
+	color: #fff;
+	font-size: 1.2rem;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	border-radius: .3rem
+}
+
+.tab-coupon-bd .info {
+	background: #fff;
+	width: 70%;
+	height: 8.6rem;
+	position: absolute;
+	top: 0;
+	left: 0.6rem;
+	background-size: auto 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-left: 7.8rem;
+}
+
+.tab-coupon-bd .info .pic {
+	width: 7rem;
+	height: 7rem;
+	position: absolute;
+	top: 0.8rem;
+	left: 0.1rem;
+}
+
+.tab-coupon-bd .info .txt {
+	color: #606060;
+	font-size: 1.2rem;
+	margin: 0.8rem 0;
+	height: 7rem;
+	line-height: 1.6rem;
+	position: relative;
+}
+
+.tab-coupon-bd .info .name {
+	height: 3.2rem;
+	overflow: hidden;
+}
+
+.tab-coupon-bd .info .mold {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.tab-coupon-bd .info .nominal {
+	width: 6.4rem;
+	height: 7.1rem;
+	position: absolute;
+	top: 0;
+	left: 0.1rem;
+	border-right: 1px dashed #e5e5e5;
+	text-align: center;
+	padding-right: 0.6rem;
+	padding-top: 1.5rem;
+}
+
+.tab-coupon-bd .info .nominal .cost {
+	font-size: 2.6rem;
+	color: #333;
+}
+
+.tab-coupon-bd .info .nominal .condition {
+	color: #888;
+}
+
+.tab-coupon-bd .info .time {
+	height: 3.2rem;
+	overflow: hidden;
+}
+
+.tab-coupon-bd .info .type {
+	
+}
+
+.tab-coupon-bd .item .btns {
+	height: 8.6rem;
+	border-radius: 0 0.3rem 0.3rem 0;
+	width: 28%;
+	float: right;
+	background:
+		url(//c1.51jujibao.com/static/mod/tbmall/1.0.0/img/icon_coupon_side.png)
+		no-repeat #fff left center;
+	background-size: auto 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-left: .5rem;
+}
+
+.tab-coupon-bd .item .get-coupon {
+	display: block;
+}
+
+.tab-coupon-bd .item .get-coupon span.cost, .tab-coupon-bd .item .get-coupon span.get
+	{
+	display: block;
+	height: 4.3rem;
+	text-align: center;
+	color: #fff;
+}
+
+.tab-coupon-bd .item .get-coupon span.cost {
+	line-height: 4.3rem;
+	padding: 0.5rem 0 0.4rem 0;
+}
+
+.tab-coupon-bd .item .get-coupon span.cost em {
+	font-size: 3.4rem;
+}
+
+.tab-coupon-bd .item .get-coupon span.get {
+	width: 80%;
+	height: 2rem;
+	line-height: 2rem;
+	margin: 0 auto;
+	background: #c3f2fe;
+	color: #169bd5;
+	border-radius: 1rem;
+	font-size: 1.2rem;
+}
+
+.tab-coupon-bd .item .big-get-coupon {
+	display: block;
+	padding-top: 2.4rem;
+	text-align: center;
+	color: #fff;
+	font-size: 1.6rem;
+	line-height: 2rem;
+}
+
+.tab-coupon-bd .btns.blue {
+	background-color: #169bd5;
+}
+
+.tab-coupon-bd .btns.red {
+	background-color: #f44d4e;
+}
+
+.tab-coupon-bd .btns.gray {
+	background-color: #cdcdcd;
+}
+
+.tab-coupon-bd .item .btns.gray .get-coupon span.get {
+	background: #eee;
+	color: #ccc;
+}
+
+.img-gray {
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	filter: grayscale(100%);
+	filter: gray;
+}
+
+.tab-coupon-bd .txt-gray .txt {
+	color: #ccc;
+}
+
+.more-coupon {
+	padding: 1rem 0 2.6rem 0;
+}
+
+.get-coupon-code {
+	display: block;
+	width: 80%;
+	height: 4rem;
+	line-height: 4rem;
+	color: #666;
+	font-size: 1.4rem;
+	text-align: center;
+	border: 1px solid #666;
+	border-radius: 0.8rem;
+	margin: 0 auto 1.5rem auto;
+}
+
+.go-coupon-center {
+	display: block;
+	width: 80%;
+	height: 4rem;
+	line-height: 4rem;
+	color: #666;
+	font-size: 1.4rem;
+	text-align: center;
+	border: 1px solid #666;
+	border-radius: 0.8rem;
+	margin: 0 auto;
+}
+.tab-coupon-bd .item .big-get-coupon span.use {
+    display: block;
+    height: 4.3rem;
+    text-align: center;
+    color: #fff;
+    width: 80%;
+    height: 2rem;
+    line-height: 2rem;
+    margin: 0 auto;
+    background: #fff94f;
+    color: #169bd5;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    margin-top: 0.6rem;
+}
+[v-cloak] {
+	display: none;
+}
+</style>
+</head>
+
+<body>
+	<div class="g-body" id="app" v-cloak style="padding-top:100px;">
+		<input type="text" name="itemId" style="width:300px;height:50px;border:1px solid #ccc;font-size:16px;padding-left:10px;" placeholder="请输入商品编号"  v-model="itemId"/><br/>
+		<a href="javascript:void(0)" @click="search" style="display:block;width:300px;height:40px;background-color:#ff0000;margin-top:50px;align:center;text-align:center;line-height:40px;color:#fff;font-weight:bold;">搜索</a>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+	var app = new Vue({
+		el:'#app',
+		data:{
+			itemId:''
+		},
+		methods:{
+			search:function(){
+				if(this.itemId==''){
+					alert("请输入商品编号");
+					return false;
+				}
+				location.href="/bijia/op?itemId="+this.itemId;
+			}
+		},
+		computed:{
+			getTypeName:function(){
+				return this.typeList[this.currTypeIndex];
+			},
+			getTypeTicketList:function(){
+				var that=this;
+				return this.cardList.filter(function(item){
+					var status=that.typeList[that.currTypeIndex];
+					return item.status==status;
+				});				
+			}
+		},
+		created:function(){
+			//console.log("...created...");
+			this.getCardList();
+		}
+	});
+	</script>
+</body>
+
+</html>

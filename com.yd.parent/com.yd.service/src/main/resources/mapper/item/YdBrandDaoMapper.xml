@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.item.YdBrandDao" >
+
+    <resultMap id="YdBrandMap" type="com.yd.service.bean.item.YdBrand" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="brand_alias" property="brandAlias" jdbcType="VARCHAR" />
+        
+        <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+        
+        <result column="icon" property="icon" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        brand_alias,
+        brand_name,
+        icon
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="brandAlias!=null and brandAlias!=''">
+        and brand_alias = #{brandAlias,jdbcType=VARCHAR}
+        </if>
+        <if test="brandName!=null and brandName!=''">
+        and brand_name = #{brandName,jdbcType=VARCHAR}
+        </if>
+        <if test="icon!=null and icon!=''">
+        and icon = #{icon,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdBrandById" resultMap="YdBrandMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_brand
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdBrandByBrandAlias" resultMap="YdBrandMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_brand
+        where brand_alias = #{brandAlias}
+    </select>
+
+	<select id="getYdBrandCount" parameterType="com.yd.service.bean.item.YdBrand" resultType="int">
+        select count(1) from yd_brand where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdBrandListByPage" resultMap="YdBrandMap">
+        select * from yd_brand where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.item.YdBrand" resultMap="YdBrandMap">
+        select * from yd_brand where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+  
+    <insert id="insertYdBrand" parameterType="com.yd.service.bean.item.YdBrand" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_brand (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{brandAlias,jdbcType=VARCHAR},
+        #{brandName,jdbcType=VARCHAR},
+        #{icon,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    
+    <update id="updateYdBrand" parameterType="com.yd.service.bean.item.YdBrand" >
+        update yd_brand
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="brandAlias != null" >
+                brand_alias = #{brandAlias,jdbcType=VARCHAR},
+            </if>
+            <if test="brandName != null" >
+                brand_name = #{brandName,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null" >
+                icon = #{icon,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

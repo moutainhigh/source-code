@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.permission.YdPermissionDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.permission.YdPermission">
+		<result property="id" column="id" />
+		<result property="alias" column="alias" />
+		<result property="name" column="name" />
+		<result property="pid" column="pid" />
+		<result property="createTime" column="create_time" />
+		<result property="groupCode" column="group_code" />
+	</resultMap>
+	
+	<delete id="deleteYdPermissionById">
+		DELETE FROM yd_permission WHERE id = #{id}
+	</delete>
+	
+	<update id="updateById" parameterType="com.yd.service.bean.permission.YdPermission">
+		update
+			yd_permission
+		set
+			name=#{param.name},
+			alias=#{param.alias}
+		where
+			id=#{param.id}
+	</update>
+	
+	<select id="findYdPermissionById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_permission
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findYdPermissionByGroupCode" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_permission
+		WHERE
+			group_code = #{groupCode}
+	</select>
+	
+	
+	<select id="findPermissionByAliasAndPid"  resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_permission
+		WHERE
+			alias = #{alias} and pid=#{pid}
+	</select>
+	
+	<select id="findPermissionByAlias"  resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_permission
+		WHERE
+			alias = #{alias}
+	</select>
+	
+	<select id="getYdPermissionCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			yd_permission
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="alias!=null">
+  				AND alias = #{alias}
+  			</if>
+  			<if test="name!=null">
+  				AND name = #{name}
+  			</if>
+  			<if test="pid!=null">
+  				AND pid = #{pid}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+  			<if test="groupCode!=null">
+  				AND group_code = #{groupCode}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findYdPermissionsByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_permission
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.alias!=null">
+  				AND alias = #{param.alias}
+  			</if>
+  			<if test="param.name!=null">
+  				AND name = #{param.name}
+  			</if>
+  			<if test="param.pid!=null">
+  				AND pid = #{param.pid}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+  			<if test="param.groupCode!=null">
+  				AND group_code = #{param.groupCode}
+  			</if>
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.permission.YdPermission">
+  		INSERT INTO yd_permission ( 
+			`id`,`alias`,`name`,`pid`,`create_time`,`group_code`			
+  		) VALUES (
+			#{id},#{alias},#{name},#{pid},#{createTime},#{groupCode}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

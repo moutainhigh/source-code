@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.draw.YdUserDrawRecordDao" >
+
+    <resultMap id="YdUserDrawRecordMap" type="com.yd.service.bean.draw.YdUserDrawRecord" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        
+        <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+        
+        <result column="prize_id" property="prizeId" jdbcType="INTEGER" />
+        
+        <result column="prize_type" property="prizeType" jdbcType="VARCHAR" />
+        
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+        
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        
+        <result column="user_coupon_id" property="userCouponId" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        user_id,
+        activity_id,
+        prize_id,
+        prize_type,
+        nickname,
+        mobile,
+        user_coupon_id
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="activityId!=null">
+        and activity_id = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="prizeId!=null">
+        and prize_id = #{prizeId,jdbcType=INTEGER}
+        </if>
+        <if test="prizeType!=null and prizeType!=''">
+        and prize_type = #{prizeType,jdbcType=VARCHAR}
+        </if>
+        <if test="nickname!=null and nickname!=''">
+        and nickname = #{nickname,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+        and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="userCouponId!=null and userCouponId!=''">
+        and user_coupon_id = #{userCouponId}
+        </if>
+    </sql>
+    
+    <select id="getYdUserDrawRecordById" resultMap="YdUserDrawRecordMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_user_draw_record
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdUserDrawRecordCount" parameterType="com.yd.service.bean.draw.YdUserDrawRecord" resultType="int">
+        select count(1) from yd_user_draw_record where 1=1
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdUserDrawRecordListByPage" resultMap="YdUserDrawRecordMap">
+        select * from yd_user_draw_record where 1=1
+        <if test="params.id!=null">
+            and id = #{params.id,jdbcType=INTEGER}
+        </if>
+        <if test="params.merchantId!=null">
+            and merchant_id = #{params.merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="params.userId!=null">
+            and user_id = #{params.userId,jdbcType=INTEGER}
+        </if>
+        <if test="params.activityId!=null">
+            and activity_id = #{params.activityId,jdbcType=INTEGER}
+        </if>
+        <if test="params.prizeId!=null">
+            and prize_id = #{params.prizeId,jdbcType=INTEGER}
+        </if>
+        <if test="params.prizeType!=null and params.prizeType!=''">
+            and prize_type = #{params.prizeType,jdbcType=VARCHAR}
+        </if>
+        <if test="params.nickname!=null and params.nickname!=''">
+            and nickname = #{params.nickname,jdbcType=VARCHAR}
+        </if>
+        <if test="params.mobile!=null and params.mobile!=''">
+            and mobile = #{params.mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="params.userCouponId!=null and params.userCouponId!=''">
+            and user_coupon_id = #{params.userCouponId}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.draw.YdUserDrawRecord" resultMap="YdUserDrawRecordMap">
+        select * from yd_user_draw_record where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdUserDrawRecord" parameterType="com.yd.service.bean.draw.YdUserDrawRecord" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_user_draw_record (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{userId,jdbcType=INTEGER},
+        #{activityId,jdbcType=INTEGER},
+        #{prizeId,jdbcType=INTEGER},
+        #{prizeType,jdbcType=VARCHAR},
+        #{nickname,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR},
+        #{userCouponId}
+        )
+    </insert>
+    
+    
+    <update id="updateYdUserDrawRecord" parameterType="com.yd.service.bean.draw.YdUserDrawRecord" >
+        update yd_user_draw_record
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="activityId != null" >
+                activity_id = #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="prizeId != null" >
+                prize_id = #{prizeId,jdbcType=INTEGER},
+            </if>
+            <if test="prizeType != null" >
+                prize_type = #{prizeType,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null" >
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="userCouponId != null" >
+                user_coupon_id = #{userCouponId}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getYdUserDrawCount" resultType="int">
+        select count(1) from yd_user_draw_record where 1=1
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+            and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="activityId!=null">
+            and activity_id = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and create_time &gt;= #{startTime,jdbcType=VARCHAR}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and create_time &lt; #{endTime,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="getActivityDrawCount" parameterType="com.yd.service.bean.draw.YdUserDrawRecord" resultType="int">
+        select count(1) from (
+        select count(1) from yd_user_draw_record
+        where merchant_id = #{merchantId} and activity_id = #{activityId}
+        <if test="prizeType!=null and prizeType!=''">
+            and prize_type = #{prizeType,jdbcType=VARCHAR}
+        </if>
+        group by user_id
+        ) a
+    </select>
+
+
+</mapper>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.member.YdMerchantMemberOpenRecordDao" >
+
+    <resultMap id="YdMerchantMemberOpenRecordMap" type="com.yd.service.bean.member.YdMerchantMemberOpenRecord" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+
+        <result column="member_level" property="memberLevel" jdbcType="INTEGER" />
+        
+        <result column="member_type" property="memberType" jdbcType="VARCHAR" />
+        
+        <result column="valid_length" property="validLength" jdbcType="INTEGER" />
+        
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        
+        <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
+        
+        <result column="open_type" property="openType" jdbcType="VARCHAR" />
+        
+        <result column="open_method" property="openMethod" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        role_id,
+        member_level,
+        member_type,
+        valid_length,
+        start_time,
+        end_time,
+        pay_price,
+        open_type,
+        open_method
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="roleId!=null">
+            and role_id = #{roleId,jdbcType=INTEGER}
+        </if>
+        <if test="memberLevel!=null">
+        and member_level = #{memberLevel,jdbcType=INTEGER}
+        </if>
+        <if test="memberType!=null and memberType!=''">
+        and member_type = #{memberType,jdbcType=VARCHAR}
+        </if>
+        <if test="validLength!=null">
+        and valid_length = #{validLength,jdbcType=INTEGER}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+        and start_time = #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and end_time = #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="payPrice!=null and payPrice!=''">
+        and pay_price = #{payPrice,jdbcType=DOUBLE}
+        </if>
+        <if test="openType!=null and openType!=''">
+        and open_type = #{openType,jdbcType=VARCHAR}
+        </if>
+        <if test="openMethod!=null and openMethod!=''">
+        and open_method = #{openMethod,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantMemberOpenRecordById" resultMap="YdMerchantMemberOpenRecordMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_member_open_record
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getFirstValidEndTime" resultMap="YdMerchantMemberOpenRecordMap" parameterType="java.lang.Integer" >
+        SELECT * FROM `yd_merchant_member_open_record`
+        WHERE 1 = 1 and merchant_id = #{merchantId}
+        and end_time &gt; now() and member_level != 2
+        order by create_time asc limit 1
+    </select>
+
+    <select id="getOpenValidEndTimeByTime" resultMap="YdMerchantMemberOpenRecordMap" parameterType="java.lang.Integer" >
+        SELECT * FROM `yd_merchant_member_open_record`
+        WHERE 1 = 1 and merchant_id = #{merchantId}
+        and now() &lt; end_time and  now() &gt; start_time
+        order by member_level desc limit 1
+    </select>
+
+	<select id="getYdMerchantMemberOpenRecordCount" parameterType="com.yd.service.bean.member.YdMerchantMemberOpenRecord" resultType="int">
+        select count(1) from yd_merchant_member_open_record where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantMemberOpenRecordListByPage" resultMap="YdMerchantMemberOpenRecordMap">
+        select * from yd_merchant_member_open_record where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.member.YdMerchantMemberOpenRecord" resultMap="YdMerchantMemberOpenRecordMap">
+        select * from yd_merchant_member_open_record where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+  
+    <insert id="insertYdMerchantMemberOpenRecord" parameterType="com.yd.service.bean.member.YdMerchantMemberOpenRecord" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_member_open_record (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{roleId,jdbcType=INTEGER},
+        #{memberLevel,jdbcType=INTEGER},
+        #{memberType,jdbcType=VARCHAR},
+        #{validLength,jdbcType=INTEGER},
+        #{startTime,jdbcType=TIMESTAMP},
+        #{endTime,jdbcType=TIMESTAMP},
+        #{payPrice,jdbcType=DOUBLE},
+        #{openType,jdbcType=VARCHAR},
+        #{openMethod,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    <update id="updateYdMerchantMemberOpenRecord" parameterType="com.yd.service.bean.member.YdMerchantMemberOpenRecord" >
+        update yd_merchant_member_open_record
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null" >
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="memberLevel != null" >
+                member_level = #{memberLevel,jdbcType=INTEGER},
+            </if>
+            <if test="memberType != null" >
+                member_type = #{memberType,jdbcType=VARCHAR},
+            </if>
+            <if test="validLength != null" >
+                valid_length = #{validLength,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null" >
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payPrice != null" >
+                pay_price = #{payPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="openType != null" >
+                open_type = #{openType,jdbcType=VARCHAR},
+            </if>
+            <if test="openMethod != null" >
+                open_method = #{openMethod,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

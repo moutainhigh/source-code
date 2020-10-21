@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.decoration.YdMerchantCompareItemDao" >
+
+    <resultMap id="YdMerchantCompareItemMap" type="com.yd.service.bean.decoration.YdMerchantCompareItem" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId"/>
+        
+        <result column="merchant_item_id" property="merchantItemId" jdbcType="INTEGER" />
+        
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        merchant_item_id,
+        sort
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null and merchantId!=''">
+        and merchant_id = #{merchantId}
+        </if>
+        <if test="merchantItemId!=null">
+        and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="sort!=null">
+        and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantCompareItemById" resultMap="YdMerchantCompareItemMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_compare_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findListByMerchant" resultMap="YdMerchantCompareItemMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_compare_item
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByMerchantItemId">
+        delete from yd_merchant_compare_item
+        where merchant_item_id = #{merchantItemId}
+    </delete>
+        
+	<select id="getYdMerchantCompareItemCount" parameterType="com.yd.service.bean.decoration.YdMerchantCompareItem" resultType="int">
+        select count(1) from yd_merchant_compare_item where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantCompareItemListByPage" resultMap="YdMerchantCompareItemMap">
+        select * from yd_merchant_compare_item where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.decoration.YdMerchantCompareItem" resultMap="YdMerchantCompareItemMap">
+        select * from yd_merchant_compare_item where 1=1 
+        <include refid="where" />
+		order by sort asc
+    </select>
+    
+    <insert id="insertYdMerchantCompareItem" parameterType="com.yd.service.bean.decoration.YdMerchantCompareItem" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_compare_item (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId},
+        #{merchantItemId,jdbcType=INTEGER},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+    
+    <update id="updateYdMerchantCompareItem" parameterType="com.yd.service.bean.decoration.YdMerchantCompareItem" >
+        update yd_merchant_compare_item
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId},
+            </if>
+            <if test="merchantItemId != null" >
+                merchant_item_id = #{merchantItemId,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteYdMerchantCompareItem">
+        delete from yd_merchant_compare_item where merchant_id = #{merchantId}
+    </delete>
+
+</mapper>

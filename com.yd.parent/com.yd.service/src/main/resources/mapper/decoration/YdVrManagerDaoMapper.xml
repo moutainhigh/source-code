@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.decoration.YdVrManagerDao" >
+
+    <resultMap id="YdVrManagerMap" type="com.yd.service.bean.decoration.YdVrManager" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="jump_url" property="jumpUrl" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        jump_url
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId}
+        </if>
+        <if test="jumpUrl!=null and jumpUrl!=''">
+        and jump_url = #{jumpUrl,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdVrManagerById" resultMap="YdVrManagerMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_vr_manager
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdVrManagerByMerchantId" resultMap="YdVrManagerMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_vr_manager
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+	<select id="getYdVrManagerCount" parameterType="com.yd.service.bean.decoration.YdVrManager" resultType="int">
+        select count(1) from yd_vr_manager where 1=1
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId}
+        </if>
+    </select>
+	
+	<select id="findYdVrManagerListByPage" resultMap="YdVrManagerMap">
+        select * from yd_vr_manager where 1=1
+        <if test="params.merchantId!=null">
+            and merchant_id = #{params.merchantId}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.decoration.YdVrManager" resultMap="YdVrManagerMap">
+        select * from yd_vr_manager where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+    <insert id="insertYdVrManager" parameterType="com.yd.service.bean.decoration.YdVrManager" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_vr_manager (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId},
+        #{jumpUrl,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateYdVrManager" parameterType="com.yd.service.bean.decoration.YdVrManager" >
+        update yd_vr_manager
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId},
+            </if>
+            <if test="jumpUrl != null" >
+                jump_url = #{jumpUrl,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteYdVrManagerById">
+        delete from yd_vr_manager where id = #{id}
+    </delete>
+
+</mapper>

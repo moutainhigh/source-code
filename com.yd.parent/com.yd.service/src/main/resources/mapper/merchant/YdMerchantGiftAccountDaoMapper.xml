@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.merchant.YdMerchantGiftAccountDao" >
+
+    <resultMap id="YdMerchantGiftAccountMap" type="com.yd.service.bean.merchant.YdMerchantGiftAccount" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="balance" property="balance" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        balance
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="balance!=null and balance!=''">
+        and balance = #{balance,jdbcType=DECIMAL}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantGiftAccountById" resultMap="YdMerchantGiftAccountMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift_account
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantGiftAccountByMerchantId" resultMap="YdMerchantGiftAccountMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift_account
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.merchant.YdMerchantGiftAccount" resultMap="YdMerchantGiftAccountMap">
+        select * from yd_merchant_gift_account where 1=1 
+        <include refid="where" />
+    </select>
+    
+  
+    <insert id="insertYdMerchantGiftAccount" parameterType="com.yd.service.bean.merchant.YdMerchantGiftAccount" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_gift_account (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{balance,jdbcType=DECIMAL}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantGiftAccount" parameterType="com.yd.service.bean.merchant.YdMerchantGiftAccount" >
+        update yd_merchant_gift_account
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="balance != null" >
+                balance = #{balance,jdbcType=DECIMAL}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 增加商户礼品账户余额 -->
+    <update id="addGiftAccountBalance">
+        update
+          yd_merchant_gift_account
+        set
+          balance = balance + #{price}
+        where
+          merchant_id = #{merchantId} and
+          #{price} &gt;= 0
+    </update>
+
+    <!-- 扣减商户礼品账户余额 -->
+    <update id="reduceGiftAccountBalance">
+        update
+          yd_merchant_gift_account
+        set
+          balance = balance - #{price}
+        where
+          merchant_id = #{merchantId}
+          and #{price} &gt;= 0 and
+          balance - #{price} &gt;= 0
+    </update>
+
+</mapper>

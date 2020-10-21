@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.integral.YdIntegralItemDao" >
+
+    <resultMap id="YdIntegralItemMap" type="com.yd.service.bean.integral.YdIntegralItem" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        
+        <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+        
+        <result column="settlement_price" property="settlementPrice" jdbcType="DECIMAL" />
+        
+        <result column="integral_count" property="integralCount" jdbcType="INTEGER" />
+        
+        <result column="channel_code" property="channelCode" jdbcType="VARCHAR" />
+        
+        <result column="qr_code_url" property="qrCodeUrl" jdbcType="VARCHAR" />
+        
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+        
+        <result column="is_enable" property="isEnable" jdbcType="CHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        title,
+        sale_price,
+        settlement_price,
+        integral_count,
+        channel_code,
+        qr_code_url,
+        image_url,
+        is_enable
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="title!=null and title!=''">
+        and title = #{title,jdbcType=VARCHAR}
+        </if>
+        <if test="salePrice!=null and salePrice!=''">
+        and sale_price = #{salePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="settlementPrice!=null and settlementPrice!=''">
+        and settlement_price = #{settlementPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="integralCount!=null">
+        and integral_count = #{integralCount,jdbcType=INTEGER}
+        </if>
+        <if test="channelCode!=null and channelCode!=''">
+        and channel_code = #{channelCode,jdbcType=VARCHAR}
+        </if>
+        <if test="qrCodeUrl!=null and qrCodeUrl!=''">
+        and qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="imageUrl!=null and imageUrl!=''">
+        and image_url = #{imageUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+        and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdIntegralItemById" resultMap="YdIntegralItemMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_integral_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdIntegralItemCount" parameterType="com.yd.service.bean.integral.YdIntegralItem" resultType="int">
+        select count(1) from yd_integral_item where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdIntegralItemListByPage" resultMap="YdIntegralItemMap">
+        select * from yd_integral_item where 1=1
+        <if test="params.title!=null and params.title!=''">
+            and title = #{params.title,jdbcType=VARCHAR}
+        </if>
+        <if test="params.isEnable!=null and params.isEnable!=''">
+            and is_enable = #{params.isEnable,jdbcType=CHAR}
+        </if>
+        order by update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.integral.YdIntegralItem" resultMap="YdIntegralItemMap">
+        select * from yd_integral_item where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+    <insert id="insertYdIntegralItem" parameterType="com.yd.service.bean.integral.YdIntegralItem" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_integral_item (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{title,jdbcType=VARCHAR},
+        #{salePrice,jdbcType=DECIMAL},
+        #{settlementPrice,jdbcType=DECIMAL},
+        #{integralCount,jdbcType=INTEGER},
+        #{channelCode,jdbcType=VARCHAR},
+        #{qrCodeUrl,jdbcType=VARCHAR},
+        #{imageUrl,jdbcType=VARCHAR},
+        #{isEnable,jdbcType=CHAR}
+        )
+    </insert>
+    
+    <update id="updateYdIntegralItem" parameterType="com.yd.service.bean.integral.YdIntegralItem" >
+        update yd_integral_item
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="salePrice != null" >
+                sale_price = #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="settlementPrice != null" >
+                settlement_price = #{settlementPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="integralCount != null" >
+                integral_count = #{integralCount,jdbcType=INTEGER},
+            </if>
+            <if test="channelCode != null" >
+                channel_code = #{channelCode,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCodeUrl != null" >
+                qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null" >
+                image_url = #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnable != null" >
+                is_enable = #{isEnable,jdbcType=CHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteIntegralItem">
+        delete from yd_integral_item where id = #{itemId}
+    </delete>
+
+    <update id="updateIntegralItemSettlePrice">
+        update
+          yd_integral_item
+        set
+          settlement_price = sale_price * #{rate}
+        where
+          #{rate} &lt;= 1
+    </update>
+
+</mapper>

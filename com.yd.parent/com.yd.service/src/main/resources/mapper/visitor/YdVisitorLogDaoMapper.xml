@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.visitor.YdVisitorLogDao" >
+
+    <resultMap id="YdVisitorLogMap" type="com.yd.service.bean.visitor.YdVisitorLog" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        
+        <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+        
+        <result column="merchant_item_id" property="merchantItemId" jdbcType="INTEGER" />
+        
+        <result column="merchant_sku_id" property="merchantSkuId" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        user_id,
+        item_id,
+        sku_id,
+        merchant_item_id,
+        merchant_sku_id
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="itemId!=null">
+        and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="skuId!=null">
+        and sku_id = #{skuId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantItemId!=null">
+        and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantSkuId!=null">
+        and merchant_sku_id = #{merchantSkuId,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdVisitorLogById" resultMap="YdVisitorLogMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_visitor_log
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdVisitorLogCount" parameterType="com.yd.service.bean.visitor.YdVisitorLog" resultType="int">
+        select count(1) from yd_visitor_log where 1=1 
+        <include refid="where" />
+    </select>
+
+    <select id="getUserVisitorCount" parameterType="com.yd.service.bean.visitor.YdVisitorLog" resultType="int">
+        select count(1) from (
+            select count(1) from yd_visitor_log
+            where 1=1
+            <if test="merchantId!=null">
+                and merchant_id = #{merchantId,jdbcType=INTEGER}
+            </if>
+            <if test="userId!=null">
+                and user_id = #{userId,jdbcType=INTEGER}
+            </if>
+            <if test="itemId!=null">
+                and item_id = #{itemId,jdbcType=INTEGER}
+            </if>
+            <if test="merchantItemId!=null">
+                and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+            </if>
+            <if test="startTime!=null and startTime!=''">
+                and create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and create_time &lt;= #{endTime}
+            </if>
+            group by user_id
+        ) a
+    </select>
+
+    <select id="getItemVisitorCount" parameterType="com.yd.service.bean.visitor.YdVisitorLog" resultType="int">
+        select count(1) from yd_visitor_log
+        where 1=1
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+            and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="itemId!=null">
+            and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantItemId!=null">
+            and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and create_time &lt;= #{endTime}
+        </if>
+    </select>
+
+	<select id="findYdVisitorLogListByPage" resultMap="YdVisitorLogMap">
+        select * from yd_visitor_log where 1=1 
+		order by update_time desc
+		limit 0, 10
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.visitor.YdVisitorLog" resultMap="YdVisitorLogMap">
+        select * from yd_visitor_log where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+  
+    <insert id="insertYdVisitorLog" parameterType="com.yd.service.bean.visitor.YdVisitorLog" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_visitor_log (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{userId,jdbcType=INTEGER},
+        #{itemId,jdbcType=INTEGER},
+        #{skuId,jdbcType=INTEGER},
+        #{merchantItemId,jdbcType=INTEGER},
+        #{merchantSkuId,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateYdVisitorLog" parameterType="com.yd.service.bean.visitor.YdVisitorLog" >
+        update yd_visitor_log
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="skuId != null" >
+                sku_id = #{skuId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantItemId != null" >
+                merchant_item_id = #{merchantItemId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantSkuId != null" >
+                merchant_sku_id = #{merchantSkuId,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

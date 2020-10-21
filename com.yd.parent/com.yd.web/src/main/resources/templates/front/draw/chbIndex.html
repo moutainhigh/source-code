@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>猜红包</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet"
+          href="https://c1.51jujibao.com/static/mod/??public/css/1.0.0/reset.css,public/css/1.0.0/layout.css,public/css/1.0.0/page.css,public/css/1.0.0/layer.css,public/css/1.0.0/swiper.min.css?170525">
+    <style>
+        .main {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            font-size: 0.24rem;
+        }
+
+        .main-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .main-box img {
+            width: 100%;
+        }
+
+        .broadcast {
+            position: absolute;
+            top: 5.75rem;
+            left: 50%;
+            margin-left: -38.26%;
+
+            width: 76.53%;
+            height: 1.625rem;
+            background-color: #eb1600;
+            border-radius: 0.813rem;
+            opacity: 0.8;
+        }
+
+        .broadcast-msg {
+            margin: 0 auto;
+            font-size: .813rem;
+            color: #edf2ff;
+            line-height: 1.625rem;
+            text-align: center;
+        }
+
+        .chance {
+            width: 100%;
+            position: absolute;
+            top: 16.063rem;
+            letter-spacing: 0.038rem;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .chance p {
+            text-align: center;
+        }
+
+        .chance span {
+            color: #ffd328;
+        }
+
+        .my-prize {
+            position: absolute;
+            right: 0;
+            top: 15.5rem;
+            width: 5rem;
+        }
+
+        .redBag-box {
+            position: absolute;
+            width: 93.3%;
+            top: 23.188rem;
+            left: 50%;
+            margin-left: -46.6%;
+        }
+
+        .redBag {
+            position: relative;
+            margin-top: -8.5rem;
+        }
+
+        .redBag img {
+            position: absolute;
+        }
+
+        .redBag img:nth-child(1) {
+            width: 3.781rem;
+            top: -3rem;
+            left: 1.85rem;
+            z-index: 100;
+        }
+
+        .redBag img:nth-child(2) {
+            width: 4.344rem;
+            top: -2.4rem;
+            left: 5.55rem;
+            z-index: 1000;
+        }
+
+        .redBag img:nth-child(3) {
+            width: 2.219rem;
+            top: -3.5rem;
+            left: 9.65rem;
+            z-index: 100;
+        }
+
+        .redBag img:nth-child(4) {
+            width: 4.344rem;
+            top: -2.4rem;
+            left: 11.75rem;
+            z-index: 1000;
+        }
+
+        .redBag img:nth-child(5) {
+            width: 3.781rem;
+            top: -3rem;
+            left: 16rem;
+            z-index: 100;
+        }
+
+        .redBag-box-lose, .redBag-box-win {
+            position: absolute;
+            width: 100%;
+            top: 17.88rem;
+            left: 50%;
+            margin-left: -50%;
+        }
+
+        .winPrice {
+            position: absolute;
+            top: 2.6rem;
+            width: 100%;
+        }
+
+        .btn-box {
+            width: 48%;
+            height: 3.125rem;
+            position: absolute;
+            top: 32.5rem;
+            left: 50%;
+            margin-left: -24%;
+        }
+
+        .btn {
+            display: block;
+            height: 3.125rem;
+            background-color: #fccb73;
+            box-shadow: 0rem 0.031rem 0rem 0rem #ffdda5,
+            0rem 0.313rem 0rem 0rem rgba(224, 53, 21, 0.67),
+            inset 0rem -0.187rem 0rem 0rem #e89c2f;
+            border-radius: 1.563rem;
+            border: solid 0.094rem #ffffff;
+
+            color: #c83200;
+            font-size: 1.375rem;
+            line-height: 3.125rem;
+            text-align: center;
+        }
+
+        .rules {
+            position: absolute;
+            width: 80%;
+            height: 14rem;
+            top: 41rem;
+            left: 50%;
+            margin-left: -40%;
+            color: #6e260d;
+            line-height: 1.2rem;
+            font-size: .875rem;
+        }
+
+        .popup {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background: rgba(0, 0, 0, .6);
+            z-index: 10000;
+        }
+
+        .popup .container {
+            position: absolute;
+            width: 80%;
+            left: 50%;
+            margin-left: -40%;
+        }
+
+        .close {
+            position: absolute;
+            top: -2rem;
+            right: 0;
+            width: 2rem;
+        }
+
+        .popup2 .container {
+            top: 13rem;
+            height: 4rem;
+
+        }
+
+        .popup1 .container {
+            top: 8rem;
+
+        }
+
+        .prize-box {
+            position: absolute;
+            top: 5rem;
+            left: 50%;
+            margin-left: -40%;
+            width: 80%;
+            height: 12rem;
+            z-index: 1000;
+
+            overflow: scroll;
+        }
+
+        .my-prize-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 3rem;
+        }
+
+        .my-prize-item img {
+            display: block;
+            width: 2rem;
+        }
+
+        .times-wrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin-top: .65rem;
+        }
+
+        .times-wrap img {
+            position: absolute;
+        }
+
+        .no-gift {
+            position: absolute;
+            width: 90%;
+            left: 50%;
+            margin-left: -45%;
+            color: #7f4200;
+            font-size: 1rem;
+            line-height: 1.2rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="main">
+        <div class="main-box">
+            <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/chb/images/chb_bg.png">
+            <!--<div class="broadcast">-->
+            <!--<p class="broadcast-msg">{{message}}</p>-->
+            <!--</div>-->
+            <div class="my-prize" @click="showMyPrizePop">
+                <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/chb/images/chb_my_prize.png?11" alt="">
+            </div>
+            <div class="chance">
+                <p>还剩下<span>{{count}}</span>次抽奖机会</p>
+            </div>
+            <div class="redBag-box" v-show="defaultStatus">
+                <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/chb/images/chb_mid.png?11">
+                <div class="redBag">
+                    <img v-for="item in 5"
+                         src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/chb/images/chb_redBag.png"
+                         @click="chooseRedBag">
+                </div>
+            </div>
+            <div class="redBag-box-lose" v-show="loseStatus">
+                <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/chb/images/chb_fail.png?11">
+            </div>
+            <div class="redBag-box-win" v-show="winStatus">
+                <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/chb/images/chb_win.png">
+                <div class="winPrice">
+                    <p style="text-align: center;color: #f4ffec;font-size: 14px">{{couponTitle}}</p>
+                </div>
+            </div>
+            <div class="btn-box">
+                <span class="btn" @click="play">{{btnMessage}}</span>
+            </div>
+            <div class="rules" v-html="rules"></div>
+        </div>
+
+
+        <!--次数用完的弹窗-->
+        <div class="popup popup2" v-if="showNochance">
+            <div class="container">
+                <div class="close" @click="showNochance = false">
+                    <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/delete.png">
+                </div>
+                <div class="times-wrap">
+                    <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/mjh_bg.png">
+                    <div class="no-gift">
+                        <p style="text-align: center">{{popMessage}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--我的奖品弹窗-->
+        <div class="popup popup1" v-if="showMyPrize">
+            <div class="container">
+                <div class="close" @click="showMyPrize = false">
+                    <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/delete.png">
+                </div>
+                <div class="times-wrap">
+                    <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/my_bg.png">
+                    <div class="prize-box">
+                        <div v-for="item in myPrizeList">
+                            <div class="my-prize-item">
+                                <div style="height: 2rem;">
+                                    <img src="http://c1.51jujibao.com/static/mkt/2020/01/xyx/common/images/quan.png">
+                                </div>
+                                <p style="color:#e66900;font-size: .875rem">{{item.couponTitle}}</p>
+                                <p style="color:#999;font-size: .75rem">{{timeForm(item.createTime)}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                // message: '',
+                count: null,
+                defaultStatus: true,
+                loseStatus: false,
+                winStatus: false,
+                prizeList: [],
+                gameResult: [],
+                myPrizeList: [],
+                price: '',
+                couponTitle: '',
+                rules: '',
+                btnMessage: '点击红包打开',
+                showNochance: false,
+                showMyPrize: false,
+                popMessage: ''
+            }
+        },
+        created() {
+            this.getPrizeList()
+            this.getDrawCount()
+            this.getGameDetail()
+            this.getMyPrize()
+        },
+        methods: {
+            getSearchString(key) {
+                // 获取URL中?之后的字符
+                var str = location.search;
+                str = str.substring(1, str.length);
+
+                // 以&分隔字符串，获得类似name=xiaoli这样的元素数组
+                var arr = str.split("&");
+                var obj = new Object();
+
+                // 将每一个数组元素以=分隔并赋给obj对象
+                for (var i = 0; i < arr.length; i++) {
+                    var tmp_arr = arr[i].split("=");
+                    obj[decodeURIComponent(tmp_arr[0])] = decodeURIComponent(tmp_arr[1]);
+                }
+                return obj[key];
+            },
+            getGameDetail() {
+                let vm = this
+                axios.post('/front/user/draw/getDrawActivityDetail',
+                    Qs.stringify({uuid: vm.getSearchString('uuid')}),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        vm.rules = res.data.result.rules
+                    }
+                })
+            },
+            getPrizeList() {
+                let vm = this
+                axios.post('/front/user/draw/findPrizeList',
+                    Qs.stringify({uuid: vm.getSearchString('uuid')}),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        vm.prizeList = res.data.result
+                    }
+                })
+            },
+            getMyPrize() {
+                let vm = this
+                axios.post('/front/user/draw/getUserDrawRecord',
+                    Qs.stringify({uuid: vm.getSearchString('uuid')}),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        vm.myPrizeList = res.data.result
+                    }
+                })
+            },
+            showMyPrizePop() {
+                this.showMyPrize = true
+                this.getMyPrize()
+            },
+            getDrawCount() {
+                let vm = this
+                axios.post('/front/user/draw/getUserDrawCount',
+                    Qs.stringify({uuid: vm.getSearchString('uuid')}),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        vm.count = res.data.result
+                        // vm.message = '恭喜 王XX 抽中了20元话费'
+                    }else{
+                        this.count = 0
+                    }
+                })
+            },
+            chooseRedBag() {
+                let vm = this
+                if (vm.count == 0) {
+                    vm.popMessage = '你的抽奖机会已经用完了～'
+                    vm.showNochance = true
+                    return
+                }
+                axios.post('/front/user/draw/clickDraw',
+                    Qs.stringify({uuid: vm.getSearchString('uuid')}),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        vm.getDrawCount()
+                        if (res.data.result == 0) {
+                            vm.defaultStatus = false
+                            vm.loseStatus = true
+                            return
+                        }
+                        vm.gameResult = vm.prizeList.filter(item => item.id == res.data.result)
+                        if (vm.gameResult[0].prizeType) {
+                            vm.defaultStatus = false
+                            vm.winStatus = true
+                            vm.couponTitle = vm.gameResult[0].couponTitle
+                        }
+                    }else{
+                        vm.popMessage = res.data.message
+                        vm.showNochance = true
+                    }
+                })
+            },
+            timeForm(a) {
+                var _d = new Date(a)
+                return _d.getFullYear() + '.' + (_d.getMonth() + 1) + '.' + _d.getDate()
+            },
+            play() {
+                this.defaultStatus = true
+                this.loseStatus = false
+                this.winStatus = false
+            }
+        }
+    })
+</script>
+</body>
+</html>

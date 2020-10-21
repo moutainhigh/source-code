@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.decoration.YdMerchantBannerDao" >
+
+    <resultMap id="YdShopMerchantBannerMap" type="com.yd.service.bean.decoration.YdMerchantBanner" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="position" property="position" jdbcType="VARCHAR" />
+        
+        <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+        
+        <result column="jump_type" property="jumpType" jdbcType="VARCHAR" />
+        
+        <result column="jump_url" property="jumpUrl" jdbcType="VARCHAR" />
+        
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        position,
+        picture_url,
+        jump_type,
+        jump_url,
+        sort
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="position!=null and position!=''">
+        and position = #{position,jdbcType=VARCHAR}
+        </if>
+        <if test="pictureUrl!=null and pictureUrl!=''">
+        and picture_url = #{pictureUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="jumpType!=null and jumpType!=''">
+        and jump_type = #{jumpType,jdbcType=VARCHAR}
+        </if>
+        <if test="jumpUrl!=null and jumpUrl!=''">
+        and jump_url = #{jumpUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="sort!=null">
+        and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdShopMerchantBannerById" resultMap="YdShopMerchantBannerMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_banner
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.decoration.YdMerchantBanner" resultMap="YdShopMerchantBannerMap">
+        select * from yd_merchant_banner where 1=1 
+        <include refid="where" />
+        order by sort asc
+    </select>
+    
+  
+    <insert id="insertYdShopMerchantBanner" parameterType="com.yd.service.bean.decoration.YdMerchantBanner" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_banner (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{position,jdbcType=VARCHAR},
+        #{pictureUrl,jdbcType=VARCHAR},
+        #{jumpType,jdbcType=VARCHAR},
+        #{jumpUrl,jdbcType=VARCHAR},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+    
+    
+    <update id="updateYdShopMerchantBanner" parameterType="com.yd.service.bean.decoration.YdMerchantBanner" >
+        update yd_merchant_banner
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="position != null" >
+                position = #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="pictureUrl != null" >
+                picture_url = #{pictureUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="jumpType != null" >
+                jump_type = #{jumpType,jdbcType=VARCHAR},
+            </if>
+            <if test="jumpUrl != null" >
+                jump_url = #{jumpUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 根据商户id删除banner -->
+    <delete id="deleteYdShopMerchantBannerByMerchantId" parameterType="integer">
+        delete from yd_merchant_banner where merchant_id = #{merchantId}
+    </delete>
+
+</mapper>

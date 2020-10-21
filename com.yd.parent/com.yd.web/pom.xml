@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.yd.parent</groupId>
+		<artifactId>com.yd.parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>com.yd.web</artifactId>
+	<name>com.yd.web</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.yd.parent</groupId>
+			<artifactId>com.yd.api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yd.parent</groupId>
+			<artifactId>com.yd.core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
+		<!--jsp视图jar包 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- 返回jsp页面还需要这个依赖 -->
+		<!--thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.spring4all</groupId>
+			<artifactId>swagger-spring-boot-starter</artifactId>
+			<version>1.7.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3</version>
+		</dependency>
+
+		<!--swagger依赖 start-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>io.projectreactor</groupId> <artifactId>reactor-net</artifactId> 
+			<version>2.0.8.RELEASE</version> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-messaging</artifactId> </dependency> <dependency> <groupId>javax.websocket</groupId> 
+			<artifactId>javax.websocket-api</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+			<artifactId>spring-websocket</artifactId> </dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-reactor-netty</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.afterturn</groupId>
+			<artifactId>easypoi-base</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.afterturn</groupId>
+			<artifactId>easypoi-web</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.afterturn</groupId>
+			<artifactId>easypoi-annotation</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>*/*/*/*/*/*/*/*</include>
+					<include>*/*/*/*/*/*/*</include>
+					<include>*/*/*/*/*/*</include>
+					<include>*/*/*/*/*</include>
+					<include>*/*/*/*</include>
+					<include>*/*/*</include>
+					<include>*/*</include>
+					<include>*</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<finalName>ROOT</finalName>
+	</build>
+	<packaging>jar</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<profiles.active>dev</profiles.active>
+		<!--  后台cookie配置 -->
+		<pro.cookie.domain>prev-saas.guijitech.com</pro.cookie.domain>
+		<pro.cookie.passport.name>COOKIE_PASSPORT_NAME</pro.cookie.passport.name>
+		<pro.cookie.client.name>COOKIE_CLIENT_NAME</pro.cookie.client.name>
+		<pro.webDomain>http://prev-saas.guijitech.com</pro.webDomain>
+		<pro.ueditor.path>/home/www/web-deploy/deploy/vip.guijitech.com/properties/ueditorConfig.json</pro.ueditor.path>
+	</properties>
+	<profiles>
+		<profile>
+			<id>pro</id>
+			<properties>
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<profiles.active>pro</profiles.active>
+				<!--  后台cookie配置 -->
+				<pro.cookie.domain>saas.guijitech.com</pro.cookie.domain>
+				<pro.cookie.passport.name>YD_PRO_COOKIE_PASSPORT_NAME</pro.cookie.passport.name>
+				<pro.cookie.client.name>YD_PRO_COOKIE_CLIENT_NAME</pro.cookie.client.name>
+				<pro.webDomain>http://saas.guijitech.com</pro.webDomain>
+
+				<pro.ueditor.path>/home/www/web-deploy/deploy/vip.guijitech.com/properties/ueditorConfig.json</pro.ueditor.path>
+			</properties>
+		</profile>
+		<profile>
+			<id>uat</id>
+			<properties>
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<profiles.active>uat</profiles.active>
+				<!--  后台cookie配置 -->
+				<pro.cookie.domain>prev-saas.guijitech.com</pro.cookie.domain>
+				<pro.cookie.passport.name>YD_UAT_COOKIE_PASSPORT_NAME</pro.cookie.passport.name>
+				<pro.cookie.client.name>YD_UAT_COOKIE_CLIENT_NAME</pro.cookie.client.name>
+				<pro.webDomain>http://prev-saas.guijitech.com</pro.webDomain>
+				
+				<pro.ueditor.path>/home/www/web-deploy/deploy/vip.guijitech.com/properties/ueditorConfig.json</pro.ueditor.path>
+			</properties>
+		</profile>
+
+	</profiles>
+
+</project>

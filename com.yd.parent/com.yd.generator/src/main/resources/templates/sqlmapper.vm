@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${daoPackage}.${className}Dao">
+
+	<resultMap id="BASE-RESULT" type="${beanPackage}.${className}">
+#foreach($field in $fields) 
+		<result property="${field.name}" column="${field.columnName}" />
+#end
+	</resultMap>
+	
+	<delete id="delete${className}ById">
+		DELETE FROM ${tableName} WHERE id = #{id}
+	</delete>
+	
+	<select id="find${className}ById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			${tableName}
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="get${className}Count" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			${tableName}
+		<where>
+
+		</where>
+	</select>
+	
+	<select id="find${className}sByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			${tableName}
+		<where>
+
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="${beanPackage}.${className}">
+  		INSERT INTO ${tableName} ( 
+			#foreach($field in $fields)#if(${foreach.index}!=0),#end`${field.columnName}`#end 
+			
+  		) VALUES (
+			#foreach($field in $fields)#if(${foreach.index}!=0),#end#{${field.name}}#end 
+			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

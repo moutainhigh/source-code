@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="console-log" class="org.apache.log4j.ConsoleAppender">
+	    <param name="encoding" value="utf-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd日 HH:mm:ss,SSS} : %-5p %C{1}.%M() - %m%n" />
+		</layout>
+	</appender>
+
+
+	<logger name="java.sql" additivity="false">
+		<level value="${log.sql.level}"></level>
+		<appender-ref ref="sql-log" />
+	</logger>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="console-log" />
+	</root>
+
+</log4j:configuration>

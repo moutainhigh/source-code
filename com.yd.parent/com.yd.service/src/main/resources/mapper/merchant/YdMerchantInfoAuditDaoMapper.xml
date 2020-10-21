@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.merchant.YdMerchantInfoAuditDao" >
+
+    <resultMap id="YdMerchantInfoAuditMap" type="com.yd.service.bean.merchant.YdMerchantInfoAudit" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+        
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        
+        <result column="contact" property="contact" jdbcType="VARCHAR" />
+        
+        <result column="card" property="card" jdbcType="VARCHAR" />
+        
+        <result column="longitude" property="longitude" jdbcType="DECIMAL" />
+        
+        <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+        
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        
+        <result column="district" property="district" jdbcType="VARCHAR" />
+        
+        <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+        
+        <result column="city_id" property="cityId" jdbcType="INTEGER" />
+        
+        <result column="district_id" property="districtId" jdbcType="INTEGER" />
+        
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        
+        <result column="business_day" property="businessDay" jdbcType="VARCHAR" />
+        
+        <result column="business_start_time" property="businessStartTime" jdbcType="VARCHAR" />
+        
+        <result column="business_end_time" property="businessEndTime" jdbcType="VARCHAR" />
+        
+        <result column="merchant_url" property="merchantUrl" jdbcType="VARCHAR" />
+        
+        <result column="protocol_url" property="protocolUrl" jdbcType="VARCHAR" />
+        
+        <result column="license_urls" property="licenseUrls" jdbcType="VARCHAR" />
+
+        <result column="public_qr_code" property="publicQrCode" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        audit_status,
+        merchant_id,
+        merchant_name,
+        mobile,
+        contact,
+        card,
+        longitude,
+        latitude,
+        province,
+        city,
+        district,
+        province_id,
+        city_id,
+        district_id,
+        address,
+        business_day,
+        business_start_time,
+        business_end_time,
+        merchant_url,
+        protocol_url,
+        license_urls,
+        public_qr_code
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="auditStatus!=null and auditStatus!=''">
+        and audit_status = #{auditStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantName!=null and merchantName!=''">
+        and merchant_name = #{merchantName,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+        and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="contact!=null and contact!=''">
+        and contact = #{contact,jdbcType=VARCHAR}
+        </if>
+        <if test="card!=null and card!=''">
+        and card = #{card,jdbcType=VARCHAR}
+        </if>
+        <if test="longitude!=null and longitude!=''">
+        and longitude = #{longitude,jdbcType=DECIMAL}
+        </if>
+        <if test="latitude!=null and latitude!=''">
+        and latitude = #{latitude,jdbcType=DECIMAL}
+        </if>
+        <if test="province!=null and province!=''">
+        and province = #{province,jdbcType=VARCHAR}
+        </if>
+        <if test="city!=null and city!=''">
+        and city = #{city,jdbcType=VARCHAR}
+        </if>
+        <if test="district!=null and district!=''">
+        and district = #{district,jdbcType=VARCHAR}
+        </if>
+        <if test="provinceId!=null">
+        and province_id = #{provinceId,jdbcType=INTEGER}
+        </if>
+        <if test="cityId!=null">
+        and city_id = #{cityId,jdbcType=INTEGER}
+        </if>
+        <if test="districtId!=null">
+        and district_id = #{districtId,jdbcType=INTEGER}
+        </if>
+        <if test="address!=null and address!=''">
+        and address = #{address,jdbcType=VARCHAR}
+        </if>
+        <if test="businessDay!=null and businessDay!=''">
+        and business_day = #{businessDay,jdbcType=VARCHAR}
+        </if>
+        <if test="businessStartTime!=null and businessStartTime!=''">
+        and business_start_time = #{businessStartTime,jdbcType=VARCHAR}
+        </if>
+        <if test="businessEndTime!=null and businessEndTime!=''">
+        and business_end_time = #{businessEndTime,jdbcType=VARCHAR}
+        </if>
+        <if test="merchantUrl!=null and merchantUrl!=''">
+        and merchant_url = #{merchantUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="protocolUrl!=null and protocolUrl!=''">
+        and protocol_url = #{protocolUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="publicQrCode!=null and publicQrCode!=''">
+            and public_qr_code = #{publicQrCode,jdbcType=VARCHAR}
+        </if>
+        <if test="licenseUrls!=null and licenseUrls!=''">
+        and license_urls = #{licenseUrls,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantInfoAuditById" resultMap="YdMerchantInfoAuditMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_info_audit
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdMerchantInfoAuditCount" parameterType="com.yd.service.bean.merchant.YdMerchantInfoAudit" resultType="int">
+        select count(1) from yd_merchant_info_audit where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantInfoAuditListByPage" resultMap="YdMerchantInfoAuditMap">
+        select * from yd_merchant_info_audit where 1=1
+        <if test="params.auditStatus!=null and params.auditStatus!=''">
+            and audit_status = #{params.auditStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="params.merchantName!=null and params.merchantName!=''">
+            and merchant_name = #{params.merchantName,jdbcType=VARCHAR}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.merchant.YdMerchantInfoAudit" resultMap="YdMerchantInfoAuditMap">
+        select * from yd_merchant_info_audit where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdMerchantInfoAudit" parameterType="com.yd.service.bean.merchant.YdMerchantInfoAudit" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_info_audit (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{auditStatus,jdbcType=VARCHAR},
+        #{merchantId,jdbcType=INTEGER},
+        #{merchantName,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR},
+        #{contact,jdbcType=VARCHAR},
+        #{card,jdbcType=VARCHAR},
+        #{longitude,jdbcType=DECIMAL},
+        #{latitude,jdbcType=DECIMAL},
+        #{province,jdbcType=VARCHAR},
+        #{city,jdbcType=VARCHAR},
+        #{district,jdbcType=VARCHAR},
+        #{provinceId,jdbcType=INTEGER},
+        #{cityId,jdbcType=INTEGER},
+        #{districtId,jdbcType=INTEGER},
+        #{address,jdbcType=VARCHAR},
+        #{businessDay,jdbcType=VARCHAR},
+        #{businessStartTime,jdbcType=VARCHAR},
+        #{businessEndTime,jdbcType=VARCHAR},
+        #{merchantUrl,jdbcType=VARCHAR},
+        #{protocolUrl,jdbcType=VARCHAR},
+        #{licenseUrls,jdbcType=VARCHAR},
+        #{publicQrCode,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantInfoAudit" parameterType="com.yd.service.bean.merchant.YdMerchantInfoAudit" >
+        update yd_merchant_info_audit
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="auditStatus != null" >
+                audit_status = #{auditStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantName != null" >
+                merchant_name = #{merchantName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null" >
+                contact = #{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="card != null" >
+                card = #{card,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null" >
+                longitude = #{longitude,jdbcType=DECIMAL},
+            </if>
+            <if test="latitude != null" >
+                latitude = #{latitude,jdbcType=DECIMAL},
+            </if>
+            <if test="province != null" >
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="district != null" >
+                district = #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null" >
+                province_id = #{provinceId,jdbcType=INTEGER},
+            </if>
+            <if test="cityId != null" >
+                city_id = #{cityId,jdbcType=INTEGER},
+            </if>
+            <if test="districtId != null" >
+                district_id = #{districtId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="businessDay != null" >
+                business_day = #{businessDay,jdbcType=VARCHAR},
+            </if>
+            <if test="businessStartTime != null" >
+                business_start_time = #{businessStartTime,jdbcType=VARCHAR},
+            </if>
+            <if test="businessEndTime != null" >
+                business_end_time = #{businessEndTime,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantUrl != null" >
+                merchant_url = #{merchantUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="protocolUrl != null" >
+                protocol_url = #{protocolUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="publicQrCode != null" >
+                public_qr_code = #{publicQrCode,jdbcType=VARCHAR},
+            </if>
+
+            <if test="licenseUrls != null" >
+                license_urls = #{licenseUrls,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

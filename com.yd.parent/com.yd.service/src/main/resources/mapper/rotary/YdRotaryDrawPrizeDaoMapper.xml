@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.rotary.YdRotaryDrawPrizeDao" >
+
+    <resultMap id="resultMap" type="com.yd.service.bean.rotary.YdRotaryDrawPrize" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+        
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        
+        <result column="icon" property="icon" jdbcType="VARCHAR" />
+        
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        
+        <result column="win_rate" property="winRate" jdbcType="INTEGER" />
+
+        <result column="coupon_price" property="couponPrice"/>
+        
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        activity_id,
+        type,
+        icon,
+        name,
+        win_rate,
+        coupon_price,
+        sort
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="activityId!=null">
+        and activity_id = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="type!=null and type!=''">
+        and type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="icon!=null and icon!=''">
+        and icon = #{icon,jdbcType=VARCHAR}
+        </if>
+        <if test="name!=null and name!=''">
+        and name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="winRate!=null">
+        and win_rate = #{winRate,jdbcType=INTEGER}
+        </if>
+        <if test="sort!=null">
+        and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdRotaryDrawPrizeById" resultMap="resultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_rotary_draw_prize
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.rotary.YdRotaryDrawPrize" resultMap="resultMap">
+        select * from yd_rotary_draw_prize where 1=1 
+        <include refid="where" />
+    </select>
+    
+    <insert id="insertYdRotaryDrawPrize" parameterType="com.yd.service.bean.rotary.YdRotaryDrawPrize" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_rotary_draw_prize (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{activityId,jdbcType=INTEGER},
+        #{type,jdbcType=VARCHAR},
+        #{icon,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{winRate,jdbcType=INTEGER},
+        #{couponPrice},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateYdRotaryDrawPrize" parameterType="com.yd.service.bean.rotary.YdRotaryDrawPrize" >
+        update yd_rotary_draw_prize
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityId != null" >
+                activity_id = #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null" >
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="winRate != null" >
+                win_rate = #{winRate,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

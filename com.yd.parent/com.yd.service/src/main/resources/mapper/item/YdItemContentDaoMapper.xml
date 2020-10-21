@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.item.YdItemContentDao" >
+
+    <resultMap id="YdItemContentMap" type="com.yd.service.bean.item.YdItemContent" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        item_id,
+        content
+    </sql>
+
+    <sql id="where">
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+            and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="itemId!=null">
+            and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="content!=null and content!=''">
+            and content = #{content,jdbcType=LONGVARCHAR}
+        </if>
+    </sql>
+
+    <select id="getYdItemContentById" resultMap="YdItemContentMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_item_content
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdItemContentByItemId" resultMap="YdItemContentMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_item_content
+        where item_id = #{itemId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.item.YdItemContent" resultMap="YdItemContentMap">
+        select * from yd_item_content where 1=1
+        <include refid="where" />
+    </select>
+
+    <insert id="insertYdItemContent" parameterType="com.yd.service.bean.item.YdItemContent" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_item_content (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{itemId,jdbcType=INTEGER},
+        #{content,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+
+    <update id="updateYdItemContent" parameterType="com.yd.service.bean.item.YdItemContent" >
+        update yd_item_content
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null" >
+                content = #{content,jdbcType=LONGVARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.common.WxVisitRecordDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.common.WxVisitRecord">
+		<result property="id" column="id" />
+		<result property="openId" column="open_id" />
+		<result property="eventKey" column="event_key" />
+		<result property="createTime" column="create_time" />
+		<result property="mpType" column="mp_type" />
+	</resultMap>
+	
+	<delete id="deleteWxVisitRecordById">
+		DELETE FROM wx_visit_record WHERE id = #{id}
+	</delete>
+	
+	<select id="findWxVisitRecordById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wx_visit_record
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="getWxVisitRecordCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			wx_visit_record
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="openId!=null">
+  				AND open_id = #{openId}
+  			</if>
+  			<if test="eventKey!=null">
+  				AND event_key = #{eventKey}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+  			<if test="mpType!=null">
+  				AND mp_type = #{mpType}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findWxVisitRecordsByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wx_visit_record
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.openId!=null">
+  				AND open_id = #{param.openId}
+  			</if>
+  			<if test="param.eventKey!=null">
+  				AND event_key = #{param.eventKey}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+  			<if test="param.mpType!=null">
+  				AND mp_type = #{param.mpType}
+  			</if>
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.common.WxVisitRecord">
+  		INSERT INTO wx_visit_record ( 
+			`id`,`open_id`,`event_key`,`create_time`,`mp_type`			
+  		) VALUES (
+			#{id},#{openId},#{eventKey},#{createTime},#{mpType}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

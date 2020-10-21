@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.coupon.YdMerchantCouponDao" >
+
+    <resultMap id="YdMerchantCouponMap" type="com.yd.service.bean.coupon.YdMerchantCoupon" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="coupon_title" property="couponTitle" jdbcType="VARCHAR" />
+        
+        <result column="coupon_type" property="couponType" jdbcType="VARCHAR" />
+        
+        <result column="coupon_amount" property="couponAmount" jdbcType="INTEGER" />
+        
+        <result column="limit_amount" property="limitAmount" jdbcType="INTEGER" />
+        
+        <result column="coupon_price" property="couponPrice" jdbcType="INTEGER" />
+        
+        <result column="coupon_desc" property="couponDesc" jdbcType="LONGVARCHAR" />
+        
+        <result column="use_condition_price" property="useConditionPrice" jdbcType="DECIMAL" />
+        
+        <result column="valid_type" property="validType" jdbcType="VARCHAR" />
+        
+        <result column="valid_start_time" property="validStartTime" jdbcType="TIMESTAMP" />
+        
+        <result column="valid_end_time" property="validEndTime" jdbcType="TIMESTAMP" />
+        
+        <result column="valid_day" property="validDay" jdbcType="INTEGER" />
+        
+        <result column="use_range_type" property="useRangeType" jdbcType="VARCHAR" />
+        
+        <result column="can_use_item_ids" property="canUseItemIds" jdbcType="VARCHAR" />
+        
+        <result column="is_shelf" property="isShelf" jdbcType="CHAR" />
+        
+        <result column="coupon_resource" property="couponResource" jdbcType="VARCHAR" />
+        
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        coupon_title,
+        coupon_type,
+        coupon_amount,
+        limit_amount,
+        coupon_price,
+        coupon_desc,
+        use_condition_price,
+        valid_type,
+        valid_start_time,
+        valid_end_time,
+        valid_day,
+        use_range_type,
+        can_use_item_ids,
+        is_shelf,
+        coupon_resource,
+        remark
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="couponTitle!=null and couponTitle!=''">
+        and coupon_title = #{couponTitle,jdbcType=VARCHAR}
+        </if>
+        <if test="couponType!=null and couponType!=''">
+        and coupon_type = #{couponType,jdbcType=VARCHAR}
+        </if>
+        <if test="couponAmount!=null">
+        and coupon_amount = #{couponAmount,jdbcType=INTEGER}
+        </if>
+        <if test="limitAmount!=null">
+        and limit_amount = #{limitAmount,jdbcType=INTEGER}
+        </if>
+        <if test="couponPrice!=null">
+        and coupon_price = #{couponPrice,jdbcType=INTEGER}
+        </if>
+        <if test="couponDesc!=null and couponDesc!=''">
+        and coupon_desc = #{couponDesc,jdbcType=LONGVARCHAR}
+        </if>
+        <if test="useConditionPrice!=null and useConditionPrice!=''">
+        and use_condition_price = #{useConditionPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="validType!=null and validType!=''">
+        and valid_type = #{validType,jdbcType=VARCHAR}
+        </if>
+        <if test="validStartTime!=null and validStartTime!=''">
+        and valid_start_time = #{validStartTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="validEndTime!=null and validEndTime!=''">
+        and valid_end_time = #{validEndTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="validDay!=null">
+        and valid_day = #{validDay,jdbcType=INTEGER}
+        </if>
+        <if test="useRangeType!=null and useRangeType!=''">
+        and use_range_type = #{useRangeType,jdbcType=VARCHAR}
+        </if>
+        <if test="canUseItemIds!=null and canUseItemIds!=''">
+        and can_use_item_ids = #{canUseItemIds,jdbcType=VARCHAR}
+        </if>
+        <if test="isShelf!=null and isShelf!=''">
+        and is_shelf = #{isShelf,jdbcType=CHAR}
+        </if>
+        <if test="couponResource!=null and couponResource!=''">
+        and coupon_resource = #{couponResource,jdbcType=VARCHAR}
+        </if>
+        <if test="remark!=null and remark!=''">
+        and remark = #{remark,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantCouponById" resultMap="YdMerchantCouponMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_coupon
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdMerchantCouponCount" parameterType="com.yd.service.bean.coupon.YdMerchantCoupon" resultType="int">
+        select count(1) from yd_merchant_coupon where 1=1
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="couponTitle!=null and couponTitle!=''">
+            and coupon_title = #{couponTitle,jdbcType=VARCHAR}
+        </if>
+        <if test="couponType!=null and couponType!=''">
+            and coupon_type = #{couponType,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and valid_start_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            and valid_end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="isShelf!=null and isShelf!=''">
+            and is_shelf = #{isShelf,jdbcType=CHAR}
+        </if>
+        <if test="couponResource!=null and couponResource!=''">
+            and coupon_resource = #{couponResource,jdbcType=VARCHAR}
+        </if>
+    </select>
+	
+	<select id="findYdMerchantCouponListByPage" resultMap="YdMerchantCouponMap">
+        select * from yd_merchant_coupon where 1=1
+        <if test="params.merchantId!=null">
+            and merchant_id = #{params.merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="params.couponTitle!=null and params.couponTitle!=''">
+            and coupon_title = #{params.couponTitle,jdbcType=VARCHAR}
+        </if>
+        <if test="params.couponType!=null and params.couponType!=''">
+            and coupon_type = #{params.couponType,jdbcType=VARCHAR}
+        </if>
+        <if test="params.startTime!=null and params.startTime!=''">
+            and valid_start_time &gt;= #{params.startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="params.endTime!=null and params.endTime!=''">
+            and valid_end_time &lt;= #{params.endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="params.isShelf!=null and params.isShelf!=''">
+            and is_shelf = #{params.isShelf,jdbcType=CHAR}
+        </if>
+        <if test="params.couponResource!=null and params.couponResource!=''">
+            and coupon_resource = #{params.couponResource,jdbcType=VARCHAR}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.coupon.YdMerchantCoupon" resultMap="YdMerchantCouponMap">
+        select * from yd_merchant_coupon where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+  
+    <insert id="insertYdMerchantCoupon" parameterType="com.yd.service.bean.coupon.YdMerchantCoupon" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_coupon (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{couponTitle,jdbcType=VARCHAR},
+        #{couponType,jdbcType=VARCHAR},
+        #{couponAmount,jdbcType=INTEGER},
+        #{limitAmount,jdbcType=INTEGER},
+        #{couponPrice,jdbcType=INTEGER},
+        #{couponDesc,jdbcType=LONGVARCHAR},
+        #{useConditionPrice,jdbcType=DECIMAL},
+        #{validType,jdbcType=VARCHAR},
+        #{validStartTime,jdbcType=TIMESTAMP},
+        #{validEndTime,jdbcType=TIMESTAMP},
+        #{validDay,jdbcType=INTEGER},
+        #{useRangeType,jdbcType=VARCHAR},
+        #{canUseItemIds,jdbcType=VARCHAR},
+        #{isShelf,jdbcType=CHAR},
+        #{couponResource,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantCoupon" parameterType="com.yd.service.bean.coupon.YdMerchantCoupon" >
+        update yd_merchant_coupon
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="couponTitle != null" >
+                coupon_title = #{couponTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="couponType != null" >
+                coupon_type = #{couponType,jdbcType=VARCHAR},
+            </if>
+            <if test="couponAmount != null" >
+                coupon_amount = #{couponAmount,jdbcType=INTEGER},
+            </if>
+            <if test="limitAmount != null" >
+                limit_amount = #{limitAmount,jdbcType=INTEGER},
+            </if>
+            <if test="couponPrice != null" >
+                coupon_price = #{couponPrice,jdbcType=INTEGER},
+            </if>
+            <if test="couponDesc != null" >
+                coupon_desc = #{couponDesc,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="useConditionPrice != null" >
+                use_condition_price = #{useConditionPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="validType != null" >
+                valid_type = #{validType,jdbcType=VARCHAR},
+            </if>
+            <if test="validStartTime != null" >
+                valid_start_time = #{validStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="validEndTime != null" >
+                valid_end_time = #{validEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="validDay != null" >
+                valid_day = #{validDay,jdbcType=INTEGER},
+            </if>
+            <if test="useRangeType != null" >
+                use_range_type = #{useRangeType,jdbcType=VARCHAR},
+            </if>
+            <if test="canUseItemIds != null" >
+                can_use_item_ids = #{canUseItemIds,jdbcType=VARCHAR},
+            </if>
+            <if test="isShelf != null" >
+                is_shelf = #{isShelf,jdbcType=CHAR},
+            </if>
+            <if test="couponResource != null" >
+                coupon_resource = #{couponResource,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="addCouponAmount">
+        UPDATE yd_merchant_coupon
+        SET coupon_amount = coupon_amount + #{num}
+        WHERE
+            id = #{couponId}
+    </update>
+
+    <select id="findFrontMerchantCouponList" resultMap="YdMerchantCouponMap">
+        SELECT
+          *
+        FROM
+          yd_merchant_coupon
+        WHERE
+          1 = 1
+        AND IF (
+          valid_type = 'DATE_RANGE',
+          valid_start_time &lt;= NOW()
+        AND valid_end_time &gt;= NOW(),
+          1 = 1
+        )
+        AND coupon_resource = 'RECEIVE'
+        AND is_shelf = 'Y'
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="itemId!=null">
+            AND IF (
+              use_range_type = 'ITEM',
+              can_use_item_ids LIKE CONCAT(CONCAT('%', #{itemId}), '%'),
+              1 = 1
+            )
+        </if>
+    </select>
+
+    <delete id="deleteMerchantCoupon">
+        DELETE
+        FROM
+            yd_merchant_coupon
+        where id = #{couponId}
+    </delete>
+
+</mapper>

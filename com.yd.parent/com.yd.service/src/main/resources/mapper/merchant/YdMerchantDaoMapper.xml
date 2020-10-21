@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.merchant.YdMerchantDao" >
+
+    <resultMap id="YdMerchantMap" type="com.yd.service.bean.merchant.YdMerchant" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="pid" property="pid" jdbcType="INTEGER" />
+
+        <result column="member_level" property="memberLevel" jdbcType="INTEGER" />
+
+        <result column="member_type" property="memberType" jdbcType="VARCHAR" />
+
+        <result column="member_valid_time" property="memberValidTime" jdbcType="TIMESTAMP" />
+
+        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+
+        <result column="password" property="password" jdbcType="VARCHAR" />
+
+        <result column="contact" property="contact" jdbcType="VARCHAR" />
+
+        <result column="card" property="card" jdbcType="VARCHAR" />
+
+        <result column="longitude" property="longitude" jdbcType="DECIMAL" />
+
+        <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+
+        <result column="province" property="province" jdbcType="VARCHAR" />
+
+        <result column="city" property="city" jdbcType="VARCHAR" />
+
+        <result column="district" property="district" jdbcType="VARCHAR" />
+
+        <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+
+        <result column="city_id" property="cityId" jdbcType="INTEGER" />
+
+        <result column="district_id" property="districtId" jdbcType="INTEGER" />
+
+        <result column="address" property="address" jdbcType="VARCHAR" />
+
+        <result column="business_day" property="businessDay" jdbcType="VARCHAR" />
+
+        <result column="merchant_url" property="merchantUrl" jdbcType="VARCHAR" />
+
+        <result column="protocol_url" property="protocolUrl" jdbcType="VARCHAR" />
+
+        <result column="license_urls" property="licenseUrls" jdbcType="VARCHAR" />
+
+        <result column="wx_open_id" property="wxOpenId" jdbcType="VARCHAR" />
+
+        <result column="public_qr_code" property="publicQrCode" jdbcType="VARCHAR" />
+
+        <result column="shop_qr_code" property="shopQrCode" jdbcType="VARCHAR" />
+
+        <result column="is_open_pay" property="isOpenPay" jdbcType="CHAR" />
+
+        <result column="pay_password" property="payPassword" jdbcType="VARCHAR" />
+
+        <result column="is_compare_price" property="isComparePrice" jdbcType="CHAR" />
+
+        <result column="is_old_machine_reduce" property="isOldMachineReduce" jdbcType="CHAR" />
+        
+        <result column="role_ids" property="roleIds"/>
+        
+        <result column="group_code" property="groupCode"/>
+
+        <result column="invite_id" property="inviteId"/>
+
+        <result column="is_flag" property="isFlag"/>
+        
+        <result column="bind_wx_detail" property="bindWxDetail"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        pid,
+        member_level,
+        member_type,
+        member_valid_time,
+        merchant_name,
+        mobile,
+        password,
+        contact,
+        card,
+        longitude,
+        latitude,
+        province,
+        city,
+        district,
+        province_id,
+        city_id,
+        district_id,
+        address,
+        business_day,
+        merchant_url,
+        protocol_url,
+        license_urls,
+        wx_open_id,
+        public_qr_code,
+        shop_qr_code,
+        is_open_pay,
+        pay_password,
+        is_compare_price,
+        is_old_machine_reduce,
+        role_ids,
+        group_code,
+        invite_id,
+        is_flag,
+        bind_wx_detail
+    </sql>
+
+    <sql id="where">
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+            and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pid!=null">
+            and pid = #{pid,jdbcType=INTEGER}
+        </if>
+        <if test="memberLevel!=null and memberLevel!=''">
+            and member_level = #{memberLevel,jdbcType=INTEGER}
+        </if>
+        <if test="memberType!=null and memberType!=''">
+            and member_type = #{memberType,jdbcType=VARCHAR}
+        </if>
+        <if test="memberValidTime!=null and memberValidTime!=''">
+            and member_valid_time = #{memberValidTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantName!=null and merchantName!=''">
+            and merchant_name = #{merchantName,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+            and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="password!=null and password!=''">
+            and password = #{password,jdbcType=VARCHAR}
+        </if>
+        <if test="contact!=null and contact!=''">
+            and contact = #{contact,jdbcType=VARCHAR}
+        </if>
+        <if test="card!=null and card!=''">
+            and card = #{card,jdbcType=VARCHAR}
+        </if>
+        <if test="longitude!=null and longitude!=''">
+            and longitude = #{longitude,jdbcType=DECIMAL}
+        </if>
+        <if test="latitude!=null and latitude!=''">
+            and latitude = #{latitude,jdbcType=DECIMAL}
+        </if>
+        <if test="province!=null and province!=''">
+            and province = #{province,jdbcType=VARCHAR}
+        </if>
+        <if test="city!=null and city!=''">
+            and city = #{city,jdbcType=VARCHAR}
+        </if>
+        <if test="district!=null and district!=''">
+            and district = #{district,jdbcType=VARCHAR}
+        </if>
+        <if test="provinceId!=null">
+            and province_id = #{provinceId,jdbcType=INTEGER}
+        </if>
+        <if test="cityId!=null">
+            and city_id = #{cityId,jdbcType=INTEGER}
+        </if>
+        <if test="districtId!=null">
+            and district_id = #{districtId,jdbcType=INTEGER}
+        </if>
+        <if test="address!=null and address!=''">
+            and address = #{address,jdbcType=VARCHAR}
+        </if>
+        <if test="merchantUrl!=null and merchantUrl!=''">
+            and merchant_url = #{merchantUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="protocolUrl!=null and protocolUrl!=''">
+            and protocol_url = #{protocolUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="licenseUrls!=null and licenseUrls!=''">
+            and license_urls = #{licenseUrls,jdbcType=VARCHAR}
+        </if>
+        <if test="isComparePrice!=null and isComparePrice!=''">
+            and is_compare_price = #{isComparePrice,jdbcType=CHAR}
+        </if>
+        <if test="isOldMachineReduce!=null and isOldMachineReduce!=''">
+            and is_old_machine_reduce = #{isOldMachineReduce,jdbcType=CHAR}
+        </if>
+        <if test="roleIds!=null and roleIds!=''">
+            and role_ids like CONCAT(CONCAT('%', #{roleIds}), '%')
+        </if>
+        <if test="inviteId!=null and inviteId!=''">
+            and invite_id = #{inviteId}
+        </if>
+        <if test="groupCode!=null and groupCode!=''">
+            and group_code = #{groupCode}
+        </if>
+        <if test="isFlag!=null and isFlag!=''">
+            and is_flag = #{isFlag}
+        </if>
+    </sql>
+    
+    <update id="updateSysAccount" parameterType="com.yd.service.bean.merchant.YdMerchant">
+    	update
+    		yd_merchant
+    	set
+    		merchant_name=#{param.merchantName},
+    		mobile=#{param.mobile},
+    		password=#{param.password},
+    		role_ids=#{param.roleIds}
+    	where
+    		id=#{param.id} and group_code='sys'
+    </update>
+    
+    <update id="updateMerchantBindWeixin">
+    	update
+    		yd_merchant
+    	set
+    		wx_open_id=#{wxOpenId},
+    		bind_wx_detail=#{bindWxDetail}
+    	where
+    		id=#{merchantId}
+    </update>
+
+    <select id="getYdMerchantById" resultMap="YdMerchantMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findYdMerchantListByPid" resultMap="YdMerchantMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant
+        where pid = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getSysAccountList" resultMap="YdMerchantMap">
+    	select
+    		*
+    	from
+    		yd_merchant
+    	where
+    		group_code='sys'
+    	order by
+    		id
+    	LIMIT 
+			#{offset},#{rows}
+    </select>
+
+    <select id="getYdMerchantByMobile" resultMap="YdMerchantMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant
+        where mobile = #{mobile}
+    </select>
+
+    <select id="getYdMerchantCount" parameterType="com.yd.service.bean.merchant.YdMerchant" resultType="int">
+        select count(1) from yd_merchant where 1=1
+        <include refid="where" />
+    </select>
+
+    <select id="findYdMerchantListByPage" resultMap="YdMerchantMap">
+        select * from yd_merchant where 1=1
+        <if test="params.merchantName!=null and params.merchantName!=''">
+            and merchant_name = #{params.merchantName,jdbcType=VARCHAR}
+        </if>
+        <if test="params.mobile!=null and params.mobile!=''">
+            and mobile = #{params.mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="params.roleIds!=null and params.roleIds!=''">
+            and role_ids like CONCAT(CONCAT('%', #{params.roleIds}), '%')
+        </if>
+        <if test="params.groupCode!=null and params.groupCode!=''">
+            and group_code = #{params.groupCode}
+        </if>
+        <if test="params.isFlag!=null and params.isFlag!=''">
+            and is_flag = #{params.isFlag}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="getPlatformMerchantCount" parameterType="com.yd.service.bean.merchant.YdMerchant" resultType="int">
+        select count(1) from yd_merchant where 1=1  and pid = id
+        and (group_code = 'merchant' or group_code = 'supplier')
+        <if test="merchantName!=null and merchantName!=''">
+            and merchant_name = #{merchantName,jdbcType=VARCHAR}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+            and mobile = #{mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="groupCode!=null and groupCode!=''">
+            and group_code = #{groupCode,jdbcType=VARCHAR}
+        </if>
+        <if test="isFlag!=null and isFlag!=''">
+            and is_flag = #{isFlag,jdbcType=VARCHAR}
+        </if>
+        <if test="memberLevel!=null">
+            and member_level = #{memberLevel}
+        </if>
+        <if test="inviteId!=null">
+            and invite_id = #{inviteId}
+        </if>
+        <if test="memberStatus!=null and memberStatus!='' and memberStatus == 'valid' ">
+            and member_valid_time &gt; now()
+        </if>
+        <if test="memberStatus!=null and memberStatus!='' and memberStatus == 'invalid' ">
+            and member_valid_time &lt; now()
+        </if>
+    </select>
+
+    <select id="findPlatformMerchantList" resultMap="YdMerchantMap">
+        select * from yd_merchant where 1=1  and pid = id
+        and (group_code = 'merchant' or group_code = 'supplier')
+        <if test="params.merchantName!=null and params.merchantName!=''">
+            and merchant_name = #{params.merchantName,jdbcType=VARCHAR}
+        </if>
+        <if test="params.mobile!=null and params.mobile!=''">
+            and mobile = #{params.mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="params.groupCode!=null and params.groupCode!=''">
+            and group_code = #{params.groupCode,jdbcType=VARCHAR}
+        </if>
+        <if test="params.isFlag!=null and params.isFlag!=''">
+            and is_flag = #{params.isFlag,jdbcType=VARCHAR}
+        </if>
+        <if test="params.memberLevel!=null">
+            and member_level = #{params.memberLevel}
+        </if>
+        <if test="params.inviteId!=null">
+            and invite_id = #{params.inviteId}
+        </if>
+        <if test="params.memberStatus!=null and params.memberStatus!='' and params.memberStatus == 'valid' ">
+            and member_valid_time &gt; now()
+        </if>
+        <if test="params.memberStatus!=null and params.memberStatus!='' and params.memberStatus == 'invalid' ">
+            and member_valid_time &lt; now()
+        </if>
+        order by update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.merchant.YdMerchant" resultMap="YdMerchantMap">
+        select * from yd_merchant where 1=1
+        <include refid="where" />
+        order by update_time desc
+    </select>
+
+    <insert id="insertYdMerchant" parameterType="com.yd.service.bean.merchant.YdMerchant" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant (<include refid="Base_Column_List" />)
+        values (
+            #{id,jdbcType=INTEGER},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+            #{pid,jdbcType=INTEGER},
+            #{memberLevel,jdbcType=INTEGER},
+            #{memberType,jdbcType=VARCHAR},
+            #{memberValidTime,jdbcType=TIMESTAMP},
+            #{merchantName,jdbcType=VARCHAR},
+            #{mobile,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{contact,jdbcType=VARCHAR},
+            #{card,jdbcType=VARCHAR},
+            #{longitude,jdbcType=DECIMAL},
+            #{latitude,jdbcType=DECIMAL},
+            #{province,jdbcType=VARCHAR},
+            #{city,jdbcType=VARCHAR},
+            #{district,jdbcType=VARCHAR},
+            #{provinceId,jdbcType=INTEGER},
+            #{cityId,jdbcType=INTEGER},
+            #{districtId,jdbcType=INTEGER},
+            #{address,jdbcType=VARCHAR},
+            #{businessDay,jdbcType=VARCHAR},
+            #{merchantUrl,jdbcType=VARCHAR},
+            #{protocolUrl,jdbcType=VARCHAR},
+            #{licenseUrls,jdbcType=VARCHAR},
+            #{wxOpenId,jdbcType=VARCHAR},
+            #{publicQrCode,jdbcType=VARCHAR},
+            #{shopQrCode,jdbcType=VARCHAR},
+            #{isOpenPay,jdbcType=CHAR},
+            #{payPassword},
+            #{isComparePrice,jdbcType=CHAR},
+            #{isOldMachineReduce,jdbcType=CHAR},
+            #{roleIds},
+            #{groupCode},
+            #{inviteId},
+            #{isFlag},
+            #{bindWxDetail}
+        )
+    </insert>
+
+    <update id="updateYdMerchant" parameterType="com.yd.service.bean.merchant.YdMerchant" >
+        update yd_merchant
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="pid != null" >
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+
+            <if test="memberLevel != null" >
+                member_level = #{memberLevel},
+            </if>
+            <if test="memberType != null" >
+                member_type = #{memberType},
+            </if>
+
+            <if test="memberValidTime != null" >
+                member_valid_time = #{memberValidTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantName != null" >
+                merchant_name = #{merchantName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null" >
+                contact = #{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="card != null" >
+                card = #{card,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null" >
+                longitude = #{longitude,jdbcType=DECIMAL},
+            </if>
+            <if test="latitude != null" >
+                latitude = #{latitude,jdbcType=DECIMAL},
+            </if>
+            <if test="province != null" >
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="district != null" >
+                district = #{district,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null" >
+                province_id = #{provinceId,jdbcType=INTEGER},
+            </if>
+            <if test="cityId != null" >
+                city_id = #{cityId,jdbcType=INTEGER},
+            </if>
+            <if test="districtId != null" >
+                district_id = #{districtId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null" >
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="businessDay != null" >
+                business_day = #{businessDay,jdbcType=VARCHAR},
+            </if>
+            <if test="merchantUrl != null" >
+                merchant_url = #{merchantUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="protocolUrl != null" >
+                protocol_url = #{protocolUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="licenseUrls != null" >
+                license_urls = #{licenseUrls,jdbcType=VARCHAR},
+            </if>
+            <if test="publicQrCode != null" >
+                public_qr_code = #{publicQrCode,jdbcType=VARCHAR},
+            </if>
+            <if test="shopQrCode != null" >
+                shop_qr_code = #{shopQrCode,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpenPay != null" >
+                is_open_pay = #{isOpenPay},
+            </if>
+            <if test="payPassword != null" >
+                pay_password = #{payPassword},
+            </if>
+            <if test="isComparePrice != null" >
+                is_compare_price = #{isComparePrice,jdbcType=CHAR},
+            </if>
+            <if test="isOldMachineReduce != null" >
+                is_old_machine_reduce = #{isOldMachineReduce,jdbcType=CHAR},
+            </if>
+            <if test="inviteId != null" >
+                invite_id = #{inviteId},
+            </if>
+            <if test="roleIds != null" >
+                role_ids = #{roleIds,jdbcType=VARCHAR},
+            </if>
+
+            <if test="isFlag != null" >
+                is_flag = #{isFlag}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteMerchantOperate">
+        delete from yd_merchant
+        where id = #{merchantId} and role_ids = #{roleId}
+          and group_code = #{groupCode}
+    </delete>
+
+    <update id="updatePayPassword">
+        UPDATE yd_merchant
+        SET pay_password = #{payPassword}
+        where id = #{merchantId}
+        <if test="oldPassword != null and oldPassword != '' " >
+            pay_password = #{oldPassword}
+        </if>
+    </update>
+
+    <select id="findOperateList"  resultMap="YdMerchantMap">
+      select * from yd_merchant
+      where pid = #{merchantId} and id != #{merchantId} and is_flag = 'N'
+      limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="getOperateCount"  resultType="int">
+      select count(1) from yd_merchant
+      where pid = #{merchantId} and id != #{merchantId}  and is_flag = 'N'
+    </select>
+
+    <select id="findStoreList" resultMap="YdMerchantMap">
+        select id, merchant_name  from yd_merchant
+        where group_code = 'merchant' and pid = id
+        <if test="districtId != null" >
+            and district_id = #{districtId}
+        </if>
+        <if test="provinceId != null" >
+            and province_id = #{provinceId}
+        </if>
+        <if test="cityId != null" >
+            and city_id = #{cityId}
+        </if>
+    </select>
+
+    <select id="findStoreListByPage" resultMap="YdMerchantMap">
+        select * from yd_merchant where
+        group_code = 'merchant' and pid = id
+        <if test="param.districtId != null" >
+            and district_id = #{param.districtId}
+        </if>
+        <if test="param.merchantName != null and param.merchantName != ''" >
+            and merchant_name = #{param.merchantName}
+        </if>
+        <if test="param.isFlag != null and param.isFlag != ''" >
+            and is_flag = #{param.isFlag}
+        </if>
+        <if test="param.memberStatus!=null and param.memberStatus!='' and param.memberStatus == 'valid' ">
+            and member_valid_time &gt; now()
+        </if>
+        order by id desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <update id="updateMerchantAndOperate">
+        UPDATE yd_merchant
+        SET is_flag = #{isFlag}
+        where pid = #{merchantId}
+    </update>
+
+</mapper>

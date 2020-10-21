@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.item.YdMerchantItemDao" >
+
+    <resultMap id="YdShopMerchantItemMap" type="com.yd.service.bean.item.YdMerchantItem" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        
+        <result column="first_category_id" property="firstCategoryId" jdbcType="INTEGER" />
+        
+        <result column="second_category_id" property="secondCategoryId" jdbcType="INTEGER" />
+        
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        
+        <result column="cover" property="cover" jdbcType="VARCHAR" />
+        
+        <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+        
+        <result column="is_enable" property="isEnable" jdbcType="CHAR" />
+        
+        <result column="spec_num" property="specNum" jdbcType="INTEGER" />
+
+        <result column="total_sales_num" property="totalSalesNum" jdbcType="INTEGER" />
+
+        <result column="month_sales_num" property="monthSalesNum" jdbcType="INTEGER" />
+
+        <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+
+        <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+
+        <result column="firstCategoryName" property="firstCategoryName" jdbcType="VARCHAR" />
+
+        <result column="secondCategoryName" property="secondCategoryName" jdbcType="VARCHAR" />
+
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        item_id,
+        first_category_id,
+        second_category_id,
+        title,
+        cover,
+        sale_price,
+        is_enable,
+        spec_num,
+        total_sales_num,
+        month_sales_num,
+        brand_id,
+        brand_name,
+        sort
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="itemId!=null">
+        and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="firstCategoryId!=null">
+        and first_category_id = #{firstCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="secondCategoryId!=null">
+        and second_category_id = #{secondCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="title!=null and title!=''">
+        and title = #{title,jdbcType=VARCHAR}
+        </if>
+        <if test="cover!=null and cover!=''">
+        and cover = #{cover,jdbcType=VARCHAR}
+        </if>
+        <if test="salePrice!=null and salePrice!=''">
+        and sale_price = #{salePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+        and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+        <if test="specNum!=null">
+        and spec_num = #{specNum,jdbcType=INTEGER}
+        </if>
+        <if test="brandId!=null">
+            and brand_id = #{brandId,jdbcType=INTEGER}
+        </if>
+        <if test="brandName!=null and brandName!=''">
+            and brand_name = #{brandName,jdbcType=VARCHAR}
+        </if>
+        <if test="sort!=null">
+        and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdShopMerchantItemById" resultMap="YdShopMerchantItemMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdShopMerchantItemByItemId" resultMap="YdShopMerchantItemMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_item
+        where merchant_id = #{merchantId} and  item_id = #{itemId,jdbcType=INTEGER}
+        limit 1
+    </select>
+
+    <select id="findYdMerchantItemListByIds" resultMap="YdShopMerchantItemMap">
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_item
+        where 1 = 1 and id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.item.YdMerchantItem" resultMap="YdShopMerchantItemMap">
+        select * from yd_merchant_item where 1=1 
+        <include refid="where" />
+    </select>
+
+    <select id="getMerchantItemCount" parameterType="com.yd.service.bean.item.YdMerchantItem" resultType="int">
+        select count(1) from yd_merchant_item where 1 = 1
+        <if test="merchantId != null" >
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="title!=null and title!=''">
+            and title = #{title,jdbcType=VARCHAR}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+            and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+        <if test="firstCategoryId != null" >
+            and first_category_id = #{firstCategoryId}
+        </if>
+        <if test="secondCategoryId != null" >
+            and second_category_id = #{secondCategoryId}
+        </if>
+    </select>
+
+    <select id="findMerchantItemListByPage" parameterType="com.yd.service.bean.item.YdMerchantItem" resultMap="YdShopMerchantItemMap">
+        select
+          m.*, c1.category_name firstCategoryName, c2.category_name secondCategoryName
+        from
+          yd_merchant_item m
+        LEFT JOIN yd_merchant_item_category c1 ON c1.id = m.first_category_id
+        LEFT JOIN yd_merchant_item_category c2 ON c2.id = m.second_category_id
+        where 1 = 1
+        <if test="params.merchantId != null" >
+            and m.merchant_id = #{params.merchantId}
+        </if>
+        <if test="params.title!=null and params.title!=''">
+            and m.title = #{params.title}
+        </if>
+        <if test="params.isEnable != null and params.isEnable != '' ">
+            and m.is_enable = #{params.isEnable}
+        </if>
+        <if test="params.firstCategoryId != null" >
+            and m.first_category_id = #{params.firstCategoryId}
+        </if>
+        <if test="params.secondCategoryId != null" >
+            and m.second_category_id = #{params.secondCategoryId}
+        </if>
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <insert id="insertYdShopMerchantItem" parameterType="com.yd.service.bean.item.YdMerchantItem" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_item (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{itemId,jdbcType=INTEGER},
+        #{firstCategoryId,jdbcType=INTEGER},
+        #{secondCategoryId,jdbcType=INTEGER},
+        #{title,jdbcType=VARCHAR},
+        #{cover,jdbcType=VARCHAR},
+        #{salePrice,jdbcType=DECIMAL},
+        #{isEnable,jdbcType=CHAR},
+        #{specNum,jdbcType=INTEGER},
+        #{totalSalesNum,jdbcType=INTEGER},
+        #{monthSalesNum,jdbcType=INTEGER},
+        #{brandId,jdbcType=INTEGER},
+        #{brandName,jdbcType=VARCHAR},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateYdShopMerchantItem" parameterType="com.yd.service.bean.item.YdMerchantItem" >
+        update yd_merchant_item
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="firstCategoryId != null" >
+                first_category_id = #{firstCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="secondCategoryId != null" >
+                second_category_id = #{secondCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="cover != null" >
+                cover = #{cover,jdbcType=VARCHAR},
+            </if>
+            <if test="salePrice != null" >
+                sale_price = #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="isEnable != null" >
+                is_enable = #{isEnable,jdbcType=CHAR},
+            </if>
+            <if test="specNum != null" >
+                spec_num = #{specNum,jdbcType=INTEGER},
+            </if>
+
+            <if test="totalSalesNum != null" >
+                total_sales_num = #{totalSalesNum,jdbcType=INTEGER},
+            </if>
+            <if test="monthSalesNum != null" >
+                month_sales_num = #{monthSalesNum,jdbcType=INTEGER},
+            </if>
+            <if test="brandId != null" >
+                brand_id = #{brandId,jdbcType=INTEGER},
+            </if>
+            <if test="brandName != null" >
+                brand_name = #{brandName,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteMerchantItemById">
+        delete from
+          yd_merchant_item
+        where
+          id = #{id} and merchant_id = #{merchantId}
+    </delete>
+
+    <select id="getFrontMerchantItemCount" resultType="int">
+        SELECT
+          count(1)
+        FROM
+          yd_merchant_item mi
+        LEFT JOIN yd_item i ON i.id = mi.item_id
+        WHERE 1 = 1 and mi.is_enable = 'Y'
+        <if test="merchantId != null" >
+            and mi.merchant_id = #{merchantId}
+        </if>
+        <if test="brandId != null" >
+            and i.brand_id = #{brandId}
+        </if>
+    </select>
+
+    <select id="findFrontMerchantItemList" resultMap="YdShopMerchantItemMap">
+        SELECT
+          mi.*
+        FROM
+          yd_merchant_item mi
+        LEFT JOIN yd_item i ON i.id = mi.item_id
+        WHERE 1 = 1 and mi.is_enable = 'Y'
+        <if test="merchantId != null" >
+            and mi.merchant_id = #{merchantId}
+        </if>
+        <if test="brandId != null" >
+            and i.brand_id = #{brandId}
+        </if>
+        <if test="type != null and type == 'time' " >
+            order by mi.update_time desc
+        </if>
+        <if test="type != null and type == 'sales' " >
+            order by mi.month_sales_num desc
+        </if>
+        <if test="type != null and type == 'price' and sort == 'asc' " >
+            order by mi.sale_price asc
+        </if>
+        <if test="type != null and type == 'price' and sort == 'desc' " >
+            order by mi.sale_price desc
+        </if>
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+</mapper>

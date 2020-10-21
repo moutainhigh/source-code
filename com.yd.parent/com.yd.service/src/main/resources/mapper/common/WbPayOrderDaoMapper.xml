@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.common.WbPayOrderDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.common.WbPayOrder">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="money" column="money" />
+		<result property="outOrderId" column="out_order_id" />
+		<result property="userId" column="user_id" />
+		<result property="merchantId" column="merchant_id" />
+		<result property="payMethod" column="pay_method" />
+		<result property="isPay" column="is_pay" />
+		<result property="payTime" column="pay_time" />
+		<result property="billNo" column="bill_no" />
+		<result property="isNotify" column="is_notify" />
+		<result property="returnUrl" column="return_url" />
+		<result property="notifyUrl" column="notify_url" />
+		<result property="createTime" column="create_time" />
+		<result property="accountId" column="account_id" />
+		<result property="prepareId" column="prepare_id" />
+	</resultMap>
+	
+	<delete id="deleteWbPayOrderById">
+		DELETE FROM wb_pay_order WHERE id = #{id}
+	</delete>
+
+    <update id="payNotifyWithPayAccountId">
+		update
+			wb_pay_order
+		set
+			bill_no=#{billNo},
+			pay_time=#{payTime},
+			pay_method=#{payMethod},
+			account_id=#{accountId},
+			is_pay='Y'
+		where
+			id=#{id} and is_pay='N'
+	</update>
+	
+	<select id="findWbPayOrderById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_pay_order
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findQyPayOrderByOutOrderId" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_pay_order
+		WHERE
+			out_order_id = #{outOrderId}
+	</select>
+	
+	<select id="getWbPayOrderCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			wb_pay_order
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="title!=null">
+  				AND title = #{title}
+  			</if>
+  			<if test="money!=null">
+  				AND money = #{money}
+  			</if>
+  			<if test="outOrderId!=null">
+  				AND out_order_id = #{outOrderId}
+  			</if>
+  			<if test="userId!=null">
+  				AND user_id = #{userId}
+  			</if>
+  			<if test="merchantId!=null">
+  				AND merchant_id = #{merchantId}
+  			</if>
+  			<if test="payMethod!=null">
+  				AND pay_method = #{payMethod}
+  			</if>
+  			<if test="isPay!=null">
+  				AND is_pay = #{isPay}
+  			</if>
+  			<if test="payTime!=null">
+  				AND pay_time = #{payTime}
+  			</if>
+  			<if test="billNo!=null">
+  				AND bill_no = #{billNo}
+  			</if>
+  			<if test="isNotify!=null">
+  				AND is_notify = #{isNotify}
+  			</if>
+  			<if test="returnUrl!=null">
+  				AND return_url = #{returnUrl}
+  			</if>
+  			<if test="notifyUrl!=null">
+  				AND notify_url = #{notifyUrl}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+  			<if test="accountId!=null">
+  				AND account_id = #{accountId}
+  			</if>
+  			<if test="prepareId!=null">
+  				AND prepare_id = #{prepareId}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findWbPayOrdersByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_pay_order
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.title!=null">
+  				AND title = #{param.title}
+  			</if>
+  			<if test="param.money!=null">
+  				AND money = #{param.money}
+  			</if>
+  			<if test="param.outOrderId!=null">
+  				AND out_order_id = #{param.outOrderId}
+  			</if>
+  			<if test="param.userId!=null">
+  				AND user_id = #{param.userId}
+  			</if>
+  			<if test="param.merchantId!=null">
+  				AND merchant_id = #{param.merchantId}
+  			</if>
+  			<if test="param.payMethod!=null">
+  				AND pay_method = #{param.payMethod}
+  			</if>
+  			<if test="param.isPay!=null">
+  				AND is_pay = #{param.isPay}
+  			</if>
+  			<if test="param.payTime!=null">
+  				AND pay_time = #{param.payTime}
+  			</if>
+  			<if test="param.billNo!=null">
+  				AND bill_no = #{param.billNo}
+  			</if>
+  			<if test="param.isNotify!=null">
+  				AND is_notify = #{param.isNotify}
+  			</if>
+  			<if test="param.returnUrl!=null">
+  				AND return_url = #{param.returnUrl}
+  			</if>
+  			<if test="param.notifyUrl!=null">
+  				AND notify_url = #{param.notifyUrl}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+  			<if test="param.accountId!=null">
+  				AND account_id = #{param.accountId}
+  			</if>
+  			<if test="param.prepareId!=null">
+  				AND prepare_id = #{param.prepareId}
+  			</if>
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.common.WbPayOrder">
+  		INSERT INTO wb_pay_order ( 
+			`id`,`title`,`money`,`out_order_id`,`user_id`,`merchant_id`,`pay_method`,`is_pay`,`pay_time`,`bill_no`,`is_notify`,`return_url`,`notify_url`,`create_time`,`account_id`,`prepare_id`			
+  		) VALUES (
+			#{id},#{title},#{money},#{outOrderId},#{userId},#{merchantId},#{payMethod},#{isPay},#{payTime},#{billNo},#{isNotify},#{returnUrl},#{notifyUrl},#{createTime},#{accountId},#{prepareId}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

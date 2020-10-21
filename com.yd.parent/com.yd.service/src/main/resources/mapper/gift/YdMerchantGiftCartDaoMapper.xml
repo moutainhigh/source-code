@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.gift.YdMerchantGiftCartDao" >
+
+    <resultMap id="YdMerchantGiftCartMap" type="com.yd.service.bean.gift.YdMerchantGiftCart" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+        
+        <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+        
+        <result column="num" property="num" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        supplier_id,
+        gift_id,
+        num
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="supplierId!=null">
+        and supplier_id = #{supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="giftId!=null">
+        and gift_id = #{giftId,jdbcType=INTEGER}
+        </if>
+        <if test="num!=null">
+        and num = #{num,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantGiftCartById" resultMap="YdMerchantGiftCartMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift_cart
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantGiftCartByIdList" resultMap="YdMerchantGiftCartMap" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift_cart
+        where 1 = 1 and id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getYdMerchantGiftCartByMerchantId" resultMap="YdMerchantGiftCartMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift_cart
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+	<select id="getYdMerchantGiftCartCount" parameterType="com.yd.service.bean.gift.YdMerchantGiftCart" resultType="int">
+        select count(1) from yd_merchant_gift_cart where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantGiftCartListByPage" resultMap="YdMerchantGiftCartMap">
+        select * from yd_merchant_gift_cart where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.gift.YdMerchantGiftCart" resultMap="YdMerchantGiftCartMap">
+        select * from yd_merchant_gift_cart where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdMerchantGiftCart" parameterType="com.yd.service.bean.gift.YdMerchantGiftCart" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_gift_cart (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{supplierId,jdbcType=INTEGER},
+        #{giftId,jdbcType=INTEGER},
+        #{num,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateYdMerchantGiftCart" parameterType="com.yd.service.bean.gift.YdMerchantGiftCart" >
+        update yd_merchant_gift_cart
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="supplierId != null" >
+                supplier_id = #{supplierId,jdbcType=INTEGER},
+            </if>
+            <if test="giftId != null" >
+                gift_id = #{giftId,jdbcType=INTEGER},
+            </if>
+            <if test="num != null" >
+                num = #{num,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteMerchantGiftCart">
+        delete from yd_merchant_gift_cart where merchant_id = #{merchantId}
+    </delete>
+
+    <delete id="deleteMerchantGiftCartByIdList">
+        delete from
+          yd_merchant_gift_cart
+        where
+          merchant_id = #{merchantId} and
+          id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

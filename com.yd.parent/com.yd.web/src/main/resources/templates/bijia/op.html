@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+<title>我的优惠券</title>
+<meta charset="utf-8">
+<meta name="keywords" content="聚积宝，通宝商城领券中心">
+<meta name="description" content="聚积宝，通宝商城领券中心">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="cleartype" content="on">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<style>
+[v-cloak] {
+	display: none;
+}
+.active{
+	color:#ff0000;
+	font-weight:bold;
+}
+.siteNameSelect{
+	padding-left:50px;
+}
+.siteNameSelect  a{
+	display: inline-block;
+	width:100px;
+	height:50px;
+	line-height:50px;
+	border:1px solid #666;
+	font-size:30px;
+	margin-right:20px;
+	text-align:center;
+}
+</style>
+</head>
+
+<body>
+	<div class="g-body" id="app" v-cloak style="padding-top:100px;width:2000px;">
+	
+	<div style="width:400px;float:left;">
+		<h1>{{item.title}}</h1>
+		<ul>
+			<li v-for="(sku,index) in item.skuList" :key="index" style="height:30px;line-height:30px;" :class="{active:currSkuIndex==index}" @click="changeSkuIndex(index)">{{sku.specNameValues}}</li>
+		</ul>
+	</div>
+	<div style="width:1400px;float:left;border:1px solid #ccc;">
+		<div class="siteNameSelect">
+			<a href="javascript:void(0)" :class="{active:currSite=='京东'}"  @click="changeSite('京东')">京东</a>
+			<a href="javascript:void(0)" :class="{active:currSite=='国美'}"  @click="changeSite('国美')">国美</a>
+			<a href="javascript:void(0)" :class="{active:currSite=='苏宁'}"  @click="changeSite('苏宁')">苏宁</a>
+			<a href="javascript:void(0)" :class="{active:currSite=='天猫'}"  @click="changeSite('天猫')">天猫</a>
+		</div>
+		
+		<div>
+			<ul>
+				<li v-for="(p,index) in siteList" :key="index" style="height:30px;line-height:30px;"><a href="javascript:void(0)" style="margin-right:10px;" @click="chooseItem(p.id)">选择它</a>{{p.siteName}}{{p.title}} <span style="color:#f00;padding-left:10px;">{{p.price}}</span></li>
+			</ul>
+		</div>
+		
+		
+		
+	
+	</div>
+
+
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+	var app = new Vue({
+		el:'#app',
+		data:{
+			currSkuIndex:-1,
+			currSite:'',
+			itemId:[[${itemId}]],
+			item:{
+				title:'',
+				brand:'',
+				skuList:[]
+			},
+			isLoading:false,
+			siteDataMap:{
+				
+			},
+			siteList:[]
+		},
+		methods:{
+			chooseItem:function(id){
+				var skuId=this.item.skuList[this.currSkuIndex].id;
+				var currSite=this.currSite;
+				axios.post('/api/bijia/chooseItem',{
+					skuId:skuId,
+					currSite:currSite,
+					itemId:id
+				}).then(function (res) {
+					if(res.data.code=="00"){
+						alert("提交成功");
+					}else{
+						alert(res.data.message);
+					}
+				});
+			},
+			changeSkuIndex:function(idx){
+				if(this.isLoading){
+					return false;
+				}
+				this.isLoading=true;
+				this.currSkuIndex=idx;
+				var skuId=this.item.skuList[idx].id;
+				this.currSite='';
+				var that=this;
+				this.siteDataMap={};
+				this.siteList.length=0;
+				axios.post('/bijia/search',{
+					skuId:skuId
+				}).then(function (res) {
+					that.isLoading=false;
+				    console.log(res.data.result);
+				    that.siteDataMap=res.data.result;
+				    that.changeSite("京东");
+				});
+			},
+			changeSite:function(name){
+				console.log("select site:"+name);
+				this.currSite=name;
+				if(name=="京东"){
+					this.siteList=this.siteDataMap.jingdong;
+				}else if(name=="国美"){
+					this.siteList=this.siteDataMap.guomei;
+				}else if(name=="天猫"){
+					this.siteList=this.siteDataMap.tmall;
+				}else if(name=="苏宁"){
+					this.siteList=this.siteDataMap.suning;
+				}else{
+					this.siteList.length=0;
+				}
+				console.log('-----------this.siteList-----------------');
+				console.log(this.siteList);
+			},
+			getItemDetail:function(){
+				var that=this;
+				axios.post('/bijia/getItemDetail',{
+					itemId:this.itemId
+				}).then(function (res) {
+				    console.log(res.data.result);
+				    that.item=res.data.result;
+				});
+			}
+		},
+		computed:{
+
+		},
+		created:function(){
+			this.getItemDetail();
+		}
+	});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.merchant.YdMerchantWithdrawDao" >
+
+    <resultMap id="YdMerchantWithdrawMap" type="com.yd.service.bean.merchant.YdMerchantWithdraw" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="store_id" property="storeId" jdbcType="INTEGER" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="group_code" property="groupCode" jdbcType="VARCHAR" />
+        
+        <result column="withdraw_amount" property="withdrawAmount" jdbcType="DECIMAL" />
+
+        <result column="rate_amount" property="rateAmount" jdbcType="DECIMAL" />
+        
+        <result column="withdraw_open_id" property="withdrawOpenId" jdbcType="VARCHAR" />
+        
+        <result column="realname" property="realname" jdbcType="VARCHAR" />
+        
+        <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+        
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        
+        <result column="money_status" property="moneyStatus" jdbcType="VARCHAR" />
+        
+        <result column="money_time" property="moneyTime" jdbcType="TIMESTAMP" />
+        
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+        
+        <result column="msg" property="msg" jdbcType="VARCHAR" />
+        
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        store_id,
+        merchant_id,
+        group_code,
+        withdraw_amount,
+        rate_amount,
+        withdraw_open_id,
+        realname,
+        id_card,
+        status,
+        money_status,
+        money_time,
+        bill_no,
+        msg,
+        remark
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="storeId!=null">
+        and store_id = #{storeId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="groupCode!=null and groupCode!=''">
+        and group_code = #{groupCode,jdbcType=VARCHAR}
+        </if>
+        <if test="withdrawAmount!=null and withdrawAmount!=''">
+        and withdraw_amount = #{withdrawAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="rateAmount!=null and rateAmount!=''">
+            and rate_amount = #{rateAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="withdrawOpenId!=null and withdrawOpenId!=''">
+        and withdraw_open_id = #{withdrawOpenId,jdbcType=VARCHAR}
+        </if>
+        <if test="realname!=null and realname!=''">
+        and realname = #{realname,jdbcType=VARCHAR}
+        </if>
+        <if test="idCard!=null and idCard!=''">
+        and id_card = #{idCard,jdbcType=VARCHAR}
+        </if>
+        <if test="status!=null and status!=''">
+        and status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="moneyStatus!=null and moneyStatus!=''">
+        and money_status = #{moneyStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="moneyTime!=null and moneyTime!=''">
+        and money_time = #{moneyTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="billNo!=null and billNo!=''">
+        and bill_no = #{billNo,jdbcType=VARCHAR}
+        </if>
+        <if test="msg!=null and msg!=''">
+        and msg = #{msg,jdbcType=VARCHAR}
+        </if>
+        <if test="remark!=null and remark!=''">
+        and remark = #{remark,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantWithdrawById" resultMap="YdMerchantWithdrawMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_withdraw
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdMerchantWithdrawCount" parameterType="com.yd.service.bean.merchant.YdMerchantWithdraw" resultType="int">
+        select count(1) from yd_merchant_withdraw where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantWithdrawListByPage" resultMap="YdMerchantWithdrawMap">
+        select * from yd_merchant_withdraw where 1=1
+        <if test="params.id!=null">
+            and id = #{params.id,jdbcType=INTEGER}
+        </if>
+        <if test="params.createTime!=null and params.createTime!=''">
+            and create_time = #{params.createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="params.updateTime!=null and params.updateTime!=''">
+            and update_time = #{params.updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="params.storeId!=null">
+            and store_id = #{params.storeId,jdbcType=INTEGER}
+        </if>
+        <if test="params.merchantId!=null">
+            and merchant_id = #{params.merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="params.groupCode!=null and params.groupCode!=''">
+            and group_code = #{params.groupCode,jdbcType=VARCHAR}
+        </if>
+        <if test="params.withdrawAmount!=null and params.withdrawAmount!=''">
+            and withdraw_amount = #{params.withdrawAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="params.withdrawOpenId!=null and params.withdrawOpenId!=''">
+            and withdraw_open_id = #{params.withdrawOpenId,jdbcType=VARCHAR}
+        </if>
+        <if test="params.realname!=null and params.realname!=''">
+            and realname = #{params.realname,jdbcType=VARCHAR}
+        </if>
+        <if test="params.idCard!=null and params.idCard!=''">
+            and id_card = #{params.idCard,jdbcType=VARCHAR}
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and status = #{params.status,jdbcType=VARCHAR}
+        </if>
+        <if test="params.moneyStatus!=null and params.moneyStatus!=''">
+            and money_status = #{params.moneyStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="params.moneyTime!=null and params.moneyTime!=''">
+            and money_time = #{params.moneyTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="params.billNo!=null and params.billNo!=''">
+            and bill_no = #{params.billNo,jdbcType=VARCHAR}
+        </if>
+        <if test="params.msg!=null and params.msg!=''">
+            and msg = #{params.msg,jdbcType=VARCHAR}
+        </if>
+        <if test="params.remark!=null and params.remark!=''">
+            and remark = #{params.remark,jdbcType=VARCHAR}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.merchant.YdMerchantWithdraw" resultMap="YdMerchantWithdrawMap">
+        select * from yd_merchant_withdraw where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdMerchantWithdraw" parameterType="com.yd.service.bean.merchant.YdMerchantWithdraw" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_withdraw (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{storeId,jdbcType=INTEGER},
+        #{merchantId,jdbcType=INTEGER},
+        #{groupCode,jdbcType=VARCHAR},
+        #{withdrawAmount,jdbcType=DECIMAL},
+        #{rateAmount,jdbcType=DECIMAL},
+        #{withdrawOpenId,jdbcType=VARCHAR},
+        #{realname,jdbcType=VARCHAR},
+        #{idCard,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR},
+        #{moneyStatus,jdbcType=VARCHAR},
+        #{moneyTime,jdbcType=TIMESTAMP},
+        #{billNo,jdbcType=VARCHAR},
+        #{msg,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    <update id="updateYdMerchantWithdraw" parameterType="com.yd.service.bean.merchant.YdMerchantWithdraw" >
+        update yd_merchant_withdraw
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="storeId != null" >
+                store_id = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="groupCode != null" >
+                group_code = #{groupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="withdrawAmount != null" >
+                withdraw_amount = #{withdrawAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="rateAmount != null" >
+                rate_amount = #{rateAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="withdrawOpenId != null" >
+                withdraw_open_id = #{withdrawOpenId,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null" >
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null" >
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="moneyStatus != null" >
+                money_status = #{moneyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="moneyTime != null" >
+                money_time = #{moneyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="billNo != null" >
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="msg != null" >
+                msg = #{msg,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

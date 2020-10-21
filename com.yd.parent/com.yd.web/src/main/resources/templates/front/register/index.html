@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+    <link rel="stylesheet"
+          href="https://c1.51jujibao.com/static/mod/??public/css/1.0.0/reset.css,public/css/1.0.0/layout.css,public/css/1.0.0/page.css,public/css/1.0.0/layer.css,public/css/1.0.0/swiper.min.css?170525">
+    <style>
+        body {
+            background: #fff;
+        }
+
+        .flex-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .main {
+            margin: 3.5rem 1.5rem;
+        }
+
+        .title {
+            font-size: 1.38rem;
+            font-weight: bold;
+            margin-bottom: 2.5rem;
+        }
+
+        .input-container {
+            height: 2.3rem;
+            width: 100%;
+            border-bottom: 1px solid #E3E3E3;
+            margin-bottom: 1rem;
+        }
+
+        .input-icon {
+            display: block;
+            width: 1.25rem;
+            margin-right: .47rem;
+        }
+
+        .input-container input {
+            height: 2.3rem;
+            width: 80%;
+            line-height: 1rem;
+            font-size: .94rem;
+            color: #222424;
+            outline: none;
+        }
+
+        .input-container input::placeholder {
+            height: 2.3rem;
+            line-height: 1rem;
+            font-size: .94rem;
+            color: #ccc;
+        }
+
+        .input-code {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .get-code-txt {
+            font-size: .94rem;
+            color: #16CCB6;
+        }
+
+        .code-txt-off {
+            font-size: .94rem;
+            color: #999;
+        }
+
+        .tip {
+            font-size: .75rem;
+            color: #ccc;
+        }
+
+        .tip i {
+            color: #15CCB7;
+        }
+
+        .tip img {
+            display: block;
+            width: 1rem;
+            margin-right: .5rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 2.75rem;
+            line-height: 2.75rem;
+            background: #16CCB6;
+            border-radius: 1.37rem;
+            margin-top: 3.75rem;
+
+            color: #fff;
+            text-align: center;
+        }
+
+        .submit-btn-off {
+            background: rgba(22, 204, 182, 0.2);
+        }
+
+        .error {
+            width: 60%;
+            border-radius: 1.25rem;
+            background: #000000;
+            opacity: 0.6;
+            color: #fff;
+            line-height: 1.4rem;
+            text-align: center;
+            padding: .5rem;
+
+            position: absolute;
+            left: 50%;
+            margin-left: -30%;
+            top: 40%
+
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="main">
+        <p class="title">快抢商家注册</p>
+        <div class="input-container flex-container">
+            <img class="input-icon" src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/icon-mobile.png"
+                 alt="">
+            <input type="text" placeholder="请输入手机号" v-model="mobile" maxlength="11">
+        </div>
+        <div class="input-container flex-container">
+            <img class="input-icon" src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/icon-sms.png"
+                 alt="">
+            <div class="input-code flex-container">
+                <input type="text" placeholder="请输入验证码" v-model="smsCode" style="width: 50%;" maxlength="6">
+                <p class="get-code-txt" @click="getCode" v-show="showCount">获取验证码</p>
+                <p v-show="!showCount" class="code-txt-off">{{count}} s</p>
+            </div>
+        </div>
+        <div class="input-container flex-container">
+            <img class="input-icon"
+                 src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/icon-password.png" alt="">
+            <input type="password" v-model="password" maxlength="20" placeholder="密码8-20位字符，包含字母和数字">
+        </div>
+        <p class="tip flex-container">
+            <img src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/icon-no-check.png" v-show="!checked"
+                 @click="agree">
+            <img src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/icon-checked.png" v-show="checked"
+                 @click="agree">
+            <span>我已阅读并同意<i @click="toAgree">《商户入驻协议》</i></span>
+        </p>
+        <div class="submit-btn" @click="onSubmit" v-show="mobile && smsCode && password && checked">确 认
+        </div>
+        <div class="submit-btn submit-btn-off" v-show="!(mobile && smsCode && password && checked)">确 认</div>
+
+        <div class="error" v-show="showError">{{errorMsg}}</div>
+
+    </div>
+</div>
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            mobile: '',
+            smsCode: '',
+            password: '',
+            checked: false,
+
+            showCount: true,
+            count: '',
+            timer: null,
+
+            showError: false,
+            errorMsg: '',
+
+        },
+        methods: {
+            GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)")
+                var r = window.location.search.substr(1).match(reg)
+                if (r != null) return unescape(r[2])
+                return null
+            },
+            getCode() {
+                if (!this.mobile) {
+                    this.errorMsg = '请填写手机号！'
+                    this.showError = true
+                    let _this = this
+                    setTimeout(function () {
+                        _this.showError = false
+                    }, 2000)
+                    return
+                }
+                if (this.mobile && !/^[1][0-9]{10}$/.test(this.mobile)) {
+                    this.errorMsg = '请填写正确的手机号！'
+                    this.showError = true
+                    let _this = this
+                    setTimeout(function () {
+                        _this.showError = false
+                    }, 2000)
+                    return
+                }
+
+                if (!this.timer) {
+                    let _this = this
+                    var TIME_COUNT = 60;
+                    _this.count = TIME_COUNT;
+                    _this.showCount = false;
+                    var qs = Qs
+                    axios.post('/front/merchant/register/sendSms',
+                        qs.stringify({mobile: _this.mobile}),
+                        {
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            }
+                        }).then(function (res) {
+                        if (res.data.code == '00') {
+                            _this.timer = setInterval(function () {
+                                if (_this.count > 0 && _this.count <= TIME_COUNT) {
+                                    _this.count--;
+
+                                } else {
+                                    _this.showCount = true;
+                                    clearInterval(_this.timer);
+                                    _this.timer = null;
+                                }
+                            }, 1000)
+
+                        } else {
+                            _this.showCount = true;
+                            _this.errorMsg = res.data.message
+                            _this.showError = true
+                            setTimeout(function () {
+                                _this.showError = false
+                            }, 2000)
+                        }
+                    })
+                }
+            },
+
+            agree() {
+                this.checked = !this.checked
+            },
+            toAgree() {
+                window.location.href = 'http://c1.51jujibao.com/static/mkt/2020/03/kq_register/agreement.html'
+            },
+            onSubmit() {
+                if (this.password && !/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/.test(this.password)) {
+                    this.errorMsg = '密码必须是8-20位字符，包含字母和数字'
+                    this.showError = true
+                    let _this = this
+                    setTimeout(function () {
+                        _this.showError = false
+                    }, 2000)
+                    return
+                }
+                let _this = this
+                let qs = Qs
+                let Md5 = md5
+                axios.post('/front/merchant/register/saveInfo',
+                    qs.stringify({
+                        mobile: _this.mobile,
+                        smsCode: _this.smsCode,
+                        password: Md5(_this.password),
+                        inviteId: _this.GetQueryString('inviteId'),
+                        channel: 'H5'
+                    }),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        window.location.href = '/front/merchant/register/openShop?memberPayId=' + res.data.result
+                    } else {
+                        // _this.showCount = true;
+                        _this.errorMsg = res.data.message
+                        _this.showError = true
+                        setTimeout(function () {
+                            _this.showError = false
+                        }, 2000)
+                        // clearInterval(_this.timer)
+                    }
+                })
+
+            },
+        }
+    })
+</script>
+</body>
+</html>

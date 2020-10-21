@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.crawer.dao.YdBijiaDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.crawer.bean.YdBijia">
+		<result property="id" column="id" />
+		<result property="itemId" column="item_id" />
+		<result property="skuId" column="sku_id" />
+		<result property="jdItemId" column="jd_item_id" />
+		<result property="guomeiItemId" column="guomei_item_id" />
+		<result property="suningItemId" column="suning_item_id" />
+		<result property="tmallItemId" column="tmall_item_id" />
+		<result property="officialItemId" column="official_item_id" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<delete id="deleteYdBijiaById">
+		DELETE FROM yd_bijia WHERE id = #{id}
+	</delete>
+	
+	<update id="updateBySkuId" parameterType="com.yd.service.crawer.bean.YdBijia">
+		update
+			yd_bijia
+		set
+			<if test="param.jdItemId!=null">
+				jd_item_id=#{param.jdItemId},
+			</if>
+			<if test="param.guomeiItemId!=null">
+				guomei_item_id=#{param.guomeiItemId},
+			</if>
+			<if test="param.suningItemId!=null">
+				suning_item_id=#{param.suningItemId},
+			</if>
+			<if test="param.tmallItemId!=null">
+				tmall_item_id=#{param.tmallItemId},
+			</if>
+			update_time=now()
+		where
+			sku_id=#{param.skuId}
+	</update>
+	
+	<select id="findYdBijiaById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_bijia
+		WHERE
+			id = #{id}
+	</select>
+
+	<select id="findYdBijiaBySkuId" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_bijia
+		WHERE
+			sku_id = #{skuId}
+	</select>
+		
+	<select id="getYdBijiaCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			yd_bijia
+		<where>
+
+		</where>
+	</select>
+	
+	<select id="findYdBijiasByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			yd_bijia
+		<where>
+
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.crawer.bean.YdBijia">
+  		INSERT INTO yd_bijia ( 
+			`id`,`item_id`,`sku_id`,`jd_item_id`,`guomei_item_id`,`suning_item_id`,`tmall_item_id`,`official_item_id`,`create_time`,`update_time`			
+  		) VALUES (
+			#{id},#{itemId},#{skuId},#{jdItemId},#{guomeiItemId},#{suningItemId},#{tmallItemId},#{officialItemId},#{createTime},#{updateTime}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.crawer.dao.CrawerBrandDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.crawer.bean.CrawerBrand">
+		<result property="id" column="id" />
+		<result property="site" column="site" />
+		<result property="name" column="name" />
+		<result property="url" column="url" />
+		<result property="createTime" column="create_time" />
+		<result property="lastUpdateTime" column="last_update_time" />
+		<result property="isEnable" column="is_enable" />
+	</resultMap>
+	
+	<delete id="deleteCrawerBrandById">
+		DELETE FROM crawer_brand WHERE id = #{id}
+	</delete>
+	
+	<select id="findCrawerBrandById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_brand
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="getBrandList" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_brand
+		where 1 = 1 and is_enable = 'Y'
+	</select>
+	
+	<select id="getCrawerBrandCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			crawer_brand
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="site!=null">
+  				AND site = #{site}
+  			</if>
+  			<if test="name!=null">
+  				AND name = #{name}
+  			</if>
+  			<if test="url!=null">
+  				AND url = #{url}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+  			<if test="lastUpdateTime!=null">
+  				AND last_update_time = #{lastUpdateTime}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findCrawerBrandsByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_brand
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.site!=null">
+  				AND site = #{param.site}
+  			</if>
+  			<if test="param.name!=null">
+  				AND name = #{param.name}
+  			</if>
+  			<if test="param.url!=null">
+  				AND url = #{param.url}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+  			<if test="param.lastUpdateTime!=null">
+  				AND last_update_time = #{param.lastUpdateTime}
+  			</if>
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.crawer.bean.CrawerBrand">
+  		INSERT INTO crawer_brand ( 
+			`id`,`site`,`name`,`url`,`create_time`,`last_update_time`			
+  		) VALUES (
+			#{id},#{site},#{name},#{url},#{createTime},#{lastUpdateTime}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

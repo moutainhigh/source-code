@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.order.YdGiftOrderDetailDao" >
+
+    <resultMap id="YdGiftOrderDetailMap" type="com.yd.service.bean.order.YdGiftOrderDetail" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="gift_order_id" property="giftOrderId" jdbcType="INTEGER" />
+
+        <result column="gift_order_detail_no" property="giftOrderDetailNo" jdbcType="VARCHAR" />
+
+        <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+        
+        <result column="gift_id" property="giftId" jdbcType="INTEGER" />
+
+        <result column="merchant_gift_id" property="merchantGiftId" jdbcType="INTEGER" />
+        
+        <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+        
+        <result column="sale_price_total" property="salePriceTotal" jdbcType="DECIMAL" />
+        
+        <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+
+        <result column="purchase_price" property="purchasePrice" jdbcType="DECIMAL" />
+
+        <result column="num" property="num" jdbcType="INTEGER" />
+
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+
+        <result column="settlement_status" property="settlementStatus" jdbcType="VARCHAR" />
+
+        <result column="confirm_goods_time" property="confirmGoodsTime" jdbcType="TIMESTAMP" />
+
+        <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+
+        <result column="express_company" property="expressCompany" jdbcType="VARCHAR" />
+        
+        <result column="express_company_number" property="expressCompanyNumber" jdbcType="VARCHAR" />
+        
+        <result column="express_order_id" property="expressOrderId" jdbcType="VARCHAR" />
+
+
+        <result column="title" property="title" jdbcType="VARCHAR" />
+
+        <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+
+        <result column="gift_desc" property="giftDesc" jdbcType="VARCHAR" />
+
+        <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        gift_order_id,
+        gift_order_detail_no,
+        supplier_id,
+        gift_id,
+        merchant_gift_id,
+        sale_price,
+        sale_price_total,
+        market_price,
+        purchase_price,
+        num,
+        order_status,
+        settlement_status,
+        delivery_time,
+        confirm_goods_time,
+        express_company,
+        express_company_number,
+        express_order_id
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="giftOrderId!=null">
+        and gift_order_id = #{giftOrderId,jdbcType=INTEGER}
+        </if>
+        <if test="giftOrderDetailNo!=null and giftOrderDetailNo!=''">
+            and gift_order_detail_no = #{giftOrderDetailNo}
+        </if>
+        <if test="supplierId!=null">
+        and supplier_id = #{supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="giftId!=null">
+        and gift_id = #{giftId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantGiftId!=null">
+            and merchant_gift_id = #{merchantGiftId,jdbcType=INTEGER}
+        </if>
+        <if test="salePrice!=null and salePrice!=''">
+        and sale_price = #{salePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="salePriceTotal!=null and salePriceTotal!=''">
+        and sale_price_total = #{salePriceTotal,jdbcType=DECIMAL}
+        </if>
+        <if test="marketPrice!=null and marketPrice!=''">
+        and market_price = #{marketPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="purchasePrice!=null and purchasePrice!=''">
+            and purchase_price = #{purchasePrice,jdbcType=DECIMAL}
+        </if>
+        <if test="num!=null">
+        and num = #{num,jdbcType=INTEGER}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+            and order_status = #{orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="settlementStatus!=null and settlementStatus!=''">
+            and settlement_status = #{settlementStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="expressCompany!=null and expressCompany!=''">
+        and express_company = #{expressCompany,jdbcType=VARCHAR}
+        </if>
+        <if test="expressCompanyNumber!=null and expressCompanyNumber!=''">
+        and express_company_number = #{expressCompanyNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="expressOrderId!=null and expressOrderId!=''">
+        and express_order_id = #{expressOrderId,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdGiftOrderDetailById" resultMap="YdGiftOrderDetailMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_gift_order_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdGiftOrderDetailByGiftOrderId" resultMap="YdGiftOrderDetailMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_gift_order_detail
+        where gift_order_id = #{giftOrderId,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdGiftOrderDetailCount" parameterType="com.yd.service.bean.order.YdGiftOrderDetail" resultType="int">
+        select count(1) from yd_gift_order_detail where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdGiftOrderDetailListByPage" resultMap="YdGiftOrderDetailMap">
+        select * from yd_gift_order_detail where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.order.YdGiftOrderDetail" resultMap="YdGiftOrderDetailMap">
+        select * from yd_gift_order_detail where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+    <insert id="insertYdGiftOrderDetail" parameterType="com.yd.service.bean.order.YdGiftOrderDetail" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_gift_order_detail (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{giftOrderId,jdbcType=INTEGER},
+        #{giftOrderDetailNo,jdbcType=VARCHAR},
+        #{supplierId,jdbcType=INTEGER},
+        #{giftId,jdbcType=INTEGER},
+        #{merchantGiftId,jdbcType=INTEGER},
+        #{salePrice,jdbcType=DECIMAL},
+        #{salePriceTotal,jdbcType=DECIMAL},
+        #{marketPrice,jdbcType=DECIMAL},
+        #{purchasePrice,jdbcType=DECIMAL},
+        #{num,jdbcType=INTEGER},
+        #{orderStatus,jdbcType=VARCHAR},
+        #{settlementStatus,jdbcType=VARCHAR},
+        #{deliveryTime,jdbcType=TIMESTAMP},
+        #{confirmGoodsTime,jdbcType=TIMESTAMP},
+        #{expressCompany,jdbcType=VARCHAR},
+        #{expressCompanyNumber,jdbcType=VARCHAR},
+        #{expressOrderId,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    <update id="updateYdGiftOrderDetail" parameterType="com.yd.service.bean.order.YdGiftOrderDetail" >
+        update yd_gift_order_detail
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="giftOrderId != null" >
+                gift_order_id = #{giftOrderId,jdbcType=INTEGER},
+            </if>
+            <if test="supplierId != null" >
+                supplier_id = #{supplierId,jdbcType=INTEGER},
+            </if>
+            <if test="giftId != null" >
+                gift_id = #{giftId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantGiftId != null" >
+                merchant_gift_id = #{merchantGiftId,jdbcType=INTEGER},
+            </if>
+            <if test="salePrice != null" >
+                sale_price = #{salePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="salePriceTotal != null" >
+                sale_price_total = #{salePriceTotal,jdbcType=DECIMAL},
+            </if>
+            <if test="marketPrice != null" >
+                market_price = #{marketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="purchasePrice != null" >
+                purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="num != null" >
+                num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="orderStatus != null" >
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="settlementStatus!=null ">
+                settlement_status = #{settlementStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="deliveryTime != null" >
+                delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="confirmGoodsTime != null" >
+                confirm_goods_time = #{confirmGoodsTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expressCompany != null" >
+                express_company = #{expressCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="expressCompanyNumber != null" >
+                express_company_number = #{expressCompanyNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="expressOrderId != null" >
+                express_order_id = #{expressOrderId,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateYdGiftOrderDetailByExpressOrderId" parameterType="com.yd.service.bean.order.YdGiftOrderDetail" >
+        update yd_gift_order_detail set
+        order_status = #{orderStatus,jdbcType=VARCHAR}, confirm_goods_time = #{confirmGoodsTime}
+        where
+        gift_order_id = #{giftOrderId} and express_order_id = #{expressOrderId}
+    </update>
+
+    <select id="getSupplierGiftOrderDetailCount" parameterType="com.yd.service.bean.order.YdGiftOrderDetail" resultType="int">
+        SELECT
+          count(1)
+        FROM
+        yd_gift_order_detail d
+        LEFT JOIN yd_gift_order o ON o.id = d.gift_order_id
+        LEFT JOIN yd_gift g ON g.id = d.gift_id
+        LEFT JOIN yd_merchant m ON m.id = d.supplier_id
+        WHERE 1 = 1 AND o.pay_status = 'SUCCESS'
+        <if test="id!=null">
+            and d.id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="supplierId!=null">
+            and d.supplier_id = #{supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="transType != null and transType != '' " >
+            and o.trans_type = #{transType}
+        </if>
+        <if test="startTime != null and startTime != '' " >
+            and d.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' " >
+            and d.create_time &lt; #{endTime}
+        </if>
+        <if test="title != null and title != '' " >
+            and g.title = #{title}
+        </if>
+        <if test="orderStatus!=null and orderStatus!=''">
+            and d.order_status = #{orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="settlementStatus!=null and settlementStatus!=''">
+            and d.settlement_status = #{settlementStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="giftOrderDetailNo!=null and giftOrderDetailNo!=''">
+            and d.gift_order_detail_no = #{giftOrderDetailNo,jdbcType=VARCHAR}
+        </if>
+        <if test="payStatus!=null and payStatus!=''">
+            and o.pay_status = #{payStatus,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="findSupplierGiftOrderDetailListByPage" resultMap="YdGiftOrderDetailMap">
+        SELECT
+          d.*, o.realname, o.mobile, o.province, o.city, o.district, o.address,
+          g.title, g.sub_title, g.image_url, g.gift_desc, m.merchant_name supplier_name
+        FROM
+          yd_gift_order_detail d
+        LEFT JOIN yd_gift_order o ON o.id = d.gift_order_id
+        LEFT JOIN yd_gift g ON g.id = d.gift_id
+        LEFT JOIN yd_merchant m ON m.id = d.supplier_id
+        WHERE 1 = 1 AND o.pay_status = 'SUCCESS'
+        <if test="params.id!=null">
+            and d.id = #{params.id,jdbcType=INTEGER}
+        </if>
+        <if test="params.supplierId!=null">
+            and d.supplier_id = #{params.supplierId,jdbcType=INTEGER}
+        </if>
+        <if test="params.transType != null and params.transType != '' " >
+            and o.trans_type = #{params.transType}
+        </if>
+        <if test="params.startTime != null and params.startTime != '' " >
+            and d.create_time &gt;= #{params.startTime}
+        </if>
+        <if test="params.endTime != null and params.endTime != '' " >
+            and d.create_time &lt; #{params.endTime}
+        </if>
+        <if test="params.title != null and params.title != '' " >
+            and g.title = #{params.title}
+        </if>
+        <if test="params.orderStatus!=null and params.orderStatus!=''">
+            and d.order_status = #{params.orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="params.settlementStatus!=null and params.settlementStatus!=''">
+            and d.settlement_status = #{params.settlementStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="params.giftOrderDetailNo!=null and params.giftOrderDetailNo!=''">
+            and d.gift_order_detail_no = #{params.giftOrderDetailNo,jdbcType=VARCHAR}
+        </if>
+        <if test="params.payStatus!=null and params.payStatus!=''">
+            and o.pay_status = #{params.payStatus,jdbcType=VARCHAR}
+        </if>
+        order by d.update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+</mapper>

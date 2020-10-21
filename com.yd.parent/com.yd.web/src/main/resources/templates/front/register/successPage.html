@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册成功</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet"
+          href="https://c1.51jujibao.com/static/mod/??public/css/1.0.0/reset.css,public/css/1.0.0/layout.css,public/css/1.0.0/page.css,public/css/1.0.0/layer.css,public/css/1.0.0/swiper.min.css?170525">
+    <style>
+        body{
+            background: #fff;
+            height: 100%;
+            width: 100%;
+        }
+
+
+        .main {
+            wdth: 80%;
+            height: 14.19rem;
+            margin: .66rem auto;
+            background: #fff;
+        }
+
+        .flex-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .item {
+            margin-top: 12rem;
+        }
+
+        .item img {
+            display: block;
+            width: 70%;
+            margin: 1rem auto 1rem;
+
+        }
+
+        .item span {
+            display: block;
+            width: 100%;
+            background: #16CCB6;
+            border-radius: 1rem;
+            margin-top: .94rem;
+
+            text-align: center;
+            line-height: 2rem;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="main flex-container">
+        <div class="item">
+
+            <img src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/wxQrcode.png">
+            <p style="font-size: 14px;color: #333;text-align: center">使用快抢遇到问题时可联系上方微信</p>
+            <!--<span @click="onJump('gzh')">关注公众号</span>-->
+            <!--</div>-->
+            <!--<div class="item">-->
+            <!--<img src="http://c1.51jujibao.com/static/mkt/2020/03/kq_register/images/logo.png">-->
+            <!--<span @click="onJump('app')">下载APP</span>-->
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {}
+        },
+
+        created() {
+
+        },
+        methods: {
+            onJump(type) {
+                let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1; //android终端
+                let isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+                if (type == 'gzh') {
+                    window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5NDg4MDc5NQ==&scene=124#wechat_redirect'
+                }
+
+
+                if (type == 'app') {
+                    if (isIOS) {
+                        window.location.href = 'https://apps.apple.com/cn/app/%E5%BF%AB%E6%8A%A2%E5%95%86%E5%9F%8E%E5%8D%96%E5%AE%B6%E7%89%88/id1502795116'
+                    }
+                    if (isAndroid) {
+                        window.location.href = 'http://c1.51jujibao.com/static/mkt/2020/03/kq_register/kuaiqiang-app-rele
+                }
+
+            }
+        },
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.crawer.dao.CrawerTmallItemDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.crawer.bean.CrawerTmallItem">
+		<result property="id" column="id" />
+		<result property="siteName" column="site_name" />
+		<result property="brand" column="brand" />
+		<result property="itemId" column="item_id" />
+		<result property="createTime" column="create_time" />
+		<result property="itemTitle" column="item_title" />
+	</resultMap>
+	
+	<delete id="deleteCrawerTmallItemById">
+		DELETE FROM crawer_tmall_item WHERE id = #{id}
+	</delete>
+	
+	<update id="updateTmallItemTitle">
+		update
+			crawer_tmall_item
+		set
+			item_title=#{itemTitle}
+		where
+			id=#{id}
+	</update>
+	
+	<update id="updateTmallItemStatus">
+		update
+			crawer_tmall_item
+		set
+			status=1
+		where
+			id=#{id}
+	</update>
+	
+	<select id="getUndoTmallItem" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_tmall_item
+		WHERE
+			status = 0
+	</select>
+	
+	<select id="findCrawerTmallItemById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_tmall_item
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="getCrawerTmallItemCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			crawer_tmall_item
+		<where>
+
+		</where>
+	</select>
+	
+	<select id="findCrawerTmallItemsByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			crawer_tmall_item
+		<where>
+
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.crawer.bean.CrawerTmallItem">
+  		INSERT INTO crawer_tmall_item ( 
+			`id`,`site_name`,`brand`,`item_id`,`create_time`,`item_title`			
+  		) VALUES (
+			#{id},#{siteName},#{brand},#{itemId},#{createTime}	,#{itemTitle}		
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

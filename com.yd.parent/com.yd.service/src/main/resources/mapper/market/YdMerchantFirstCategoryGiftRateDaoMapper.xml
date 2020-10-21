@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.market.YdMerchantFirstCategoryGiftRateDao" >
+
+    <resultMap id="YdMerchantFirstCategoryGiftRateMap" type="com.yd.service.bean.market.YdMerchantFirstCategoryGiftRate" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="first_category_id" property="firstCategoryId" jdbcType="INTEGER" />
+        
+        <result column="rate" property="rate" jdbcType="INTEGER" />
+
+        <result column="title" property="title" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        first_category_id,
+        rate
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="firstCategoryId!=null">
+        and first_category_id = #{firstCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="rate!=null">
+        and rate = #{rate,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantFirstCategoryGiftRateById" resultMap="YdMerchantFirstCategoryGiftRateMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_first_category_gift_rate
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getGiftRateByFirstCategoryId" resultMap="YdMerchantFirstCategoryGiftRateMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_first_category_gift_rate
+        where first_category_id = #{firstCategoryId,jdbcType=INTEGER}
+    </select>
+
+	<select id="getYdMerchantFirstCategoryGiftRateCount" parameterType="com.yd.service.bean.market.YdMerchantFirstCategoryGiftRate" resultType="int">
+        select count(1) from yd_merchant_first_category_gift_rate where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantFirstCategoryGiftRateListByPage" resultMap="YdMerchantFirstCategoryGiftRateMap">
+        select * from yd_merchant_first_category_gift_rate where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.market.YdMerchantFirstCategoryGiftRate" resultMap="YdMerchantFirstCategoryGiftRateMap">
+        select * from yd_merchant_first_category_gift_rate where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+  
+    <insert id="insertYdMerchantFirstCategoryGiftRate" parameterType="com.yd.service.bean.market.YdMerchantFirstCategoryGiftRate" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_first_category_gift_rate (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{firstCategoryId,jdbcType=INTEGER},
+        #{rate,jdbcType=INTEGER}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantFirstCategoryGiftRate" parameterType="com.yd.service.bean.market.YdMerchantFirstCategoryGiftRate" >
+        update yd_merchant_first_category_gift_rate
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="firstCategoryId != null" >
+                first_category_id = #{firstCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="rate != null" >
+                rate = #{rate,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findListByFirstCategoryIdList" resultMap="YdMerchantFirstCategoryGiftRateMap">
+        select
+          *
+        from
+          yd_merchant_first_category_gift_rate
+        where
+          merchant_id = #{merchantId} and first_category_id in
+        <foreach collection="list" close=")" open="(" separator=","  item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findFirstCategoryRateListByPage" resultMap="YdMerchantFirstCategoryGiftRateMap">
+        SELECT
+          f.id,
+          f.rate,
+	      c.id first_category_id,
+	      c.category_name title
+        FROM
+            yd_merchant_item_category c
+        LEFT JOIN yd_merchant_first_category_gift_rate f ON c.id = f.first_category_id
+        WHERE
+            c.merchant_id = #{merchantId}
+        AND c.pid = 0
+        <if test="pageSize != null and pageStart != null" >
+            limit #{pageStart}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getFirstCategoryRateCount" resultType="int">
+        SELECT
+          count(1)
+        FROM
+        yd_merchant_item_category c
+        LEFT JOIN yd_merchant_first_category_gift_rate f ON c.id = f.first_category_id
+        WHERE
+        c.merchant_id = #{merchantId}
+        AND c.pid = 0
+    </select>
+
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.item.YdItemBrowseHistoryDao" >
+
+    <resultMap id="YdItemBrowseHistoryMap" type="com.yd.service.bean.item.YdItemBrowseHistory" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+
+        <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+
+        <result column="merchant_item_id" property="merchantItemId" jdbcType="INTEGER" />
+
+        <result column="merchant__sku_id" property="merchantSkuId" jdbcType="INTEGER" />
+
+        <result column="visitor_ip" property="visitorIp" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        user_id,
+        item_id,
+        sku_id,
+        merchant_item_id,
+        merchant__sku_id,
+        visitor_ip
+    </sql>
+
+    <sql id="where">
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+            and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+            and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="userId!=null">
+            and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="itemId!=null">
+            and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="skuId!=null">
+            and sku_id = #{skuId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantItemId!=null">
+            and merchant_item_id = #{merchantItemId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantSkuId!=null">
+            and merchant__sku_id = #{merchantSkuId,jdbcType=INTEGER}
+        </if>
+        <if test="visitorIp!=null and visitorIp!=''">
+            and visitor_ip = #{visitorIp,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <select id="getYdItemBrowseHistoryById" resultMap="YdItemBrowseHistoryMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_item_browse_history
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.item.YdItemBrowseHistory" resultMap="YdItemBrowseHistoryMap">
+        select * from yd_item_browse_history where 1=1
+        <include refid="where" />
+    </select>
+
+    <insert id="insertYdItemBrowseHistory" parameterType="com.yd.service.bean.item.YdItemBrowseHistory" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_item_browse_history (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{userId,jdbcType=INTEGER},
+        #{itemId,jdbcType=INTEGER},
+        #{skuId,jdbcType=INTEGER},
+        #{merchantItemId,jdbcType=INTEGER},
+        #{merchantSkuId,jdbcType=INTEGER},
+        #{visitorIp,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateYdItemBrowseHistory" parameterType="com.yd.service.bean.item.YdItemBrowseHistory" >
+        update yd_item_browse_history
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="skuId != null" >
+                sku_id = #{skuId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantItemId != null" >
+                merchant_item_id = #{merchantItemId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantSkuId != null" >
+                merchant__sku_id = #{merchantSkuId,jdbcType=INTEGER},
+            </if>
+            <if test="visitorIp != null" >
+                visitor_ip = #{visitorIp,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

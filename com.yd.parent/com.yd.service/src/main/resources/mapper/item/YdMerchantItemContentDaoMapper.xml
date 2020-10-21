@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.item.YdMerchantItemContentDao" >
+
+    <resultMap id="YdMerchantItemContentMap" type="com.yd.service.bean.item.YdMerchantItemContent" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        item_id,
+        content
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="itemId!=null">
+        and item_id = #{itemId,jdbcType=INTEGER}
+        </if>
+        <if test="content!=null and content!=''">
+        and content = #{content,jdbcType=LONGVARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantItemContentById" resultMap="YdMerchantItemContentMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_item_content
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdMerchantItemContentByItemId" resultMap="YdMerchantItemContentMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_item_content
+        where item_id = #{itemId,jdbcType=INTEGER}
+    </select>
+
+	<select id="getYdMerchantItemContentCount" parameterType="com.yd.service.bean.item.YdMerchantItemContent" resultType="int">
+        select count(1) from yd_merchant_item_content where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantItemContentListByPage" resultMap="YdMerchantItemContentMap">
+        select * from yd_merchant_item_content where 1=1 
+		order by update_time desc
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.item.YdMerchantItemContent" resultMap="YdMerchantItemContentMap">
+        select * from yd_merchant_item_content where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+    <insert id="insertYdMerchantItemContent" parameterType="com.yd.service.bean.item.YdMerchantItemContent" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_item_content (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{itemId,jdbcType=INTEGER},
+        #{content,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+    
+    <update id="updateYdMerchantItemContent" parameterType="com.yd.service.bean.item.YdMerchantItemContent" >
+        update yd_merchant_item_content
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="itemId != null" >
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null" >
+                content = #{content,jdbcType=LONGVARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteYdMerchantItemContent">
+        delete from yd_merchant_item_content
+        where item_id = #{itemId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yd.service.dao.common.WbWeixinAccountDao">
+
+	<resultMap id="BASE-RESULT" type="com.yd.service.bean.common.WbWeixinAccount">
+		<result property="id" column="id" />
+		<result property="mchId" column="mch_id" />
+		<result property="signKey" column="sign_key" />
+		<result property="createTime" column="create_time" />
+		<result property="name" column="name" />
+		<result property="isDefault" column="is_default" />
+		<result property="appId" column="app_id" />
+		<result property="appSecret" column="app_secret" />
+		<result property="accessToken" column="access_token" />
+		<result property="jsapiTicket" column="jsapi_ticket" />
+		<result property="expireTime" column="expire_time" />
+		<result property="type" column="type" />
+		<result property="encodingAesKey" column="encoding_aes_key" />
+		<result property="token" column="token" />
+	</resultMap>
+	
+	<delete id="deleteWbWeixinAccountById">
+		DELETE FROM wb_weixin_account WHERE id = #{id}
+	</delete>
+	
+	<update id="updateAccessTokenWithTicket" parameterType="com.yd.service.bean.common.WbWeixinAccount">
+		update
+			wb_weixin_account
+		set
+			access_token=#{param.accessToken},
+			jsapi_ticket=#{param.jsapiTicket},
+			expire_time=#{param.expireTime}
+		where
+			id=#{param.id}
+	</update>
+	
+	<select id="findWbWeixinAccountById" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_weixin_account
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="findDefaultWexinAccount" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_weixin_account
+		WHERE
+			is_default = 'Y'
+		limit
+			1
+	</select>
+	
+	<select id="getByWeixinAccountByType" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_weixin_account
+		WHERE
+			type = #{type}
+	</select>
+	
+	<select id="getWbWeixinAccountCount" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			wb_weixin_account
+		<where>
+  			<if test="id!=null">
+  				 id = #{id}
+  			</if>
+  			<if test="mchId!=null">
+  				AND mch_id = #{mchId}
+  			</if>
+  			<if test="signKey!=null">
+  				AND sign_key = #{signKey}
+  			</if>
+  			<if test="createTime!=null">
+  				AND create_time = #{createTime}
+  			</if>
+  			<if test="name!=null">
+  				AND name = #{name}
+  			</if>
+  			<if test="isDefault!=null">
+  				AND is_default = #{isDefault}
+  			</if>
+  			<if test="appId!=null">
+  				AND app_id = #{appId}
+  			</if>
+  			<if test="appSecret!=null">
+  				AND app_secret = #{appSecret}
+  			</if>
+  			<if test="jsapiTicket!=null">
+  				AND jsapi_ticket = #{jsapiTicket}
+  			</if>
+  			<if test="expireTime!=null">
+  				AND expire_time = #{expireTime}
+  			</if>
+  			<if test="type!=null">
+  				AND type = #{type}
+  			</if>
+		</where>
+	</select>
+	
+	<select id="findWbWeixinAccountsByPage" parameterType="map" resultMap="BASE-RESULT">
+		SELECT 
+			* 
+		FROM 
+			wb_weixin_account
+		<where>
+  			<if test="param.id!=null">
+  				 id = #{param.id}
+  			</if>
+  			<if test="param.mchId!=null">
+  				AND mch_id = #{param.mchId}
+  			</if>
+  			<if test="param.signKey!=null">
+  				AND sign_key = #{param.signKey}
+  			</if>
+  			<if test="param.createTime!=null">
+  				AND create_time = #{param.createTime}
+  			</if>
+  			<if test="param.name!=null">
+  				AND name = #{param.name}
+  			</if>
+  			<if test="param.isDefault!=null">
+  				AND is_default = #{param.isDefault}
+  			</if>
+  			<if test="param.appId!=null">
+  				AND app_id = #{param.appId}
+  			</if>
+  			<if test="param.appSecret!=null">
+  				AND app_secret = #{param.appSecret}
+  			</if>
+  			<if test="param.jsapiTicket!=null">
+  				AND jsapi_ticket = #{param.jsapiTicket}
+  			</if>
+  			<if test="param.expireTime!=null">
+  				AND expire_time = #{param.expireTime}
+  			</if>
+  			<if test="param.type!=null">
+  				AND type = #{param.type}
+  			</if>
+		</where>
+		LIMIT 
+			#{offset},#{rows}
+	</select>
+	
+  	<insert id="insert" parameterType="com.yd.service.bean.common.WbWeixinAccount">
+  		INSERT INTO wb_weixin_account ( 
+			`id`,`mch_id`,`sign_key`,`create_time`,`name`,`is_default`,`app_id`,`app_secret`,`jsapi_ticket`,`expire_time`,`type`			
+  		) VALUES (
+			#{id},#{mchId},#{signKey},#{createTime},#{name},#{isDefault},#{appId},#{appSecret},#{jsapiTicket},#{expireTime},#{type}			
+  		)   
+    	<selectKey resultType="Integer" keyProperty="id">    
+      		SELECT LAST_INSERT_ID()     
+		</selectKey>
+  	</insert>
+  	 
+  	 
+</mapper>

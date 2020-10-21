@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.user.YdUserTransStatisticDao" >
+
+    <resultMap id="YdUserTransStatisticMap" type="com.yd.service.bean.user.YdUserTransStatistic" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="last_trans_date" property="lastTransDate" jdbcType="TIMESTAMP" />
+        
+        <result column="total_buy_count" property="totalBuyCount" jdbcType="INTEGER" />
+        
+        <result column="total_buy_item_count" property="totalBuyItemCount" jdbcType="INTEGER" />
+        
+        <result column="total_trans_amount" property="totalTransAmount" jdbcType="DECIMAL" />
+        
+        <result column="total_pay_amount" property="totalPayAmount" jdbcType="DECIMAL" />
+
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        user_id,
+        merchant_id,
+        last_trans_date,
+        total_buy_count,
+        total_buy_item_count,
+        total_trans_amount,
+        total_pay_amount
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="userId!=null">
+        and user_id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="lastTransDate!=null and lastTransDate!=''">
+        and last_trans_date = #{lastTransDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="totalBuyCount!=null">
+        and total_buy_count = #{totalBuyCount,jdbcType=INTEGER}
+        </if>
+        <if test="totalBuyItemCount!=null">
+        and total_buy_item_count = #{totalBuyItemCount,jdbcType=INTEGER}
+        </if>
+        <if test="totalTransAmount!=null and totalTransAmount!=''">
+        and total_trans_amount = #{totalTransAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="totalPayAmount!=null and totalPayAmount!=''">
+        and total_pay_amount = #{totalPayAmount,jdbcType=DECIMAL}
+        </if>
+    </sql>
+    
+    <select id="getYdUserTransStatisticById" resultMap="YdUserTransStatisticMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_user_trans_statistic
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getUserTransStatisticCount" resultType="int">
+        select count(1) from yd_user_trans_statistic s
+        left join yd_user u on u.id = s.user_id
+        where 1=1
+        <if test="mobile != null and mobile != '' ">
+            and u.mobile = #{mobile}
+        </if>
+        <if test="nickname != null and nickname != '' ">
+            and u.nickname = #{nickname}
+        </if>
+
+        <if test="merchantId != null ">
+            and s.merchant_id = #{merchantId}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and s.last_trans_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and s.last_trans_date &lt;= #{endTime}
+        </if>
+        <if test="minBuyNum != null ">
+            and s.total_buy_count &gt;= #{minBuyNum}
+        </if>
+        <if test="maxBuyNum != null ">
+            and s.total_buy_count &lt;= #{maxBuyNum}
+        </if>
+        <if test="minTransAmount != null ">
+            and s.total_trans_amount &gt;= #{minTransAmount}
+        </if>
+        <if test="maxTransAmount != null ">
+            and s.total_trans_amount &lt;= #{maxTransAmount}
+        </if>
+    </select>
+	
+	<select id="findUserTransStatisticListByPage" resultMap="YdUserTransStatisticMap">
+        select s.*, u.nickname, u.mobile from yd_user_trans_statistic s
+        left join yd_user u on u.id = s.user_id  where 1=1
+
+        <if test="mobile != null and mobile != '' ">
+            and u.mobile = #{mobile}
+        </if>
+        <if test="nickname != null and nickname != '' ">
+            and u.nickname = #{nickname}
+        </if>
+
+        <if test="merchantId != null ">
+            and s.merchant_id = #{merchantId}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and s.last_trans_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and s.last_trans_date &lt;= #{endTime}
+        </if>
+        <if test="minBuyNum != null ">
+            and s.total_buy_count &gt;= #{minBuyNum}
+        </if>
+        <if test="maxBuyNum != null ">
+            and s.total_buy_count &lt;= #{maxBuyNum}
+        </if>
+        <if test="minTransAmount != null ">
+            and s.total_trans_amount &gt;= #{minTransAmount}
+        </if>
+        <if test="maxTransAmount != null ">
+            and s.total_trans_amount &lt;= #{maxTransAmount}
+        </if>
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.user.YdUserTransStatistic" resultMap="YdUserTransStatisticMap">
+        select * from yd_user_trans_statistic where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdUserTransStatistic" parameterType="com.yd.service.bean.user.YdUserTransStatistic" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_user_trans_statistic (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{userId,jdbcType=INTEGER},
+        #{merchantId,jdbcType=INTEGER},
+        #{lastTransDate,jdbcType=TIMESTAMP},
+        #{totalBuyCount,jdbcType=INTEGER},
+        #{totalBuyItemCount,jdbcType=INTEGER},
+        #{totalTransAmount,jdbcType=DECIMAL},
+        #{totalPayAmount,jdbcType=DECIMAL}
+        )
+    </insert>
+
+    <update id="updateYdUserTransStatistic" parameterType="com.yd.service.bean.user.YdUserTransStatistic" >
+        update yd_user_trans_statistic
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="lastTransDate != null" >
+                last_trans_date = #{lastTransDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="totalBuyCount != null" >
+                total_buy_count = #{totalBuyCount,jdbcType=INTEGER},
+            </if>
+            <if test="totalBuyItemCount != null" >
+                total_buy_item_count = #{totalBuyItemCount,jdbcType=INTEGER},
+            </if>
+            <if test="totalTransAmount != null" >
+                total_trans_amount = #{totalTransAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="totalPayAmount != null" >
+                total_pay_amount = #{totalPayAmount,jdbcType=DECIMAL}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

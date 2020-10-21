@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.item.YdItemDao" >
+
+    <resultMap id="YdItemMap" type="com.yd.service.bean.item.YdItem" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="first_category_id" property="firstCategoryId" jdbcType="INTEGER" />
+        <result column="second_category_id" property="secondCategoryId" jdbcType="INTEGER" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+        <result column="item_cover" property="itemCover" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+        <result column="is_enable" property="isEnable" jdbcType="CHAR" />
+        <result column="spec_num" property="specNum" jdbcType="INTEGER" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="is_head_image" property="isHeadImage" />
+        <result column="head_image_url" property="headImageUrl" />
+        <result column="crawer_id" property="crawerId" jdbcType="INTEGER" />
+        <result column="brand" property="brand" jdbcType="VARCHAR" />
+        <result column="brand_id" property="brandId" />
+        <result column="pub_time" property="pubTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        first_category_id,
+        second_category_id,
+        title,
+        sub_title,
+        item_cover,
+        price,
+        market_price,
+        is_enable,
+        spec_num,
+        sort,
+        is_head_image,
+        head_image_url,
+        crawer_id,
+        brand,
+        brand_id,
+        pub_time
+    </sql>
+
+    <sql id="where">
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+            and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="firstCategoryId!=null">
+            and first_category_id = #{firstCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="secondCategoryId!=null">
+            and second_category_id = #{secondCategoryId,jdbcType=INTEGER}
+        </if>
+        <if test="title!=null and title!=''">
+            and title = #{title,jdbcType=VARCHAR}
+        </if>
+        <if test="subTitle!=null and subTitle!=''">
+            and sub_title = #{subTitle,jdbcType=VARCHAR}
+        </if>
+        <if test="itemCover!=null and itemCover!=''">
+            and item_cover = #{itemCover,jdbcType=VARCHAR}
+        </if>
+        <if test="price!=null and price!=''">
+            and price = #{price,jdbcType=DECIMAL}
+        </if>
+        <if test="marketPrice!=null and marketPrice!=''">
+            and market_price = #{marketPrice,jdbcType=DECIMAL}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+            and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+        <if test="specNum!=null">
+            and spec_num = #{specNum,jdbcType=INTEGER}
+        </if>
+        <if test="sort!=null">
+            and sort = #{sort,jdbcType=INTEGER}
+        </if>
+        <if test="isHeadImage!=null">
+            and is_head_image = #{isHeadImage}
+        </if>
+        <if test="crawerId!=null">
+            and crawer_id = #{crawerId}
+        </if>
+        <if test="brandId!=null">
+            and brand_id = #{brandId}
+        </if>
+    </sql>
+
+    <select id="getYdItemById" resultMap="YdItemMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getItemCount" parameterType="com.yd.service.bean.item.YdItem" resultType="int">
+        select count(1) from yd_item
+        where 1 = 1
+        <if test="title!=null and title!=''">
+            and title = #{title,jdbcType=VARCHAR}
+        </if>
+        <if test="isEnable!=null and isEnable!=''">
+            and is_enable = #{isEnable,jdbcType=CHAR}
+        </if>
+        <if test="brandId!=null">
+            and brand_id = #{brandId}
+        </if>
+        <if test="isHeadImage!=null">
+            and is_head_image = #{isHeadImage}
+        </if>
+    </select>
+
+    <select id="findItemListByPage" parameterType="com.yd.service.bean.item.YdItem" resultMap="YdItemMap">
+        select * from yd_item
+        where 1 = 1
+        <if test="params.title!=null and params.title!=''">
+            and title = #{params.title,jdbcType=VARCHAR}
+        </if>
+        <if test="params.isEnable!=null and params.isEnable!=''">
+            and is_enable = #{params.isEnable,jdbcType=CHAR}
+        </if>
+        <if test="params.brandId!=null">
+            and brand_id = #{params.brandId}
+        </if>
+        <if test="params.isHeadImage!=null">
+            and is_head_image = #{params.isHeadImage}
+        </if>
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="getAll" parameterType="com.yd.service.bean.item.YdItem" resultMap="YdItemMap">
+        select * from yd_item where 1=1
+        <include refid="where" />
+    </select>
+
+    <select id="getAOtherItem" parameterType="com.yd.service.bean.item.YdItem" resultMap="YdItemMap">
+        select * from yd_item where 1=1
+        and id != #{id}
+        and title = #{title}
+    </select>
+
+    <insert id="insertYdItem" parameterType="com.yd.service.bean.item.YdItem" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_item(
+        	id, create_time, update_time, first_category_id, second_category_id,
+        	title, sub_title, item_cover, price, market_price, is_enable,
+        	spec_num, sort, is_head_image, head_image_url, crawer_id, brand, brand_id, pub_time)
+        values (
+        	#{id}, #{createTime}, #{updateTime}, #{firstCategoryId}, #{secondCategoryId},
+        	#{title}, #{subTitle}, #{itemCover}, #{price}, #{marketPrice}, #{isEnable},
+        	#{specNum}, #{sort}, #{isHeadImage}, #{headImageUrl}, #{crawerId}, #{brand}, #{brandId}, #{pubTime}
+        )
+    </insert>
+
+    <update id="updatePubTime">
+		update
+			yd_item
+		set
+			pub_time=#{pubTime}
+		where
+			id=#{id}
+	</update>
+
+    <update id="updateYdItem" parameterType="com.yd.service.bean.item.YdItem" >
+        update yd_item
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="firstCategoryId != null" >
+                first_category_id = #{firstCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="secondCategoryId != null" >
+                second_category_id = #{secondCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subTitle != null" >
+                sub_title = #{subTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="itemCover != null" >
+                item_cover = #{itemCover,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null" >
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="marketPrice != null" >
+                market_price = #{marketPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="headImageUrl != null" >
+                head_image_url = #{headImageUrl},
+            </if>
+            <if test="isHeadImage != null" >
+                is_head_image = #{isHeadImage},
+            </if>
+            <if test="isEnable != null" >
+                is_enable = #{isEnable},
+            </if>
+            <if test="specNum != null" >
+                spec_num = #{specNum,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="brand != null" >
+                brand = #{brand},
+            </if>
+            <if test="brandId != null" >
+                brand_id = #{brandId}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteItemById">
+        delete from yd_item where id = #{itemId}
+    </delete>
+
+    <select id="findItemListGroupByTitle" resultMap="YdItemMap">
+       select * from yd_item GROUP BY title;
+    </select>
+
+</mapper>

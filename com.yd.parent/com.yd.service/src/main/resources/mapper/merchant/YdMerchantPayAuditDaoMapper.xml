@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.merchant.YdMerchantPayAuditDao" >
+
+    <resultMap id="YdMerchantPayAuditMap" type="com.yd.service.bean.merchant.YdMerchantPayAudit" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+
+        <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+
+        <result column="contact" property="contact" jdbcType="VARCHAR" />
+
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+
+        <result column="role_ids" property="roleIds" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        audit_status
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="auditStatus!=null and auditStatus!=''">
+        and audit_status = #{auditStatus,jdbcType=VARCHAR}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantPayAuditById" resultMap="YdMerchantPayAuditMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_pay_audit
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getYdPayAuditByMerchantId" resultMap="YdMerchantPayAuditMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from yd_merchant_pay_audit
+        where merchant_id = #{merchantId,jdbcType=INTEGER}
+    </select>
+
+	<select id="getYdMerchantPayAuditCount" parameterType="com.yd.service.bean.merchant.YdMerchantPayAudit" resultType="int">
+       SELECT
+            count(1)
+        FROM
+            yd_merchant_pay_audit p
+        LEFT JOIN yd_merchant m ON m.id = p.merchant_id
+        WHERE
+            1 = 1
+        <if test="auditStatus!=null and auditStatus!=''">
+            AND p.audit_status = #{auditStatus}
+        </if>
+        <if test="merchantName!=null and merchantName!=''">
+            AND m.merchant_name = #{merchantName}
+        </if>
+    </select>
+	
+	<select id="findYdMerchantPayAuditListByPage" resultMap="YdMerchantPayAuditMap">
+         SELECT
+            p.*, m.merchant_name,
+            m.contact,
+            m.mobile,
+            m.role_ids
+        FROM
+            yd_merchant_pay_audit p
+        LEFT JOIN yd_merchant m ON m.id = p.merchant_id
+        WHERE
+            1 = 1
+        <if test="params.auditStatus!=null and params.auditStatus!=''">
+            AND p.audit_status = #{params.auditStatus}
+        </if>
+        <if test="params.merchantName!=null and params.merchantName!=''">
+            AND m.merchant_name = #{params.merchantName}
+        </if>
+        order by p.update_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.merchant.YdMerchantPayAudit" resultMap="YdMerchantPayAuditMap">
+        select * from yd_merchant_pay_audit where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+
+    <insert id="insertYdMerchantPayAudit" parameterType="com.yd.service.bean.merchant.YdMerchantPayAudit" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_pay_audit (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{auditStatus,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateYdMerchantPayAudit" parameterType="com.yd.service.bean.merchant.YdMerchantPayAudit" >
+        update yd_merchant_pay_audit
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="auditStatus != null" >
+                audit_status = #{auditStatus,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

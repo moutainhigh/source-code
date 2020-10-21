@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.draw.YdMerchantDrawPrizeDao" >
+
+    <resultMap id="YdMerchantDrawPrizeMap" type="com.yd.service.bean.draw.YdMerchantDrawPrize" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+        
+        <result column="prize_type" property="prizeType" jdbcType="VARCHAR" />
+        
+        <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+        
+        <result column="win_rate" property="winRate" jdbcType="DOUBLE" />
+        
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        activity_id,
+        prize_type,
+        coupon_id,
+        win_rate,
+        sort
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="activityId!=null">
+        and activity_id = #{activityId,jdbcType=INTEGER}
+        </if>
+        <if test="prizeType!=null and prizeType!=''">
+        and prize_type = #{prizeType,jdbcType=VARCHAR}
+        </if>
+        <if test="couponId!=null">
+        and coupon_id = #{couponId,jdbcType=INTEGER}
+        </if>
+        <if test="winRate!=null and winRate!=''">
+        and win_rate = #{winRate,jdbcType=DOUBLE}
+        </if>
+        <if test="sort!=null">
+        and sort = #{sort,jdbcType=INTEGER}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantDrawPrizeById" resultMap="YdMerchantDrawPrizeMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_draw_prize
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+        
+	<select id="getYdMerchantDrawPrizeCount" parameterType="com.yd.service.bean.draw.YdMerchantDrawPrize" resultType="int">
+        select count(1) from yd_merchant_draw_prize where 1=1 
+        <include refid="where" />
+    </select>
+	
+	<select id="findYdMerchantDrawPrizeListByPage" resultMap="YdMerchantDrawPrizeMap">
+        select * from yd_merchant_draw_prize where 1=1 
+		order by update_time desc
+		limit #{pageStart}, #{pageSize}
+    </select>
+	
+	<select id="getAll" parameterType="com.yd.service.bean.draw.YdMerchantDrawPrize" resultMap="YdMerchantDrawPrizeMap">
+        select * from yd_merchant_draw_prize where 1=1 
+        <include refid="where" />
+		order by update_time desc
+    </select>
+    
+  
+    <insert id="insertYdMerchantDrawPrize" parameterType="com.yd.service.bean.draw.YdMerchantDrawPrize" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_draw_prize (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{activityId,jdbcType=INTEGER},
+        #{prizeType,jdbcType=VARCHAR},
+        #{couponId,jdbcType=INTEGER},
+        #{winRate,jdbcType=DOUBLE},
+        #{sort,jdbcType=INTEGER}
+        )
+    </insert>
+    
+    
+    <update id="updateYdMerchantDrawPrize" parameterType="com.yd.service.bean.draw.YdMerchantDrawPrize" >
+        update yd_merchant_draw_prize
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityId != null" >
+                activity_id = #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="prizeType != null" >
+                prize_type = #{prizeType,jdbcType=VARCHAR},
+            </if>
+            <if test="couponId != null" >
+                coupon_id = #{couponId,jdbcType=INTEGER},
+            </if>
+            <if test="winRate != null" >
+                win_rate = #{winRate,jdbcType=DOUBLE},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteYdMerchantDrawPrize">
+        delete from yd_merchant_draw_prize where activity_id = #{activityId}
+    </delete>
+
+</mapper>

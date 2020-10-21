@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport"/>
+    <title>
+        收银台
+    </title>
+    <script src="https://c1.51jujibao.com/static/mkt/2019/08/js/rem.js"></script>
+    <script src="https://c1.51jujibao.com/static/mkt/2019/08/js/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .pay-wrap {
+            position: fixed;
+            width: 100vw;
+            max-width: 750px;
+            height: 100vh;
+        }
+
+        .message {
+            position: fixed;
+            width: 100vw;
+            max-width: 750px;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 0.1rem;
+        }
+
+        .message p {
+            padding: 0.15rem 0.3rem;
+            font-size: 0.3rem;
+            color: #fff;
+        }
+
+        .fade {
+            -webkit-animation: fadeIn 0.3s;
+            animation: fadeIn 0.3s;
+        }
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0.5
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0.5
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .loader {
+            position: fixed;
+            width: 100vw;
+            max-width: 750px;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            width: auto;
+        }
+
+        @-webkit-keyframes line-scale {
+            0% {
+                -webkit-transform: scaley(1);
+                transform: scaley(1);
+            }
+
+            50% {
+                -webkit-transform: scaley(0.4);
+                transform: scaley(0.4);
+            }
+
+            100% {
+                -webkit-transform: scaley(1);
+                transform: scaley(1);
+            }
+        }
+
+        @keyframes line-scale {
+            0% {
+                -webkit-transform: scaley(1);
+                transform: scaley(1);
+            }
+
+            50% {
+                -webkit-transform: scaley(0.4);
+                transform: scaley(0.4);
+            }
+
+            100% {
+                -webkit-transform: scaley(1);
+                transform: scaley(1);
+            }
+        }
+
+        .line-scale > div:nth-child(1) {
+            -webkit-animation: line-scale 1s 0.1s infinite cubic-bezier(.2, .68, .18, 1.08);
+            animation: line-scale 1s 0.1s infinite cubic-bezier(.2, .68, .18, 1.08);
+        }
+
+        .line-scale > div:nth-child(2) {
+            -webkit-animation: line-scale 1s 0.2s infinite cubic-bezier(.2, .68, .18, 1.08);
+            animation: line-scale 1s 0.2s infinite cubic-bezier(.2, .68, .18, 1.08);
+        }
+
+        .line-scale > div:nth-child(3) {
+            -webkit-animation: line-scale 1s 0.3s infinite cubic-bezier(.2, .68, .18, 1.08);
+            animation: line-scale 1s 0.3s infinite cubic-bezier(.2, .68, .18, 1.08);
+        }
+
+        .line-scale > div:nth-child(4) {
+            -webkit-animation: line-scale 1s 0.4s infinite cubic-bezier(.2, .68, .18, 1.08);
+            animation: line-scale 1s 0.4s infinite cubic-bezier(.2, .68, .18, 1.08);
+        }
+
+        .line-scale > div:nth-child(5) {
+            -webkit-animation: line-scale 1s 0.5s infinite cubic-bezier(.2, .68, .18, 1.08);
+            animation: line-scale 1s 0.5s infinite cubic-bezier(.2, .68, .18, 1.08);
+        }
+
+        .line-scale > div {
+            background-color: #07C160;
+            width: 4px;
+            height: 35px;
+            border-radius: 2px;
+            margin: 2px;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            display: inline-block;
+        }
+
+        .ball-pulse-rise > div {
+            background-color: #07C160;
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            margin: 2px;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            display: inline-block;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-timing-function: cubic-bezier(.15, .46, .9, .6);
+            animation-timing-function: cubic-bezier(.15, .46, .9, .6);
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-delay: 0;
+            animation-delay: 0;
+        }
+
+        .ball-pulse-rise > div:nth-child(2n) {
+            -webkit-animation-name: ball-pulse-rise-even;
+            animation-name: ball-pulse-rise-even;
+        }
+
+        .ball-pulse-rise > div:nth-child(2n-1) {
+            -webkit-animation-name: ball-pulse-rise-odd;
+            animation-name: ball-pulse-rise-odd;
+        }
+
+        @-webkit-keyframes ball-pulse-rise-even {
+            0% {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+
+            25% {
+                -webkit-transform: translateY(-30px);
+                transform: translateY(-30px);
+            }
+
+            50% {
+                -webkit-transform: scale(0.4);
+                transform: scale(0.4);
+            }
+
+            75% {
+                -webkit-transform: translateY(30px);
+                transform: translateY(30px);
+            }
+
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes ball-pulse-rise-even {
+            0% {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+
+            25% {
+                -webkit-transform: translateY(-30px);
+                transform: translateY(-30px);
+            }
+
+            50% {
+                -webkit-transform: scale(0.4);
+                transform: scale(0.4);
+            }
+
+            75% {
+                -webkit-transform: translateY(30px);
+                transform: translateY(30px);
+            }
+
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @-webkit-keyframes ball-pulse-rise-odd {
+            0% {
+                -webkit-transform: scale(0.4);
+                transform: scale(0.4);
+            }
+
+            25% {
+                -webkit-transform: translateY(30px);
+                transform: translateY(30px);
+            }
+
+            50% {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+
+            75% {
+                -webkit-transform: translateY(-30px);
+                transform: translateY(-30px);
+            }
+
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+                -webkit-transform: scale(0.75);
+                transform: scale(0.75);
+            }
+        }
+
+        @keyframes ball-pulse-rise-odd {
+            0% {
+                -webkit-transform: scale(0.4);
+                transform: scale(0.4);
+            }
+
+            25% {
+                -webkit-transform: translateY(30px);
+                transform: translateY(30px);
+            }
+
+            50% {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+
+            75% {
+                -webkit-transform: translateY(-30px);
+                transform: translateY(-30px);
+            }
+
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+                -webkit-transform: scale(0.75);
+                transform: scale(0.75);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="pay">
+    <div class="loader" v-show="showIcon">
+        <div class="loader-inner line-scale">
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="pay-wrap">
+        <div class="message" v-show="messageShow">
+            <p>
+            </p>
+        </div>
+    </div> -->
+</div>
+<script src="https://c1.51jujibao.com/static/mkt/2019/08/js/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script th:inline="javascript">
+    window.wechatMp = [[${wechatMp}]]
+</script>
+<!--<script src="https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js"></script>-->
+
+<script>
+    // console.log(window.VConsole)
+    // window.vConsole = new window.VConsole({
+    //     defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
+    //     maxLogNumber: 1000,
+    //     // disableLogScrolling: true,
+    //     onReady: function () {
+    //         console.log('vConsole is ready.');
+    //     },
+    //     onClearLog: function () {
+    //         console.log('on clearLog');
+    //     }
+    // });
+    // console.info('欢迎使用 vConsole。vConsole 是一个由微信公众平台前端团队研发的 Web 前端开发者面板，可用于展示 console 日志，方便开发、调试。');
+
+</script>
+<script>
+    var html = new Vue({
+        el: '#pay',
+        data: {
+            baseUrl: null,
+            orderId: null,
+            sign: null,
+            messageShow: false,
+            hintText: null,
+            showIcon: true,
+            openId: '',
+        },
+        created() {
+            this.baseUrl = window.location.protocol + "//" + window.location.host
+        },
+
+        mounted() {
+            let time = null
+            clearTimeout(time)
+            time = setTimeout(() => {
+                this.getWxConfig()
+            }, 1500)
+        },
+        watch: {
+            messageShow(newVal) {
+                if (newVal) {
+                    let time = null
+                    clearTimeout(time)
+                    time = setTimeout(() => {
+                        this.messageShow = false
+                    }, 1500)
+                }
+            }
+        },
+        methods: {
+            getCookie(name) {
+                let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                if (arr = document.cookie.match(reg))
+                    return unescape(arr[2]);
+                else
+                    return null;
+            },
+
+            GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            },
+            getWxConfig() {
+                let vm = this
+                var qs = Qs
+                vm.orderId = vm.GetQueryString('orderId');
+                let url = ''
+                let data = {}
+
+                if (vm.GetQueryString('orderId')) {
+                    url = '/front/order/toPay'
+                    data = {
+                        orderId: vm.GetQueryString('orderId')
+                    }
+                } else if(vm.GetQueryString('type')== 'register'){
+                    url = '/front/order/platform/member/toPay'
+                    data = {
+                        memberPayId: vm.GetQueryString('memberPayId'),
+                        memberLevel: vm.GetQueryString('memberLevel')
+                    }
+                }
+                axios.post(vm.baseUrl + url,
+                    qs.stringify(data),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (res) {
+                    if (res.data.code == '00') {
+                        let timer = null
+                        clearTimeout(timer)
+                        timer = setTimeout(() => {
+                            vm.callWxPay(res.data.result);
+                        }, 500)
+                    } else {
+                        vm.messageShow = true
+                        vm.hintText = res.message
+                        let timer = null
+                        clearTimeout(timer)
+                        timer = setTimeout(() => {
+                            window.history.go(-1)
+                        }, 1500)
+                    }
+                })
+            },
+            callWxPay(params) {
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', this.jsApiCall(params), false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', this.jsApiCall(params));
+                        document.attachEvent('onWeixinJSBridgeReady', this.jsApiCall(params));
+                    }
+                } else {
+                    this.jsApiCall(params);
+                }
+                this.showIcon = false
+            },
+            jsApiCall(params) {
+                let vm = this
+                WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                        'appId': params.appId,
+                        'timeStamp': String(params.timeStamp),
+                        'nonceStr': params.nonceStr,
+                        'package': params.package,
+                        'signType': params.signType,
+                        'paySign': params.paySign,
+                    }, function (res) {
+                        if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                            // vm.messageShow = true
+                            // vm.hintText = "支付成功"
+                            window.location.replace(params.returnUrl)
+                            //let data = params.returnUrl.splice('?month=')[1]
+                            //this.$router.push({path:'/openMembers', query:{month: data}})
+                            // let returnUrl = window.location.href.split(".html")[0]+'.html'+ vm.$route.path + '?month='+ data;
+                            // let nextPage = document.createElement('a');
+                            // nextPage.setAttribute('href',returnUrl);
+                            // nextPage.click();
+                        } else if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+                            //console.log('支付取消')
+                            //vm.messageShow = true
+                            //vm.hintText = "支付取消"
+                            let timer = null
+                            clearTimeout(timer)
+                            timer = setTimeout(() => {
+                                window.history.go(-1)
+                            }, 10)
+                        } else if (res.err_msg === 'get_brand_wcpay_request:fail') {
+                            //console.log('支付失败')
+                            //vm.messageShow = true
+                            //vm.hintText = "支付失败"
+                            let timer = null
+                            clearTimeout(timer)
+                            timer = setTimeout(() => {
+                                window.history.go(-1)
+                            }, 10)
+                        }
+                    }
+                );
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yd.service.dao.merchant.YdMerchantGiftTransDao" >
+
+    <resultMap id="YdMerchantGiftTransMap" type="com.yd.service.bean.merchant.YdMerchantGiftTrans" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        
+        
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+        
+        <result column="out_order_id" property="outOrderId" jdbcType="VARCHAR" />
+        
+        <result column="trans_source" property="transSource" jdbcType="VARCHAR" />
+        
+        <result column="trans_amount" property="transAmount" jdbcType="DECIMAL" />
+        
+        <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+        
+        <result column="trans_desc" property="transDesc" jdbcType="VARCHAR" />
+        
+        <result column="out_order_status" property="outOrderStatus" jdbcType="VARCHAR" />
+        
+        <result column="trans_before_amount" property="transBeforeAmount" jdbcType="DECIMAL" />
+        
+        <result column="trans_after_amount" property="transAfterAmount" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id,
+        create_time,
+        update_time,
+        merchant_id,
+        out_order_id,
+        trans_source,
+        trans_amount,
+        trans_type,
+        trans_desc,
+        out_order_status,
+        trans_before_amount,
+        trans_after_amount
+    </sql>
+    
+    <sql id="where">
+        <if test="id!=null">
+        and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="createTime!=null and createTime!=''">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime!=null and updateTime!=''">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="merchantId!=null">
+        and merchant_id = #{merchantId,jdbcType=INTEGER}
+        </if>
+        <if test="outOrderId!=null and outOrderId!=''">
+        and out_order_id = #{outOrderId,jdbcType=VARCHAR}
+        </if>
+        <if test="transSource!=null and transSource!=''">
+        and trans_source = #{transSource,jdbcType=VARCHAR}
+        </if>
+        <if test="transAmount!=null and transAmount!=''">
+        and trans_amount = #{transAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="transType!=null and transType!=''">
+        and trans_type = #{transType,jdbcType=VARCHAR}
+        </if>
+        <if test="transDesc!=null and transDesc!=''">
+        and trans_desc = #{transDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="outOrderStatus!=null and outOrderStatus!=''">
+        and out_order_status = #{outOrderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="transBeforeAmount!=null and transBeforeAmount!=''">
+        and trans_before_amount = #{transBeforeAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="transAfterAmount!=null and transAfterAmount!=''">
+        and trans_after_amount = #{transAfterAmount,jdbcType=DECIMAL}
+        </if>
+    </sql>
+    
+    <select id="getYdMerchantGiftTransById" resultMap="YdMerchantGiftTransMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from yd_merchant_gift_trans
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getAll" parameterType="com.yd.service.bean.merchant.YdMerchantGiftTrans" resultMap="YdMerchantGiftTransMap">
+        select * from yd_merchant_gift_trans where 1=1 
+        <include refid="where" />
+    </select>
+
+    <select id="getMerchantGiftTransListCount" resultType="int">
+        select count(1) from yd_merchant_gift_trans where 1 = 1
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="giftOrderId != null and giftOrderId != '' ">
+            and out_order_id = #{giftOrderId}
+        </if>
+        <if test="transType != null and transType != '' ">
+            and trans_source = #{transType}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and create_time &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="getMerchantGiftTransListByPage" resultMap="YdMerchantGiftTransMap">
+        select * from yd_merchant_gift_trans where 1 = 1
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="giftOrderId != null and giftOrderId != '' ">
+            and out_order_id = #{giftOrderId}
+        </if>
+        <if test="transType != null and transType != '' ">
+            and trans_source = #{transType}
+        </if>
+        <if test="startTime != null and startTime != '' ">
+            and create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            and create_time &lt;= #{endTime}
+        </if>
+        order by create_time desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+  
+    <insert id="insertYdMerchantGiftTrans" parameterType="com.yd.service.bean.merchant.YdMerchantGiftTrans" useGeneratedKeys="true" keyProperty="id" >
+        insert into yd_merchant_gift_trans (<include refid="Base_Column_List" />)
+        values (
+        #{id,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{merchantId,jdbcType=INTEGER},
+        #{outOrderId,jdbcType=VARCHAR},
+        #{transSource,jdbcType=VARCHAR},
+        #{transAmount,jdbcType=DECIMAL},
+        #{transType,jdbcType=VARCHAR},
+        #{transDesc,jdbcType=VARCHAR},
+        #{outOrderStatus,jdbcType=VARCHAR},
+        #{transBeforeAmount,jdbcType=DECIMAL},
+        #{transAfterAmount,jdbcType=DECIMAL}
+        )
+    </insert>
+    
+    <update id="updateYdMerchantGiftTrans" parameterType="com.yd.service.bean.merchant.YdMerchantGiftTrans" >
+        update yd_merchant_gift_trans
+        <set>
+            <if test="id != null" >
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="merchantId != null" >
+                merchant_id = #{merchantId,jdbcType=INTEGER},
+            </if>
+            <if test="outOrderId != null" >
+                out_order_id = #{outOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="transSource != null" >
+                trans_source = #{transSource,jdbcType=VARCHAR},
+            </if>
+            <if test="transAmount != null" >
+                trans_amount = #{transAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="transType != null" >
+                trans_type = #{transType,jdbcType=VARCHAR},
+            </if>
+            <if test="transDesc != null" >
+                trans_desc = #{transDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="outOrderStatus != null" >
+                out_order_status = #{outOrderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="transBeforeAmount != null" >
+                trans_before_amount = #{transBeforeAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="transAfterAmount != null" >
+                trans_after_amount = #{transAfterAmount,jdbcType=DECIMAL}
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>
