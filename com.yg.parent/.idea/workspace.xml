@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="f64690c8-b48f-4bf9-9ee1-c60b9c766d76" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_yg_api_1_0_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/com.yg.api/com.yg.api.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/menu/AdminMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/menu/AdminMenuController.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/com.yg.web/target/" />
+    <ignored path="$PROJECT_DIR$/com.yg.core/target/" />
+    <ignored path="$PROJECT_DIR$/com.yg.service/target/" />
+    <ignored path="$PROJECT_DIR$/com.yg.model/target/" />
+    <ignored path="$PROJECT_DIR$/com.yg.api/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="AdminMenuController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/menu/AdminMenuController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminPlatformMerchantController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/merchant/AdminPlatformMerchantController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="56" column="81" lean-forward="true" selection-start-line="56" selection-start-column="81" selection-end-line="56" selection-end-column="81" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/menu/MenuServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="32" column="66" lean-forward="true" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1116#1130#0" expanded="true" />
+                <element signature="e#1180#1203#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>com.yd.web</find>
+      <find>com.yd.core</find>
+      <find>com.yd.api</find>
+      <find>com.yd.</find>
+      <find>profile</find>
+      <find>spring.profiles.active</find>
+      <find>active</find>
+      <find>profiles.active</find>
+      <find>profiles</find>
+      <find>com.yg.api</find>
+      <find>api</find>
+      <find>core</find>
+      <find>yg.api</find>
+      <find>YdSmsCode</find>
+      <find>com.yd.core.</find>
+      <find>insertYgSmsCode</find>
+      <find>sendSmsCode</find>
+      <find>yd_sms_code</find>
+      <find>yd_login_session</find>
+      <find>EnumSiteGroup</find>
+      <find>com.yd.service.bean.menu.YdMenu</find>
+      <find>com.yd.service.bean.permission.YdPermission</find>
+      <find>com.yd.service.bean.permission.YdRole</find>
+      <find>com.yd.service.bean.permission.YdRlRolePermission</find>
+      <find>insertYdUserCoupon</find>
+      <find>import com.yd</find>
+      <find>insertYgUserCoupon</find>
+      <find>com.yd.service.bean.coupon.YdUserCoupon</find>
+      <find>checkCouponParams</find>
+      <find>limit</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>com.yg.web</replace>
+      <replace>com.yg.core</replace>
+      <replace>YgSmsCode</replace>
+      <replace>com.yg.core.</replace>
+      <replace>yg_sms_code</replace>
+      <replace>yg_login_session</replace>
+      <replace>YgSiteGroupEnum</replace>
+      <replace>com.yg.service.bean.menu.YgMenu</replace>
+      <replace>com.yg.service.bean.permission.YgPermission</replace>
+      <replace>com.yg.service.bean.permission.YgRole</replace>
+      <replace>com.yg.service.bean.permission.YgRlRolePermission</replace>
+      <replace>/**</replace>
+      <replace>com.yg.service.bean.coupon.YgUserCoupon</replace>
+      <replace>import com.yg</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/login/YgLoginSession.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/login/YgLoginSessionDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/login/YgLoginSessionDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/merchant/YgMerchantDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/login/YgLoginService.java" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/login/AdminLoginController.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/merchant/YgMerchantService.java" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/merchant/AdminPlatformMerchantController.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/merchant/YgMerchantServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/enums/YgSiteGroupEnum.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/permission/YgPermissionResult.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/menu/YgMenuResult.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/permission/YgPermissionDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/permission/YgRoleDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/permission/YgRlRolePermissionDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/permission/PermissionServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/permission/YgPermissionService.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/menu/YgMenuService.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/menu/YgMenuDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/menu/MenuServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/merchant/YgMerchant.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/merchant/YgMerchantResult.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/merchant/YgMerchantDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/menu/YgMenuDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/permission/YgPermissionDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/permission/YgRlRolePermissionDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/permission/YgRoleDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/anotation/MerchantCheck.java" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/order/AdminUserOrderController.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/login/YgAdminLoginServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/coupon/YgUserCouponResult.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/coupon/YgMerchantCoupon.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/coupon/YgUserCoupon.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/coupon/YgUserCouponDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/coupon/YgUserCouponService.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/coupon/YgUserCouponServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/coupon/YgMerchantCouponResult.java" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/coupon/AdminMerchantCouponController.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/coupon/YgMerchantCouponService.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/coupon/YgMerchantCouponServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/coupon/YgUserCouponDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/coupon/YgMerchantCouponDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/coupon/YgMerchantCouponDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/item/YgMerchantIntegralItemResult.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/item/YgMerchantIntegralItemDao.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/item/YgMerchantIntegralItemDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/item/AdminMerchantItemController.java" />
+        <option value="$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/item/YgMerchantIntegralItemService.java" />
+        <option value="$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/item/YgMerchantIntegralItemServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/interceptor/MerchantCheckInterceptor.java" />
+        <option value="$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/menu/AdminMenuController.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="com.yg.parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="com.yg.parent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="com.yg.parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="com.yg.parent" type="462c0819:PsiDirectoryNode" />
+              <item name="com.yg.web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="com.yg.parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="com.yg.parent" type="462c0819:PsiDirectoryNode" />
+              <item name="com.yg.web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="com.yg.parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="com.yg.parent" type="462c0819:PsiDirectoryNode" />
+              <item name="com.yg.web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="com.yg.parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="com.yg.parent" type="462c0819:PsiDirectoryNode" />
+              <item name="com.yg.web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="com.yg.parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="com.yg.parent" type="462c0819:PsiDirectoryNode" />
+              <item name="com.yg.web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../com.jule.parent" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.yg.web.controller.admin.item" />
+      <recent name="com.yg.service.bean.item" />
+      <recent name="com.yg.service.impl.coupon" />
+      <recent name="com.yg.service.bean.coupon" />
+      <recent name="com.yg.api.service.coupon" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\workspace\jujibao\com.yg.parent\com.yg.service\src\main\java\com\yg\service\impl\item" />
+      <recent name="F:\workspace\jujibao\com.yg.parent\com.yg.service\src\main\java\com\yg\service\dao\item" />
+      <recent name="F:\workspace\jujibao\com.yg.parent\com.yg.api\src\main\java\com\yg\api\service\item" />
+      <recent name="F:\workspace\jujibao\com.yg.parent\com.yg.service\src\main\resources\mapper\item" />
+      <recent name="F:\workspace\jujibao\com.yg.parent\com.yg.api\src\main\java\com\yg\api\result\item" />
+    </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="svn" revision="67710">F:\workspace\jujibao\com.yg.parent\com.yg.service\src\main\java\com\yg\service\constant</PATH>
+          <PATH vcs="svn" revision="67710">F:\workspace\jujibao\com.yg.parent\com.yg.service\src\main\java\com\yg\service\constant\YgCodeMsg.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.yg-web">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+    </configuration>
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.yg.web.Application" />
+      <module name="com.yg.web" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yg.web.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="com.yg.web" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="web.Application" />
+    </configuration>
+    <configuration name="yg-service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="com.yg.service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yg.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.yg.service.Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration name="yg-web" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="com.yg.web" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.yg.web.Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.Application" />
+      <item itemvalue="Spring Boot.yg-web" />
+      <item itemvalue="Application.Application" />
+      <item itemvalue="Spring Boot.yg-service" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.yg-service" />
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\pc20161207B\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\workspace\jujibao\com.yg.parent" />
+          <option name="myCopyRoot" value="F:\workspace\jujibao\com.yg.parent" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\workspace\jujibao\com.yg.parent\.idea" />
+          <option name="myCopyRoot" value="F:\workspace\jujibao\com.yg.parent\.idea" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.api" />
+          <option name="myCopyRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.api" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.core" />
+          <option name="myCopyRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.core" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.service" />
+          <option name="myCopyRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.service" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.web" />
+          <option name="myCopyRoot" value="F:\workspace\jujibao\com.yg.parent\com.yg.web" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="F:\workspace\jujibao\com.yg.parent" />
+          <option name="myCopyRoot" value="F:\workspace\jujibao\com.yg.parent" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f64690c8-b48f-4bf9-9ee1-c60b9c766d76" name="Default" comment="" />
+      <created>1584589536313</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584589536313</updated>
+      <workItem from="1584589540862" duration="6625000" />
+      <workItem from="1584666772359" duration="2470000" />
+      <workItem from="1585033041130" duration="4819000" />
+      <workItem from="1585125534178" duration="36980000" />
+      <workItem from="1585539543438" duration="5631000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1585310532014</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585310532014</updated>
+    </task>
+    <task id="LOCAL-00002">
+      <created>1585539916614</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1585539916614</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <created>1585540499609</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1585540499609</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="56525000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.35947713" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32897604" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="bottom" id="Java Enterprise" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32897604" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.5620915" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21748401" />
+      <window_info anchor="right" id="Bean Validation" order="3" />
+      <window_info id="Web" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Alibaba Cloud View" order="7" />
+      <window_info id="Alibaba Cloud Explorer" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Designer" order="0" />
+      <window_info anchor="right" id="Palette" order="0" />
+      <window_info anchor="bottom" id="Spring" order="0" />
+      <window_info id="Image Layers" order="1" />
+      <window_info anchor="bottom" id="Run" order="10" />
+      <window_info anchor="bottom" id="Cvs" order="12" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="8" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="1" weight="0.5620915" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Commander" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="3" weight="0.32897604" />
+      <window_info anchor="bottom" id="TODO" order="14" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Java Enterprise" order="4" />
+      <window_info anchor="bottom" id="Database Changes" order="5" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="6" />
+      <window_info id="Alibaba Cloud Explorer" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="2" />
+      <window_info anchor="bottom" id="Alibaba Cloud View" order="7" />
+      <window_info content_ui="combo" id="Project" order="7" visible="true" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Message" order="8" />
+      <window_info id="Web" order="6" side_tool="true" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info id="Structure" order="8" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="9" />
+      <window_info anchor="right" id="Bean Validation" order="6" />
+      <window_info active="true" anchor="bottom" id="Debug" order="11" visible="true" weight="0.52832246" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/menu/MenuServiceImpl.java</url>
+          <line>30</line>
+          <properties />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+    <buildFile url="file://$PROJECT_DIR$/com.yg.api/pom.xml">
+      <expanded value="true" />
+    </buildFile>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/permission/PermissionServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2848">
+          <caret line="37" column="40" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/menu/YgMenuService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/merchant/YgMerchantDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="21" column="15" lean-forward="true" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Java/jdk1.8/src.zip!/java/io/Serializable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="168" column="17" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/merchant/YgMerchantResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="13" column="4" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/menu/YgMenuDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-188">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/merchant/YgMerchant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="13" column="58" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/permission/YgPermissionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/merchant/YgMerchantService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/anotation/MerchantCheck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="6" column="48" lean-forward="true" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/anotation/LoginStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/anotation/LoginCheck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/login/AdminLoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="48" column="61" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/order/AdminUserOrderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" column="52" lean-forward="true" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/merchant/YgMerchantServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="85" column="16" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/login/YgAdminLoginServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="58" column="96" lean-forward="true" selection-start-line="58" selection-start-column="96" selection-end-line="58" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.core/src/main/java/com/yg/core/base/bean/BaseModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/login/YgLoginSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/coupon/YgUserCoupon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1664">
+          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/coupon/YgUserCouponDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/login/LoginUserResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/coupon/YgMerchantCouponService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="64" column="102" selection-start-line="64" selection-start-column="102" selection-end-line="64" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/coupon/YgUserCouponService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="37" column="7" lean-forward="true" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/coupon/YgUserCouponServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="3" column="55" lean-forward="true" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/coupon/AdminMerchantCouponController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3359">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/coupon/YdMerchantCouponDaoMapper.xml" />
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/coupon/YgMerchantCoupon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-32">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/coupon/YgMerchantCouponDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="25" column="30" lean-forward="true" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/coupon/YgMerchantCouponServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2995">
+          <caret line="93" column="11" selection-start-line="93" selection-start-column="11" selection-end-line="93" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/coupon/YgUserCouponDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="63" selection-start-line="2" selection-start-column="63" selection-end-line="2" selection-end-column="63" />
+          <folding>
+            <element signature="e#5212#5216#0" expanded="true" />
+            <element signature="e#5380#5384#0" expanded="true" />
+            <element signature="e#9402#9406#0" expanded="true" />
+            <element signature="e#9591#9595#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/coupon/YgMerchantCouponDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3071">
+          <caret line="118" column="60" lean-forward="true" selection-start-line="118" selection-start-column="60" selection-end-line="118" selection-end-column="60" />
+          <folding>
+            <element signature="e#5127#5131#0" expanded="true" />
+            <element signature="e#5260#5264#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/menu/YgMenuDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="6" column="71" lean-forward="true" selection-start-line="6" selection-start-column="71" selection-end-line="6" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/permission/YgPermissionDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/permission/YgRlRolePermissionDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="2" column="47" lean-forward="true" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/permission/YgRoleDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="3" column="50" lean-forward="true" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/coupon/YgMerchantCouponResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="15" column="52" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/coupon/YgUserCouponResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="15" column="52" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/result/item/YgMerchantIntegralItemResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/bean/item/YgMerchantIntegralItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/merchant/YgMerchantDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="100" column="8" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/dao/item/YgMerchantIntegralItemDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/resources/mapper/item/YgMerchantIntegralItemDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2112">
+          <caret line="66" column="13" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.api/src/main/java/com/yg/api/service/item/YgMerchantIntegralItemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1856">
+          <caret line="62" column="9" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/item/YgMerchantIntegralItemServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="71" column="67" lean-forward="true" selection-start-line="71" selection-start-column="67" selection-end-line="71" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/constant/YgCodeMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/item/AdminMerchantItemController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="81" column="53" selection-start-line="81" selection-start-column="53" selection-end-line="81" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.core/src/main/java/com/yg/core/enums/YgLoginUserSourceEnums.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/interceptor/MerchantCheckInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="122" column="15" lean-forward="true" selection-start-line="122" selection-start-column="15" selection-end-line="122" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/menu/AdminMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.web/src/main/java/com/yg/web/controller/admin/merchant/AdminPlatformMerchantController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="56" column="81" lean-forward="true" selection-start-line="56" selection-start-column="81" selection-end-line="56" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.yg.service/src/main/java/com/yg/service/impl/menu/MenuServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="32" column="66" lean-forward="true" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1116#1130#0" expanded="true" />
+            <element signature="e#1180#1203#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>api|yg</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: cn.hutool:hutool-all:4.6.10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
