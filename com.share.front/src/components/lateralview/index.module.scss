@@ -1,0 +1,43 @@
+.search-page{
+    display: flex;
+    width: auto;
+    height: 80px;
+    display: flex;
+    background: #fe733b;
+    flex-direction: row;
+}
+.scrollView{
+   width: 100vw;
+   white-space:nowrap;
+   padding-right: 32px;
+}
+
+.tabTextSelect{
+    height: 32px;
+    width: auto;
+    font-size: 30px;
+    margin-left: 32px;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: center;
+    color: #fe733b;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    line-height: 32px;
+    background: white;
+    border-radius: 20px;
+}
+
+
+.tabTextUnSelect{
+    height: 30px;
+    margin-left: 32px;
+    font-size: 30px;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: left;
+    color:white;
+    line-height: 30px;
+}

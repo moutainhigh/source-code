@@ -1,0 +1,61 @@
+.home-page{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 100vw;
+    height: 100vh;
+    
+    .search-view{
+        width: auto;
+        height: 100px;
+        display: flex;
+        background: #fe733b;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        &-current-platform{
+            height: 30px;
+            margin-left: 32px;
+            font-size: 30px;
+            font-family: PingFangSC, PingFangSC-Regular;
+            font-weight: 400;
+            text-align: left;
+            color:white;
+            line-height: 30px;
+        }
+        &-search{
+            width: auto;
+            flex: 1;
+            height: 55px;
+            border-radius: 10px;
+            background-color: white;
+            padding-left: 10px;
+            margin-left: 20px;
+            margin-right: 32px;
+            font-size: 32px;
+        }::placeholder{
+            padding-left: 10px;
+            font-size: 32x;
+            font-family: PingFangSC, PingFangSC-Regular;
+            font-weight: 400;
+            text-align: left;
+            color:#121212;
+            line-height: 32px;
+
+        }
+
+        &-img{
+            width: 40px;
+            height: 40px;
+            margin-right: 32px;
+        }
+    }
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
